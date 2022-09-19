@@ -1,0 +1,78 @@
+﻿@page "/"
+@using Blazor.Extensions;
+@using Blazor.Extensions.Canvas
+@using Blazor.Extensions.Canvas.Canvas2D;
+
+<PageTitle>Index</PageTitle>
+
+<h1 style="background-color: @style">Hello, world! @time</h1>
+<p> PlayerID:@playerId pressedKey:@pressedKey inputXY:@inputX|@inputY</p>
+<div @ref="focusRef" tabindex="0" @onkeypress="HandleKeyDown">
+    <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
+</div>
+
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    private Blazor.Extensions.Canvas.Canvas2D.Canvas2DContext context;
+    private ElementReference focusRef;
+    protected Blazor.Extensions.BECanvasComponent _myCanvas;
+    public int playerId = -1;
+    string time = "";
+    string style = "grey";
+    string pressedKey="";
+    public float inputX = 0;
+    public float inputY = 0;
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if(firstRender){
+            await focusRef.FocusAsync();
+            if (playerId == -1) playerId = Game.MainFrame.CreateNewPlayer();
+            context = await this._myCanvas.CreateCanvas2DAsync();
+            //update header
+            Game.MainFrame.updateEvent += async date =>
+            {
+                await InvokeAsync(() =>
+                {
+                    inputX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).inputs[0];
+                    inputY = (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).inputs[1];
+                    style = style == "grey" ? "black" : "grey";
+                    time = date.ToLongDateString();
+                    //Render();
+                    Game.MainFrame.Render(playerId, ref context);
+                    StateHasChanged();
+                });
+            };
+
+        }
+    }
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        pressedKey = e.Key;
+        if(playerId != -1){
+            Game.MainFrame.KeyUpdate(playerId, e.Key);
+        }
+    }
+
+    //this is for testing purposes
+    //private async void Render(){
+    //    if (context != null){
+    //        await context.SetFillStyleAsync("lightgray");
+    //        await context.FillRectAsync(0, 0, 1280, 720);
+    //        foreach(Game.GameObject gameObject in Game.MainFrame.gameObjects.Values){
+    //            foreach (Game.Render render in gameObject.renders)
+    //            {
+    //                if (render.type == Game.Render.Type.box)
+    //                {
+    //                    await context.SetFillStyleAsync(render.str);
+    //                    await context.FillRectAsync(render.offset[0], render.offset[1], render.size[0], render.size[1]);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+}
