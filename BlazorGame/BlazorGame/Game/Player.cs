@@ -32,6 +32,18 @@ namespace BlazorGame.Game
             this.inputs = new float[2];
         }
 
+
+        public void SetInputs(int inputX, int inputY)
+        {
+            inputs[0] = inputX;
+            inputs[1] = inputY;
+        }
+
+        /// <summary>
+        /// [depricated]
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void CorrectInputs(int x, int y)
         {
             //x = x != 0 ? (x > 0 ? 1 : (x < 0 ? -1 : (int)inputs[0])) : (int)inputs[0];
@@ -47,7 +59,7 @@ namespace BlazorGame.Game
         public override void Update()
         {
             //UpdateVelocity();
-            inputs = new float[] { 0, 0 };
+            //inputs = new float[] { 0, 0 };
         }
         public void UpdateVelocity()
         {

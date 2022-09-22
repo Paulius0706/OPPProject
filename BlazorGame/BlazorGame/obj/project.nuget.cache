@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MybwgNFZct1RSj+4rEBCt9z9wWW/XjGEy4cA2lLUUv61tInJJdrhblmMiWq9c5n2Dqy9iGBwg6XkCn9MTwSQlA==",
+  "dgSpecHash": "ocowS/COg/N1fhYLYN9Dgdq2csGovv+FQoJuZt4/s92y9CHZQIjDGZwI7l5rBUoWyTKhL9z5DqW5S1lNPqKJ/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
+  "projectFilePath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\blazor.extensions.canvas.1.0.0.nupkg.sha512",
     "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.0\\microsoft.aspnetcore.authorization.3.0.0.nupkg.sha512",

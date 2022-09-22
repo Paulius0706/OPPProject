@@ -415,11 +415,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
+      "projectUniqueName": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
       "projectName": "BlazorGame",
-      "projectPath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
+      "projectPath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
       "packagesPath": "C:\\Users\\Paulius\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\BlazorGame\\BlazorGame\\obj\\",
+      "outputPath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame\\BlazorGame\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

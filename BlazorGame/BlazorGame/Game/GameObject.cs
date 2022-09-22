@@ -84,24 +84,35 @@ namespace BlazorGame.Game
                     if (velocity[1] > 0) { y = velocity[1] > moveSpeed * MainFrame.detaTime ? -moveSpeed * MainFrame.detaTime : -velocity[1]; }
                     if (velocity[1] < 0) { y = velocity[1] < -moveSpeed * MainFrame.detaTime ? moveSpeed * MainFrame.detaTime : -velocity[1]; }
                 }
+                //assing new velocity
                 velocity[0] += x;
                 velocity[1] += y;
             }
         }
         public void Render(int playerId, ref Canvas2DContext context)
         {
-            for(int i = 0; i < renders.Count; i++)
+            int xoffset = (int)MainFrame.gameObjects[playerId].position[0] + 1280 / 2;
+            int yoffset = (int)MainFrame.gameObjects[playerId].position[1] + 720 / 2;
+            for (int i = 0; i < renders.Count; i++)
             {
                 if (renders[i].type == Game.Render.Type.box)
                 {
                     context.SetFillStyleAsync(renders[i].str);
-                    context.FillRectAsync(position[0] +renders[i].offset[0], position[1] +renders[i].offset[1], renders[i].size[0], renders[i].size[1]);
+                    context.FillRectAsync(
+                        position[0] +renders[i].offset[0] - xoffset,
+                        position[1] +renders[i].offset[1] - yoffset,
+                        renders[i].size[0], renders[i].size[1]
+                        );
                 }
                 if (renders[i].type == Game.Render.Type.circle)
                 {
                     context.SetFillStyleAsync(renders[i].str);
                     context.BeginPathAsync();
-                    context.ArcAsync(position[0] + renders[i].offset[0], position[1] + renders[i].offset[1], renders[i].radius, 0, 2 * Math.PI);
+                    context.ArcAsync(
+                        position[0] + renders[i].offset[0] - xoffset,
+                        position[1] + renders[i].offset[1] - yoffset,
+                        renders[i].radius, 0, 2 * Math.PI
+                        );
                     context.FillAsync();
                     context.StrokeAsync();
                 }

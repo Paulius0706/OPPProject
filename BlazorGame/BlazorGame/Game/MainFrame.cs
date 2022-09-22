@@ -86,6 +86,11 @@ namespace BlazorGame.Game
                 }
             }
         }
+        /// <summary>
+        /// [Depricated]
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <param name="key"></param>
         public static void KeyUpdate(int playerId, string key)
         {
             //Console.WriteLine("keyupdate");

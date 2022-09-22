@@ -5,9 +5,9 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1 style="background-color: @style">Hello, world! @time</h1>
-<p> PlayerID:@playerId pressedKey:@pressedKey inputXY:@inputX|@inputY</p>
-<div @ref="focusRef" tabindex="0" @onkeypress="HandleKeyDown">
+<h1 style="background-color: @style">Hello, world!</h1>
+<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY </p>
+<div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp">
     <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
 </div>
 
@@ -21,11 +21,13 @@ Welcome to your new app.
     private ElementReference focusRef;
     protected Blazor.Extensions.BECanvasComponent _myCanvas;
     public int playerId = -1;
-    string time = "";
-    string style = "grey";
-    string pressedKey="";
-    public float inputX = 0;
-    public float inputY = 0;
+    string style = "white";
+    public int inputX = 0;
+    public int inputY = 0;
+    public int velX = 0;
+    public int velY = 0;
+    public int posX = 0;
+    public int posY = 0;
 
     protected override async void OnAfterRender(bool firstRender)
     {
@@ -33,16 +35,16 @@ Welcome to your new app.
             await focusRef.FocusAsync();
             if (playerId == -1) playerId = Game.MainFrame.CreateNewPlayer();
             context = await this._myCanvas.CreateCanvas2DAsync();
-            //update header
+            //recive message
             Game.MainFrame.updateEvent += async date =>
             {
                 await InvokeAsync(() =>
                 {
-                    inputX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).inputs[0];
-                    inputY = (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).inputs[1];
-                    style = style == "grey" ? "black" : "grey";
-                    time = date.ToLongDateString();
-                    //Render();
+                    //style = style == "grey" ? "black" : "grey";
+                    velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
+                    velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
+                    posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
+                    posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
                     Game.MainFrame.Render(playerId, ref context);
                     StateHasChanged();
                 });
@@ -50,12 +52,24 @@ Welcome to your new app.
 
         }
     }
+    // send message
     private void HandleKeyDown(KeyboardEventArgs e)
     {
-        pressedKey = e.Key;
-        if(playerId != -1){
-            Game.MainFrame.KeyUpdate(playerId, e.Key);
-        }
+        string key = e.Key;
+        if (e.Key == "w" || e.Key == "W") { inputY = -1; }
+        if (e.Key == "s" || e.Key == "S") { inputY =  1; }
+        if (e.Key == "a" || e.Key == "A") { inputX = -1; }
+        if (e.Key == "d" || e.Key == "D") { inputX =  1; }
+        if(playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
+    }
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        string key = e.Key;
+        if ((e.Key == "w" || e.Key == "W") && inputY == -1) { inputY = 0; }
+        if ((e.Key == "s" || e.Key == "S") && inputY ==  1) { inputY = 0; }
+        if ((e.Key == "a" || e.Key == "A") && inputX == -1) { inputX = 0; }
+        if ((e.Key == "d" || e.Key == "D") && inputX ==  1) { inputX = 0; }
+        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
     }
 
     //this is for testing purposes
