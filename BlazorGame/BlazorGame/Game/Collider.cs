@@ -28,13 +28,7 @@ namespace BlazorGame.Game
             return false;
         }
 
-        public override void Render(int playerId, ref Canvas2DContext context)
-        {
-            // Debug colliders (if it is commented then debug disabled)
-            //context.SetFillStyleAsync("green");
-            //context.FillRectAsync((int)MainFrame.gameObjects[gameObject].position[0] + offset[0], (int)MainFrame.gameObjects[gameObject].position[1] + offset[0], 100, 100);
-
-        }
+        public override void Render(int playerId, ref Canvas2DContext context){}
         public override void Update() { }
     }
 }

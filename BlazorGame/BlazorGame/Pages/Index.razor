@@ -1,13 +1,11 @@
 ﻿@page "/"
-@using Blazor.Extensions;
-@using Blazor.Extensions.Canvas
-@using Blazor.Extensions.Canvas.Canvas2D;
+@using Blazor.Extensions.Canvas;
 
 <PageTitle>Index</PageTitle>
 
 <h1 style="background-color: @style">Hello, world!</h1>
-<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY </p>
-<div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp">
+<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY mouse:@mouseposX @mouseposY </p>
+<div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp" @onmousemove="OnMouseMove">
     <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
 </div>
 
@@ -17,6 +15,7 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code{
+    //@*@onmouseover="OnMouseOver"*@
     private Blazor.Extensions.Canvas.Canvas2D.Canvas2DContext context;
     private ElementReference focusRef;
     protected Blazor.Extensions.BECanvasComponent _myCanvas;
@@ -28,27 +27,34 @@ Welcome to your new app.
     public int velY = 0;
     public int posX = 0;
     public int posY = 0;
+    public int mouseposX;
+    public int mouseposY;
+
+
 
     protected override async void OnAfterRender(bool firstRender)
     {
         if(firstRender){
-            await focusRef.FocusAsync();
             if (playerId == -1) playerId = Game.MainFrame.CreateNewPlayer();
-            context = await this._myCanvas.CreateCanvas2DAsync();
+            this._myCanvas.Crea
+            this.context = await this._myCanvas.Crea();
             //recive message
             Game.MainFrame.updateEvent += async date =>
             {
                 await InvokeAsync(() =>
                 {
+                    //StateHasChanged();
                     //style = style == "grey" ? "black" : "grey";
                     velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
                     velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
                     posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
                     posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
-                    Game.MainFrame.Render(playerId, ref context);
+                    Render();
                     StateHasChanged();
+                    //Game.MainFrame.Render(playerId, ref context);
                 });
             };
+            //this.context.FillRectAsync(100, 100, 100, 100);
 
         }
     }
@@ -71,22 +77,56 @@ Welcome to your new app.
         if ((e.Key == "d" || e.Key == "D") && inputX ==  1) { inputX = 0; }
         if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
     }
-
-    //this is for testing purposes
-    //private async void Render(){
-    //    if (context != null){
-    //        await context.SetFillStyleAsync("lightgray");
-    //        await context.FillRectAsync(0, 0, 1280, 720);
-    //        foreach(Game.GameObject gameObject in Game.MainFrame.gameObjects.Values){
-    //            foreach (Game.Render render in gameObject.renders)
-    //            {
-    //                if (render.type == Game.Render.Type.box)
-    //                {
-    //                    await context.SetFillStyleAsync(render.str);
-    //                    await context.FillRectAsync(render.offset[0], render.offset[1], render.size[0], render.size[1]);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+    private void OnMouseMove(MouseEventArgs e)
+    {
+        mouseposX = (int)e.OffsetX;
+        mouseposY = (int)e.OffsetY;
+    }
+    private void Render(){
+        this.context.SetFillStyleAsync("lightgray");
+        this.context.FillRectAsync(0, 0, 1280, 720);
+        int xoffset = (int)Game.MainFrame.gameObjects[playerId].position[0] + 1280 / 2;
+        int yoffset = (int)Game.MainFrame.gameObjects[playerId].position[1] + 720 / 2;
+        foreach(Game.GameObject gameObject in Game.MainFrame.gameObjects.Values){
+            List<Game.Render> renders = gameObject.renders;
+            for (int i = 0; i < renders.Count; i++)
+            {
+                if (renders[i].type == Game.Render.Type.box)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.FillRectAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset,
+                        gameObject.renders[i].size[0], renders[i].size[1]
+                        );
+                }
+                if (renders[i].type == Game.Render.Type.circle)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.BeginPathAsync();
+                    this.context.ArcAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset,
+                        renders[i].radius, 0, 2 * Math.PI
+                        );
+                    this.context.ClosePathAsync();
+                    this.context.FillAsync();
+                    this.context.StrokeAsync();
+                    
+                }
+                if (renders[i].type == Game.Render.Type.line)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.BeginPathAsync();
+                    this.context.MoveToAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset);
+                    this.context.LineToAsync(
+                        gameObject.position[0] + renders[i].offset1[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset1[1] - yoffset);
+                    this.context.StrokeAsync();
+                }
+            }
+        }
+    }
 }

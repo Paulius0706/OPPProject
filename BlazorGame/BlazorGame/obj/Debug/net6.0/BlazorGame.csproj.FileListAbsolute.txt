@@ -58,3 +58,4 @@ C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGa
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.pdb
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.genruntimeconfig.cache
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame\BlazorGame\obj\Debug\net6.0\ref\BlazorGame.dll
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame\BlazorGame\bin\Debug\net6.0\Newtonsoft.Json.dll

@@ -1,0 +1,160 @@
+﻿@page "/"
+@using Blazor.Extensions
+@using Blazor.Extensions.Canvas;
+@using Blazor.Extensions.Canvas.Canvas2D
+
+<PageTitle>Index</PageTitle>
+
+<h1 style="background-color: @style">Hello, world!</h1>
+<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY mouse:@mouseposX @mouseposY shooting: @shooting</p>
+<div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" @onmousedown="OnMouseDown">
+    <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
+</div>
+
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    private Canvas2DContext context;
+    private ElementReference focusRef;
+    protected BECanvasComponent _myCanvas;
+    public int playerId = -1;
+    string style = "white";
+    public int inputX = 0;
+    public int inputY = 0;
+    public int velX = 0;
+    public int velY = 0;
+    public int posX = 0;
+    public int posY = 0;
+    public int mouseposX;
+    public int mouseposY;
+    public bool shooting;
+
+
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (playerId == -1) playerId = Game.MainFrame.CreateNewPlayer();
+            context = await this._myCanvas.CreateCanvas2DAsync();
+            //recive message
+            Game.MainFrame.updateEvent += async date =>
+            {
+                await InvokeAsync(() =>
+                {
+                    //StateHasChanged();
+                    //style = style == "grey" ? "black" : "grey";
+                    velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
+                    velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
+                    posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
+                    posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+                    Render();
+                    StateHasChanged();
+
+                });
+            };
+
+        }
+    }
+
+    // send message
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        string key = e.Key;
+        if (e.Key == "w" || e.Key == "W") { inputY = -1; }
+        if (e.Key == "s" || e.Key == "S") { inputY = 1; }
+        if (e.Key == "a" || e.Key == "A") { inputX = -1; }
+        if (e.Key == "d" || e.Key == "D") { inputX = 1; }
+        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
+    }
+    private void HandleKeyUp(KeyboardEventArgs e)
+    {
+        string key = e.Key;
+        if ((e.Key == "w" || e.Key == "W") && inputY == -1) { inputY = 0; }
+        if ((e.Key == "s" || e.Key == "S") && inputY == 1) { inputY = 0; }
+        if ((e.Key == "a" || e.Key == "A") && inputX == -1) { inputX = 0; }
+        if ((e.Key == "d" || e.Key == "D") && inputX == 1) { inputX = 0; }
+        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
+    }
+    private void OnMouseMove(MouseEventArgs e)
+    {
+        mouseposX = (int)e.OffsetX - Game.MainFrame.offsetX;
+        mouseposY = (int)e.OffsetY - Game.MainFrame.offsetY;
+        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetCannon((int)e.OffsetX, (int)e.OffsetY); }
+    }
+    private void OnMouseUp(MouseEventArgs e)
+    {
+        if (e.Button == 0 && playerId != -1)
+        {
+            shooting = false;
+            (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetShooting(shooting);
+        } 
+    }
+    private void OnMouseDown(MouseEventArgs e)
+    {
+        if (e.Button == 0 && playerId != -1)
+        {
+            shooting = true;
+            (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetShooting(shooting);
+        }
+    }
+
+    //render stuff gotten from server
+    private void Render()
+    {
+        this.context.SetFillStyleAsync("lightgray");
+        this.context.FillRectAsync(0, 0, 1280, 720);
+        //this.context.SetFillStyleAsync("black");
+        //this.context.FillRectAsync(100, 100, 100, 100);
+        int xoffset = (int)Game.MainFrame.gameObjects[playerId].position[0] - Game.MainFrame.offsetX;
+        int yoffset = (int)Game.MainFrame.gameObjects[playerId].position[1] - Game.MainFrame.offsetY;
+        foreach (Game.GameObject gameObject in Game.MainFrame.gameObjects.Values)
+        {
+
+            List<Game.Render> renders = gameObject.renders;
+            for (int i = 0; i < renders.Count; i++)
+            {
+                if (renders[i].type == Game.Render.Type.box)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.FillRectAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset,
+                        gameObject.renders[i].size[0], renders[i].size[1]
+                        );
+                }
+                if (renders[i].type == Game.Render.Type.circle)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.SetLineWidthAsync(1);
+                    this.context.BeginPathAsync();
+                    this.context.ArcAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset,
+                        renders[i].radius, 0, 2 * Math.PI
+                        );
+                    this.context.ClosePathAsync();
+                    this.context.FillAsync();
+                    this.context.StrokeAsync();
+
+                }
+                if (renders[i].type == Game.Render.Type.line)
+                {
+                    this.context.SetFillStyleAsync(renders[i].str);
+                    this.context.SetLineWidthAsync(renders[i].width);
+                    this.context.BeginPathAsync();
+                    this.context.MoveToAsync(
+                        gameObject.position[0] + renders[i].offset[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset[1] - yoffset);
+                    this.context.LineToAsync(
+                        gameObject.position[0] + renders[i].offset1[0] - xoffset,
+                        gameObject.position[1] + renders[i].offset1[1] - yoffset);
+                    this.context.StrokeAsync();
+                }
+            }
+        }
+    }
+}

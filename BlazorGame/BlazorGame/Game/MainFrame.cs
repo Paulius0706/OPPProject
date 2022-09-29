@@ -9,20 +9,21 @@ namespace BlazorGame.Game
 {
     public class MainFrame : BackgroundService
     {
-        public static event Func<DateTime, Task> updateEvent;
-        public static event Func<Task> renderEvent;
+        public static event Func<DateTime,Task> updateEvent;
+        public static event Func<Task> mouseEvent;
         public static event Func<Task> keyResetEvent;
         public static Stopwatch watch = new Stopwatch();
         public static float detaTime;
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(100);
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(20);
+                
                 if (!watch.IsRunning) watch.Start();
-                if(watch.ElapsedMilliseconds > 16 || true)
+                if(watch.ElapsedMilliseconds > 60)
                 {
-                    detaTime = watch.ElapsedMilliseconds / 1000f;
+                    detaTime = (float)watch.ElapsedMilliseconds / 1000f;
                     watch.Restart();
                     Update();
                     if (updateEvent != null) await updateEvent?.Invoke(DateTime.Now);
@@ -80,6 +81,7 @@ namespace BlazorGame.Game
             {
                 context.SetFillStyleAsync("lightgray");
                 context.FillRectAsync(0, 0, 1280, 720);
+                //Console.WriteLine("obj count:" + gameObjects.Count);
                 foreach (GameObject gameObject in gameObjects.Values)
                 {
                     gameObject.Render(playerId, ref context);

@@ -1,22 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "ocowS/COg/N1fhYLYN9Dgdq2csGovv+FQoJuZt4/s92y9CHZQIjDGZwI7l5rBUoWyTKhL9z5DqW5S1lNPqKJ/w==",
+  "dgSpecHash": "ybOeulxtzh5XWltdQxDjfM+y4kQfJMgiI1cs4AcpP8g44T3th83PAxn7UfQM60hrFN6yxVnojx4kR4XDXY/12A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\blazor.extensions.canvas.1.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.0\\microsoft.aspnetcore.authorization.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components\\3.0.0\\microsoft.aspnetcore.components.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.0.0\\microsoft.aspnetcore.components.analyzers.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\3.0.0\\microsoft.aspnetcore.components.forms.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.web\\3.0.0\\microsoft.aspnetcore.components.web.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.0.0\\microsoft.aspnetcore.metadata.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.0\\microsoft.extensions.dependencyinjection.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.0\\microsoft.extensions.logging.abstractions.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.jsinterop\\3.0.0\\microsoft.jsinterop.3.0.0.nupkg.sha512"
+    "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.1.1\\blazor.extensions.canvas.1.1.1.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.5\\microsoft.aspnetcore.authorization.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.5\\microsoft.aspnetcore.components.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.1.5\\microsoft.aspnetcore.components.analyzers.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\3.1.5\\microsoft.aspnetcore.components.forms.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.web\\3.1.5\\microsoft.aspnetcore.components.web.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.1.5\\microsoft.aspnetcore.metadata.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.5\\microsoft.extensions.dependencyinjection.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.5\\microsoft.extensions.dependencyinjection.abstractions.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.5\\microsoft.extensions.logging.abstractions.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.options\\3.1.5\\microsoft.extensions.options.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.5\\microsoft.extensions.primitives.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.jsinterop\\3.1.5\\microsoft.jsinterop.3.1.5.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -16,6 +16,23 @@ namespace BlazorGame.Game
         public List<ObjectComponent> components;
         public List<Render> renders;
 
+        public static GameObject CreatePlayer()
+        {
+            Player playerComponent = new Player("Admin", 1);
+            Collider collider = new Collider(new float[] { -50f, -50f }, 100f, false, true);
+            GameObject gameObject = new GameObject(new float[] { 1280f / 2f, 720f / 2f });
+            gameObject.AddComponent(playerComponent);
+            gameObject.AddComponent(collider);
+            gameObject.renders.Add(new Game.Render(new int[] { 0, 0 }, new int[] { 0, 50 }, 10, "black"));
+            gameObject.renders.Add(new Game.Render(new int[] { -50, -50 }, new int[] { 50, 50 }, Game.Render.Type.box, "green"));
+            gameObject.renders.Add(new Game.Render(new int[] { 0, 0 }, new int[] { 50, 50 }, Game.Render.Type.box, "green"));
+            gameObject.renders.Add(new Game.Render(new int[] { -50, 0 }, new int[] { 50, 50 }, Game.Render.Type.box, "black"));
+            gameObject.renders.Add(new Game.Render(new int[] { 0, -50 }, new int[] { 50, 50 }, Game.Render.Type.box, "black"));
+            gameObject.renders.Add(new Game.Render(new int[] { 0, 0 }, 50, "red"));
+
+            return gameObject;
+        }
+
         public GameObject(float[] position)
         {
             id = MainFrame.gameObjectsCounting;
@@ -34,14 +51,12 @@ namespace BlazorGame.Game
 
         public void Update()
         {
-            //position[0]--;
-            //position[1]--;
             //needs collider
             if (!Unmoving)
             {
                 UpdateVelocity();
-                position[0] += velocity[0];
-                position[1] += velocity[1];
+                position[0] += velocity[0] * MainFrame.detaTime;
+                position[1] += velocity[1] * MainFrame.detaTime;
             }
             foreach (ObjectComponent objectComponent in components)
             {
@@ -93,6 +108,7 @@ namespace BlazorGame.Game
         {
             int xoffset = (int)MainFrame.gameObjects[playerId].position[0] + 1280 / 2;
             int yoffset = (int)MainFrame.gameObjects[playerId].position[1] + 720 / 2;
+            //Console.WriteLine("ren count:" + renders.Count);
             for (int i = 0; i < renders.Count; i++)
             {
                 if (renders[i].type == Game.Render.Type.box)
@@ -113,9 +129,22 @@ namespace BlazorGame.Game
                         position[1] + renders[i].offset[1] - yoffset,
                         renders[i].radius, 0, 2 * Math.PI
                         );
+                    context.ClosePathAsync();
                     context.FillAsync();
                     context.StrokeAsync();
                 }
+                //if (renders[i].type == Game.Render.Type.line)
+                //{
+                //    //context.SetFillStyleAsync(renders[i].str);
+                //    context.BeginPathAsync();
+                //    context.MoveToAsync(
+                //        position[0] + renders[i].offset[0] - xoffset,
+                //        position[1] + renders[i].offset[1] - yoffset);
+                //    context.LineToAsync(
+                //        position[0] + renders[i].offset1[0] - xoffset,
+                //        position[1] + renders[i].offset1[1] - yoffset);
+                //    context.StrokeAsync();
+                //}
             }
         }
     }
