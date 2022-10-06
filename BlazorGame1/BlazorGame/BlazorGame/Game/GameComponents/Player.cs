@@ -1,12 +1,14 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
+using BlazorGame.Game.Builder;
+using BlazorGame.Game.GameObjects;
 using System.Numerics;
 
-namespace BlazorGame.Game
+namespace BlazorGame.Game.GameComponents
 {
     public class Player : ObjectComponent
     {
-        public static readonly float DefaultVelocity = 100f;
-        public static readonly float DefaultMoveSpeed = 50f;
+        public static readonly float DefaultMoveSpeed = 200f;
+        public static readonly float DefaultDamage = 1f;
         public static readonly float DefaultHealth = 50f;
         public static readonly float DefaultExperiance = 50f;
 
@@ -23,19 +25,19 @@ namespace BlazorGame.Game
         public float experiance { get; set; }
         public float maxExperiance { get; set; }
         public float moveSpeed { get; set; }
+        public float damage { get; set; }
         public float[] inputs { get; set; }
 
-        public Cannon cannon { get; set; }
 
         public Player(string name, int level)
         {
             this.name = name;
-            this.maxHealth = DefaultHealth;
-            this.health = health;
-            this.maxExperiance = DefaultExperiance;
-            this.moveSpeed = DefaultMoveSpeed;
-            this.inputs = new float[2];
-            this.cannon = new Cannon();
+            maxHealth = DefaultHealth;
+            health = health;
+            maxExperiance = DefaultExperiance;
+            moveSpeed = DefaultMoveSpeed;
+            damage = DefaultDamage;
+            inputs = new float[2];
         }
 
 
@@ -45,25 +47,8 @@ namespace BlazorGame.Game
             inputs[1] = inputY;
         }
 
-        /// <summary>
-        /// [depricated]
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public void CorrectInputs(int x, int y)
-        {
-            //x = x != 0 ? (x > 0 ? 1 : (x < 0 ? -1 : (int)inputs[0])) : (int)inputs[0];
-            //y = y != 0 ? (y > 0 ? 1 : (y < 0 ? -1 : (int)inputs[1])) : (int)inputs[1];
-
-            x = x == 0 ? (int)inputs[0] : x;
-            y = y == 0 ? (int)inputs[1] : y;
-
-            inputs = new float[] { x, y };
-        }
-
         public override void Update()
         {
-            cannon.Update();
             SpawnCollectibles();
         }
         public override void CollisonTrigger(int gameObject, string data, int number)
@@ -72,7 +57,7 @@ namespace BlazorGame.Game
         }
         public void UpdateVelocity()
         {
-            float[] currentVelocity = MainFrame.gameObjects[base.gameObject].velocity;
+            float[] currentVelocity = gameObject.velocity;
 
             float x = currentVelocity[0] > 50f && inputs[0] > 0f ? 0f : inputs[0];
             x = currentVelocity[0] < -50f && inputs[0] < 0f ? 0f : inputs[0];
@@ -81,20 +66,20 @@ namespace BlazorGame.Game
             currentVelocity[0] += x;
             currentVelocity[1] += y;
 
-            Game.MainFrame.gameObjects[base.gameObject].velocity = currentVelocity;
+            gameObject.velocity = currentVelocity;
         }
         public void SpawnCollectibles()
         {
             int counter = 0;
-            foreach(GameObject gameObject in MainFrame.gameObjects.Values)
+            foreach (GameObject gameObject in MainFrame.gameObjects.Values)
             {
-                if (MathF.Abs(gameObject.position[0] - MainFrame.gameObjects[this.gameObject].position[0]) < DespawnCollectiblesDist 
-                    && Math.Abs(gameObject.position[1] - MainFrame.gameObjects[this.gameObject].position[1]) < DespawnCollectiblesDist) counter++;
+                if (MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) < DespawnCollectiblesDist
+                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) < DespawnCollectiblesDist) counter++;
                 if (counter > MaxCollectiblesCount) break;
             }
-            if(counter < MaxCollectiblesCount)
+            if (counter < MaxCollectiblesCount)
             {
-                System.Random random = new Random();
+                Random random = new Random();
                 if (random.NextDouble() < 1 * MainFrame.detaTime)
                 {
                     float x = random.NextSingle() * 2f - 1f;
@@ -105,14 +90,19 @@ namespace BlazorGame.Game
                     float dist = MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * random.NextSingle();
                     x *= dist;
                     y *= dist;
-                    x += MainFrame.gameObjects[gameObject].position[0];
-                    y += MainFrame.gameObjects[gameObject].position[1];
+                    x += gameObject.position[0];
+                    y += gameObject.position[1];
                     //Console.WriteLine(x + " " + y);
-                    GameObject newGameObject = GameObject.CreateCollectibe(new float[] { x, y });
-                    MainFrame.createGameObjectsQueue.Enqueue(newGameObject);
+                    CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { x, y });
+                    Director.director.Construct(ref collectibleBuilder);
+                    MainFrame.Instantiate(collectibleBuilder.GetResult());
                 }
             }
-            
+
+        }
+        public override void ConnectionUpdate()
+        {
+
         }
     }
 }

@@ -2,11 +2,13 @@
 @using Blazor.Extensions
 @using Blazor.Extensions.Canvas;
 @using Blazor.Extensions.Canvas.Canvas2D
+@using BlazorGame.Game.GameObjects
+@using Game;
 
 <PageTitle>Index</PageTitle>
 
 <h1 style="background-color: @style">Hello, world!</h1>
-<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY mouse:@mouseposX @mouseposY shooting: @shooting</p>
+<p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY cannonDirection:@mouseposX @mouseposY shooting: @shooting</p>
 <div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" @onmousedown="OnMouseDown">
     <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
 </div>
@@ -20,7 +22,12 @@ Welcome to your new app.
     private Canvas2DContext context;
     private ElementReference focusRef;
     protected BECanvasComponent _myCanvas;
-    public int playerId = -1;
+    public int playerId;
+    public PlayerObject player 
+    {
+        get { return (MainFrame.gameObjects[playerId] as PlayerObject); } 
+        set { MainFrame.gameObjects[playerId] = value; }
+    }
     string style = "white";
     public int inputX = 0;
     public int inputY = 0;
@@ -28,8 +35,8 @@ Welcome to your new app.
     public int velY = 0;
     public int posX = 0;
     public int posY = 0;
-    public int mouseposX;
-    public int mouseposY;
+    public float mouseposX;
+    public float mouseposY;
     public bool shooting;
 
 
@@ -38,7 +45,7 @@ Welcome to your new app.
     {
         if (firstRender)
         {
-            if (playerId == -1) playerId = Game.MainFrame.CreateNewPlayer();
+            playerId = Game.MainFrame.CreateNewPlayer("");
             context = await this._myCanvas.CreateCanvas2DAsync();
             //recive message
             Game.MainFrame.updateEvent += async date =>
@@ -47,10 +54,14 @@ Welcome to your new app.
                 {
                     //StateHasChanged();
                     //style = style == "grey" ? "black" : "grey";
-                    velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
-                    velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
-                    posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
-                    posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+                    if(MainFrame.gameObjects.ContainsKey(playerId)){
+                        velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
+                        velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
+                        posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
+                        posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+                    }
+                    //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
+                    //mouseposY = (Game.MainFrame.gameObjects[playerId].components[0] as Player).cannon.dimensions[1];
                     Render();
                     StateHasChanged();
 
@@ -68,7 +79,7 @@ Welcome to your new app.
         if (e.Key == "s" || e.Key == "S") { inputY = 1; }
         if (e.Key == "a" || e.Key == "A") { inputX = -1; }
         if (e.Key == "d" || e.Key == "D") { inputX = 1; }
-        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
+        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
     }
     private void HandleKeyUp(KeyboardEventArgs e)
     {
@@ -77,20 +88,20 @@ Welcome to your new app.
         if ((e.Key == "s" || e.Key == "S") && inputY == 1) { inputY = 0; }
         if ((e.Key == "a" || e.Key == "A") && inputX == -1) { inputX = 0; }
         if ((e.Key == "d" || e.Key == "D") && inputX == 1) { inputX = 0; }
-        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).SetInputs(inputX, inputY); }
+        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
     }
     private void OnMouseMove(MouseEventArgs e)
     {
         mouseposX = (int)e.OffsetX - Game.MainFrame.offsetX;
         mouseposY = (int)e.OffsetY - Game.MainFrame.offsetY;
-        if (playerId != -1) { (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetCannon((int)e.OffsetX, (int)e.OffsetY); }
+        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetCannons((int)e.OffsetX, (int)e.OffsetY); }
     }
     private void OnMouseUp(MouseEventArgs e)
     {
         if (e.Button == 0 && playerId != -1)
         {
             shooting = false;
-            (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetShooting(shooting);
+            if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetShooting(false); }
         } 
     }
     private void OnMouseDown(MouseEventArgs e)
@@ -98,7 +109,7 @@ Welcome to your new app.
         if (e.Button == 0 && playerId != -1)
         {
             shooting = true;
-            (Game.MainFrame.gameObjects[playerId].components[0] as Game.Player).cannon.SetShooting(shooting);
+            if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetShooting(true); }
         }
     }
 
@@ -109,9 +120,9 @@ Welcome to your new app.
         this.context.FillRectAsync(0, 0, 1280, 720);
         //this.context.SetFillStyleAsync("black");
         //this.context.FillRectAsync(100, 100, 100, 100);
-        int xoffset = (int)Game.MainFrame.gameObjects[playerId].position[0] - Game.MainFrame.offsetX;
-        int yoffset = (int)Game.MainFrame.gameObjects[playerId].position[1] - Game.MainFrame.offsetY;
-        foreach (Game.GameObject gameObject in Game.MainFrame.gameObjects.Values)
+        int xoffset = (int)posX - Game.MainFrame.offsetX;
+        int yoffset = (int)posY - Game.MainFrame.offsetY;
+        foreach (GameObject gameObject in Game.MainFrame.gameObjects.Values)
         {
 
             List<Game.Render> renders = gameObject.renders;

@@ -1,6 +1,7 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
+using BlazorGame.Game.GameObjects;
 
-namespace BlazorGame.Game
+namespace BlazorGame.Game.GameComponents
 {
     public class Collectible : ObjectComponent
     {
@@ -35,24 +36,24 @@ namespace BlazorGame.Game
         public override void Update()
         {
             bool delete = true;
-            foreach(GameObject gameObject in MainFrame.gameObjects.Values)
+            foreach (GameObject gameObject in MainFrame.gameObjects.Values)
             {
-                if(gameObject.objectType == GameObject.ObjectType.player 
-                    && MathF.Abs(gameObject.position[0] - MainFrame.gameObjects[this.gameObject].position[0]) < Player.DespawnCollectiblesDist
-                    && Math.Abs(gameObject.position[1] - MainFrame.gameObjects[this.gameObject].position[1]) < Player.DespawnCollectiblesDist)
+                if (gameObject.objectType == GameObject.ObjectType.player
+                    && MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) < Player.DespawnCollectiblesDist
+                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) < Player.DespawnCollectiblesDist)
                 {
                     delete = false;
                     break;
                 }
             }
-            if (delete) MainFrame.destroyGameObjectsQueue.Enqueue(gameObject);
-
-            if(health <= 0)
-            {
-                MainFrame.destroyGameObjectsQueue.Enqueue(gameObject);
-            }
+            if (delete) { MainFrame.Destroy(gameObject); }
+            if (health <= 0) { MainFrame.Destroy(gameObject); }
         }
         public override void CollisonTrigger(int gameObject, string data, int number)
+        {
+
+        }
+        public override void ConnectionUpdate()
         {
 
         }
