@@ -36,6 +36,8 @@ namespace BlazorGame.Game.GameComponents
         public override void Update()
         {
             bool delete = true;
+            
+            // despawn
             foreach (GameObject gameObject in MainFrame.gameObjects.Values)
             {
                 if (gameObject.objectType == GameObject.ObjectType.player
@@ -47,6 +49,7 @@ namespace BlazorGame.Game.GameComponents
                 }
             }
             if (delete) { MainFrame.Destroy(gameObject); }
+            
             if (health <= 0) { MainFrame.Destroy(gameObject); }
         }
         public override void CollisonTrigger(int gameObject, string data, int number)

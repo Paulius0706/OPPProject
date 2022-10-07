@@ -30,38 +30,29 @@ namespace BlazorGame.Game.GameComponents
             get 
             {
                 if (!MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    //|| MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player))
-                    || playerId == -1
-                    || MainFrame.gameObjects[gameObjectId].components.Count >= playerId
-                    || MainFrame.gameObjects[gameObjectId].components[playerId] is not Player) return null;
-                return (MainFrame.gameObjects[gameObjectId].components[(int)PlayerObject.PlayerComponents.player] as Player); 
+                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player))) return null;
+                return (MainFrame.gameObjects[gameObjectId].components[typeof(Player)] as Player); 
             }
             set 
             { 
                 playerId = value.id; 
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && playerId != -1
-                    && MainFrame.gameObjects[gameObjectId].components.Count < playerId
-                    && MainFrame.gameObjects[gameObjectId].components[playerId] is Player)
-                    MainFrame.gameObjects[gameObjectId].components[playerId] = value; }
+                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player)))
+                    MainFrame.gameObjects[gameObjectId].components[typeof(Player)] = value; }
         }
         public Cannons cannons
         {
             get 
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    || cannonsId == -1
-                    || MainFrame.gameObjects[gameObjectId].components.Count >= cannonsId
-                    || MainFrame.gameObjects[gameObjectId].components[cannonsId] is not Cannons) return null; 
-                return (MainFrame.gameObjects[gameObjectId].components[(int)PlayerObject.PlayerComponents.cannon] as Cannons); }
+                if (!MainFrame.gameObjects.ContainsKey(gameObjectId) 
+                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Cannons))) return null; 
+                return (MainFrame.gameObjects[gameObjectId].components[typeof(Cannons)] as Cannons); }
             set 
             {
                 cannonsId = value.id; 
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && cannonsId != -1
-                    && MainFrame.gameObjects[gameObjectId].components.Count < cannonsId
-                    && MainFrame.gameObjects[gameObjectId].components[cannonsId] is Cannons)
-                    MainFrame.gameObjects[gameObjectId].components[cannonsId] = value;
+                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Cannons)))
+                    MainFrame.gameObjects[gameObjectId].components[typeof(Cannons)] = value;
             }
         }
         public Render renderCannon

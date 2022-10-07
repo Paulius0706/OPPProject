@@ -50,6 +50,8 @@ namespace BlazorGame.Game.GameComponents
         public override void Update()
         {
             SpawnCollectibles();
+
+            //health update
         }
         public override void CollisonTrigger(int gameObject, string data, int number)
         {

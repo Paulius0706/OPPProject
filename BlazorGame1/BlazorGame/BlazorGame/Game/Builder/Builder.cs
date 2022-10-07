@@ -10,43 +10,36 @@ namespace BlazorGame.Game.Builder
         public void BuildCicleCollider(float[] offset, float radius, bool trigger = false, bool active = false)
         {
             Collider collider= new Collider(offset,radius,trigger,active);
-            gameObject.components.Add(collider);
+            gameObject.components.Add(typeof(Collider),collider);
             //ConnectionUpdate();
         }
         public void BuildPlayer(string name, int level)
         {
             Player player = new Player("", 1);
-            gameObject.components.Add(player);
+            gameObject.components.Add(typeof(Player), player);
             //ConnectionUpdate();
         }
         public void BuildCannons()
         {
             Cannons cannons = new Cannons();
-            gameObject.components.Add(cannons);
+            gameObject.components.Add(typeof(Cannons),cannons);
             //ConnectionUpdate();
         }
         public void BuildCollectible(Collectible.CollectibleType type)
         {
             Collectible collectible = new Collectible(type);
-            gameObject.components.Add(collectible);
+            gameObject.components.Add(typeof(Collectible),collectible);
             //ConnectionUpdate();
         }
         public void BuildBullet(int shooter, float damage , float health)
         {
             Bullet bullet = new Bullet(damage, health, shooter);
-            gameObject.components.Add(bullet);
+            gameObject.components.Add(typeof(Bullet),bullet);
             //ConnectionUpdate();
         }
         public void BuildRender(Render render)
         {
             gameObject.renders.Add(render);
-        }
-        public void ConnectionUpdate()
-        {
-            foreach(ObjectComponent objectComponent in gameObject.components)
-            {
-                objectComponent.ConnectionUpdate();
-            }
         }
         public GameObject GetResult()
         {

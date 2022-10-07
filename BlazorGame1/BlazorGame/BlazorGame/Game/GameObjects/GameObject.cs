@@ -1,11 +1,18 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
+using BlazorGame.Game.DataTypes;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.ComponentModel;
 using System.Formats.Asn1;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace BlazorGame.Game.GameObjects
 {
+    /// <summary>
+    /// Creator abstract class
+    /// </summary>
     public abstract class GameObject
     {
         public static readonly float CollectiblesDecceleration = 50f;
@@ -18,8 +25,8 @@ namespace BlazorGame.Game.GameObjects
         public bool Unmoving { get; set; } // states if object can have velocity
         public bool ColliderDetector { get; set; }
 
-        public List<ObjectComponent> components;
-        //public Dictionary<Type, ObjectComponent> components;
+        //public List<ObjectComponent> components;
+        public Dictionary<Type, ObjectComponent> components;
         public List<Render> renders;
 
         public float deacceleration { get; set; }
@@ -33,9 +40,9 @@ namespace BlazorGame.Game.GameObjects
             mob = 3,
             bullet = 4
         }
-        
-        
-        
+
+
+
 
 
         public GameObject()
@@ -44,7 +51,7 @@ namespace BlazorGame.Game.GameObjects
             MainFrame.gameObjectsCounting++;
             position = new float[2];
             velocity = new float[2];
-            components = new List<ObjectComponent>();
+            components = new Dictionary<Type, ObjectComponent>();
             renders = new List<Render>();
             objectType = ObjectType.undentified;
             mass = 1f;
@@ -53,39 +60,29 @@ namespace BlazorGame.Game.GameObjects
         }
         public abstract void Create();
 
-        
 
         public void Update()
         {
-            //needs collider
             UpdateVelocity();
-            UpdateCollisions();
-            position[0] += velocity[0] * MainFrame.detaTime;
-            position[1] += velocity[1] * MainFrame.detaTime;
-            foreach (ObjectComponent objectComponent in components)
+            foreach (ObjectComponent objectComponent in components.Values)
             {
                 objectComponent.Update();
             }
+            position[0] += velocity[0] * MainFrame.detaTime;
+            position[1] += velocity[1] * MainFrame.detaTime;
 
 
-        }
-        public void UpdateCollisions()
-        {
-            if (objectType == ObjectType.player)
-            {
-                components[(int)PlayerObject.PlayerComponents.collider].Update();
-            }
         }
         public void UpdateVelocity()
         {
             // velocity change
             float x = 0f;
             float y = 0f;
-            if (objectType == ObjectType.player)
+            if (components.ContainsKey(typeof(Player)))
             {
                 //easy access to inputs
-                float moveSpeed = (components[0] as Player).moveSpeed;
-                float[] inputs = (components[0] as Player).inputs;
+                float moveSpeed = (components[typeof(Player)] as Player).moveSpeed;
+                float[] inputs = (components[typeof(Player)] as Player).inputs;
 
                 // acceleration
                 x = inputs[0] > 0f ? moveSpeed * MainFrame.detaTime : x;
@@ -112,8 +109,6 @@ namespace BlazorGame.Game.GameObjects
                     if (velocity[1] < 0) { y = velocity[1] < -moveSpeed * MainFrame.detaTime ? moveSpeed * MainFrame.detaTime : -velocity[1]; }
                 }
 
-                //collision
-                components[(int)PlayerObject.PlayerComponents.collider].Update();
             }
             else
             {
@@ -130,11 +125,17 @@ namespace BlazorGame.Game.GameObjects
 
         public void ConnectionUpdate()
         {
-            for(int i=0;i< components.Count; i++)
+            foreach (ObjectComponent objectComponent in components.Values)
             {
-                components[i].gameObject = this;
-                components[i].id = i;
-                components[i].ConnectionUpdate();
+                objectComponent.gameObject = this;
+                objectComponent.ConnectionUpdate();
+            }
+        }
+        public void CollisionTrigger(string data, int number)
+        {
+            foreach (ObjectComponent objectComponent in components.Values)
+            {
+                objectComponent.CollisonTrigger(id,data, number);
             }
         }
     }

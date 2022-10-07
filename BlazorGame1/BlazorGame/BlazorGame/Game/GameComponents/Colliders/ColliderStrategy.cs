@@ -18,19 +18,15 @@ namespace BlazorGame.Game.GameComponents.Colliders
             get
             {
                 if (!MainFrame.gameObjects.ContainsKey(gameObjectId) 
-                    || colliderId == -1 
-                    || MainFrame.gameObjects[gameObjectId].components.Count >= colliderId
-                    || MainFrame.gameObjects[gameObjectId].components[colliderId] is not Collider) return null;
-                return (MainFrame.gameObjects[gameObjectId].components[colliderId] as Collider);
+                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Collider))) return null;
+                return (MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] as Collider);
             }
             set
             {
                 colliderId = value.id;
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && colliderId != -1
-                    && MainFrame.gameObjects[gameObjectId].components.Count < colliderId
-                    && MainFrame.gameObjects[gameObjectId].components[colliderId] is Collider)
-                    MainFrame.gameObjects[gameObjectId].components[colliderId] = value;
+                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Collider)))
+                    MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] = value;
             }
         }
         public abstract void AlgorithmInterface();
