@@ -3,7 +3,8 @@
 @using Blazor.Extensions.Canvas;
 @using Blazor.Extensions.Canvas.Canvas2D
 @using BlazorGame.Game.GameObjects
-@using Game;
+@using BlazorGame.Game.GameComponents.RendersDecorum
+@using Game
 
 <PageTitle>Index</PageTitle>
 
@@ -112,7 +113,17 @@ Welcome to your new app.
             if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetShooting(true); }
         }
     }
-
+    private void Render(){
+        this.context.SetFillStyleAsync("lightgray");
+        this.context.FillRectAsync(0, 0, 1280, 720);
+        int xoffset = (int)posX - Game.MainFrame.offsetX;
+        int yoffset = (int)posY - Game.MainFrame.offsetY;
+        foreach(GameObject gameObject in MainFrame.gameObjects.Values){
+            if (gameObject.components.ContainsKey(typeof(Renders)))
+            (gameObject.components[typeof(Renders)] as Renders).Render(ref context, xoffset, yoffset);
+        }
+    }
+    /*
     //render stuff gotten from server
     private void Render()
     {
@@ -168,4 +179,5 @@ Welcome to your new app.
             }
         }
     }
+    */
 }

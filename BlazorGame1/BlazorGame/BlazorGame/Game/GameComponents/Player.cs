@@ -96,7 +96,7 @@ namespace BlazorGame.Game.GameComponents
                     y += gameObject.position[1];
                     //Console.WriteLine(x + " " + y);
                     CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { x, y });
-                    Director.director.Construct(ref collectibleBuilder);
+                    Director.director.Construct(ref collectibleBuilder, Collectible.CollectibleType.col1);
                     MainFrame.Instantiate(collectibleBuilder.GetResult());
                 }
             }

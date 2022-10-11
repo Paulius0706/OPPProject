@@ -37,10 +37,6 @@ namespace BlazorGame.Game.Builder
             gameObject.components.Add(typeof(Bullet),bullet);
             //ConnectionUpdate();
         }
-        public void BuildRender(Render render)
-        {
-            gameObject.renders.Add(render);
-        }
         public GameObject GetResult()
         {
             return gameObject;

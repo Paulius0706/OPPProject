@@ -19,9 +19,9 @@ namespace BlazorGame.Game.GameComponents
             timer = 1f;
             dimensions = new float[2] { 1, 0 };
             cannons = new List<Cannon>();
-            cannons.Add(new Cannon(new float[] { 0, 40 }, new float[] { 100, 40 }));
-            cannons.Add(new Cannon(new float[] { 0, -40 }, new float[] { 100, -40 }));
-            cannons.Add(new Cannon(new float[] { 0, 0 }, new float[] { 100, 0 }));
+            cannons.Add(new Cannon(new int[] { 0, 40 }, new int[] { 100, 40 }, "black",10));
+            cannons.Add(new Cannon(new int[] { 0, -40 }, new int[] { 100, -40 }, "black", 10));
+            cannons.Add(new Cannon(new int[] { 0, 0 }, new int[] { 100, 0 }, "black", 10));
         }
         public void SetCannons(int x, int y)
         {
@@ -68,12 +68,11 @@ namespace BlazorGame.Game.GameComponents
         public override void CollisonTrigger(int gameObject, string data, int number) { }
         public override void ConnectionUpdate()
         {
-            Console.WriteLine("cannon GameObject:" + gameObject.id);
+            //Console.WriteLine("cannon GameObject:" + gameObject.id);
             for (int i = 0; i < cannons.Count; i++)
             {
                 cannons[i].gameObject = gameObject;
-                cannons[i].renderCannonId = i;
-                cannons[i].renderConnonLineId = i + 3;
+                cannons[i].ConnectionUpdate();
             }
         }
 

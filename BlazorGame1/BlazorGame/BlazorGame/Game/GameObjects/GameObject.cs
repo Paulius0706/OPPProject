@@ -1,5 +1,4 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
-using BlazorGame.Game.DataTypes;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
@@ -27,7 +26,6 @@ namespace BlazorGame.Game.GameObjects
 
         //public List<ObjectComponent> components;
         public Dictionary<Type, ObjectComponent> components;
-        public List<Render> renders;
 
         public float deacceleration { get; set; }
         public ObjectType objectType;
@@ -41,10 +39,6 @@ namespace BlazorGame.Game.GameObjects
             bullet = 4
         }
 
-
-
-
-
         public GameObject()
         {
             id = MainFrame.gameObjectsCounting;
@@ -52,7 +46,6 @@ namespace BlazorGame.Game.GameObjects
             position = new float[2];
             velocity = new float[2];
             components = new Dictionary<Type, ObjectComponent>();
-            renders = new List<Render>();
             objectType = ObjectType.undentified;
             mass = 1f;
             deacceleration = 0f;
