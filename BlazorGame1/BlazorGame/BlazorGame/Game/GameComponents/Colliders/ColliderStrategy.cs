@@ -6,7 +6,6 @@ namespace BlazorGame.Game.GameComponents.Colliders
 {
     public abstract class ColliderStrategy
     {
-        private int colliderId = -1;
         private int gameObjectId = -1;
         public GameObject gameObject
         {
@@ -23,7 +22,6 @@ namespace BlazorGame.Game.GameComponents.Colliders
             }
             set
             {
-                colliderId = value.id;
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
                     && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Collider)))
                     MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] = value;

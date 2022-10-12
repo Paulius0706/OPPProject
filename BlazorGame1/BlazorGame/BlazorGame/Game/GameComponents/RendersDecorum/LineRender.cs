@@ -9,9 +9,9 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         public int width { get; set; }
         public string color { get; set; }
 
-        public LineRender(Type type,int[] offset, int[] offset1, int width, string color)
+        public LineRender(int[] offset, int[] offset1, int width, string color)
         {
-            this.type = type;
+            //this.type = type;
             this.offset = offset;
             this.offset1 = offset1;
             this.width = width;

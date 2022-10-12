@@ -8,10 +8,9 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         public int radius { get; set; }
         public string color { get; set; }
 
-        public CircleRender(Type type, int[] offset, int radius, string color)
+        public CircleRender(int[] offset, int radius, string color)
         {
             this.offset = offset;
-            this.type = type;
             this.radius = radius;
             this.color = color;
         }

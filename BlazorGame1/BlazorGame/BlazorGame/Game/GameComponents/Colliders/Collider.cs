@@ -30,9 +30,8 @@ namespace BlazorGame.Game.GameComponents.Colliders
         public override void ConnectionUpdate()
         {
             colliderStrategy.gameObject = this.gameObject;
-            colliderStrategy.collider = this;
         }
-        public override void CollisonTrigger(int gameObject, string data, int number)
+        public override void CollisonTrigger(int gameObject)
         {
 
         }

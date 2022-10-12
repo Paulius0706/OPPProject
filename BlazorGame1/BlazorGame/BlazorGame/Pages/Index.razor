@@ -60,10 +60,11 @@ Welcome to your new app.
                         velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
                         posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
                         posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+                        
                     }
+                    Render();
                     //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
                     //mouseposY = (Game.MainFrame.gameObjects[playerId].components[0] as Player).cannon.dimensions[1];
-                    Render();
                     StateHasChanged();
 
                 });

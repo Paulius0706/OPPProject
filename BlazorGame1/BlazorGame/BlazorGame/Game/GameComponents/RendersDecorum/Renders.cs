@@ -11,7 +11,7 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
             renders = new List<Render>();
         }
 
-        public override void CollisonTrigger(int gameObject, string data, int number){}
+        public override void CollisonTrigger(int gameObject){ }
 
         public override void ConnectionUpdate()
         {

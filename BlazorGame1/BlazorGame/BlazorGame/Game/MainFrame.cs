@@ -19,6 +19,7 @@ namespace BlazorGame.Game
         public static float detaTime;
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            //foo()
             await Task.Delay(100);
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -54,7 +55,8 @@ namespace BlazorGame.Game
             Director.director.Construct(ref playerBuilder,name,1);
             GameObject gameObject = playerBuilder.GetResult();
             Instantiate(gameObject);
-            
+            gameObject.id = gameObjectsCounting;
+            gameObjectsCounting++;
             // sets render and update active
             gameStarted = true;
 
@@ -82,8 +84,24 @@ namespace BlazorGame.Game
                 while(createGameObjectsQueue.Count > 0)
                 {
                     GameObject gameObject = createGameObjectsQueue.Dequeue();
-                    gameObjects.Add(gameObject.id, gameObject);
-                    gameObjects[gameObject.id].ConnectionUpdate();
+                    //Console.WriteLine("Pre Create new object (id):" + gameObject.id + " (type):" + gameObject.objectType);
+                    if (gameObject.id == -1)
+                    {
+                        gameObject.id = gameObjectsCounting;
+                        gameObjectsCounting++;
+                    }
+                    if (gameObjects.ContainsKey(gameObject.id))
+                    {
+                        //Console.WriteLine("    Error Same key (id):" + gameObject.id + " (type):" + gameObject.objectType);
+                    }
+                    else 
+                    {
+                        //Console.WriteLine("    Create new object (id):" + gameObject.id + " (type):" + gameObject.objectType);
+                        gameObjects.Add(gameObject.id, gameObject);
+                        gameObjects[gameObject.id].ConnectionUpdate();
+                    }
+                    //Console.WriteLine();
+
                 }
                 while(destroyGameObjectsQueue.Count > 0)
                 {

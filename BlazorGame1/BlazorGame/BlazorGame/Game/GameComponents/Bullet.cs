@@ -28,9 +28,24 @@ namespace BlazorGame.Game.GameComponents
                 MainFrame.Destroy(gameObject);
             }
         }
-        public override void CollisonTrigger(int gameObject, string data, int number)
+        public override void CollisonTrigger(int gameObject)
         {
-
+            switch (MainFrame.gameObjects[gameObject].objectType)
+            {
+                case GameObject.ObjectType.collectible: MainFrame.Destroy(this.gameObject); break;
+                case GameObject.ObjectType.bullet: TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).damage); break;
+                case GameObject.ObjectType.player: MainFrame.Destroy(this.gameObject); break;
+                case GameObject.ObjectType.mob: MainFrame.Destroy(this.gameObject); break;
+                case GameObject.ObjectType.undentified: break;
+            }
+        }
+        public void TakeDamage(int gameObject, float damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                MainFrame.Destroy(this.gameObject);
+            }
         }
         public override void ConnectionUpdate()
         {

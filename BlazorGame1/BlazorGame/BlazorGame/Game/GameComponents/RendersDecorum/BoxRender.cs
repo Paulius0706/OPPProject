@@ -8,10 +8,9 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         public int[] size { get; set; }
         public string color { get; set; }
 
-        public BoxRender(Type type, int[] offset, int[] size, string color)
+        public BoxRender(int[] offset, int[] size, string color)
         {
             this.offset = offset;
-            this.type = type;
             this.size = size;
             this.color = color;
         }

@@ -21,18 +21,18 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
             }
         }
 
-        public enum Type
-        {
-            UI,
-            GameUI,
-            Body,
-            Gun,
-            Guns,
-            Health,
-            Exp
+        //public enum Type
+        //{
+        //    UI,
+        //    GameUI,
+        //    Body,
+        //    Gun,
+        //    Guns,
+        //    Health,
+        //    Exp
 
-        }
-        public Type type;
+        //}
+        //public Type type;
         public int[] offset { get; set; }
 
         public abstract void Show(ref Canvas2DContext context, int xoffset, int yoffset);

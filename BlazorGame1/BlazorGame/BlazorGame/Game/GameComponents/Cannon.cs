@@ -1,6 +1,7 @@
 ﻿using BlazorGame.Game.Builder;
 using BlazorGame.Game.GameComponents.Colliders;
 using BlazorGame.Game.GameComponents.RendersDecorum;
+using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents
@@ -18,12 +19,9 @@ namespace BlazorGame.Game.GameComponents
         public bool shooting;
 
         private int gameObjectId = -1;
-        private int playerId = -1;
-        private int cannonsId = -1;
 
         private int gunsRenderId = -1;
         private int gunRenderId = -1;
-        private int gunLineRenderId = -1;
 
         public GameObject gameObject
         {
@@ -34,16 +32,59 @@ namespace BlazorGame.Game.GameComponents
         {
             get 
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player))) return null;
-                return (MainFrame.gameObjects[gameObjectId].components[typeof(Player)] as Player); 
+                if (gameObject == null) return null;
+                if (!gameObject.components.ContainsKey(typeof(Player))) return null;
+                return gameObject.components[typeof(Player)] as Player; 
             }
             set 
             { 
-                playerId = value.id; 
-                if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player)))
-                    MainFrame.gameObjects[gameObjectId].components[typeof(Player)] = value; }
+                if (gameObject != null && gameObject.components.ContainsKey(typeof(Player)))
+                    gameObject.components[typeof(Player)] = value; 
+            }
+        }
+        public Renders renders
+        {
+            get
+            {
+                if (gameObject == null) return null;
+                if (!gameObject.components.ContainsKey(typeof(Renders))) return null;
+                return (gameObject.components[typeof(Renders)] as Renders);
+            }
+            set
+            {
+                if (gameObject != null && gameObject.components.ContainsKey(typeof(Renders)))
+                    gameObject.components[typeof(Renders)] = value;
+            }
+        }
+        public GunsDecorator gunsDecorator
+        {
+            get
+            {
+                if (renders == null || gunsRenderId == -1) return null;
+                if (renders.renders.Count <= gunsRenderId) return null;
+                if (renders.renders[gunsRenderId] is not GunsDecorator) return null;
+                return renders.renders[gunsRenderId] as GunsDecorator;
+            }
+            set
+            {
+                if (gunsRenderId != -1 && renders != null && renders.renders.Count > gunsRenderId && renders.renders[gunsRenderId] is GunsDecorator)
+                    renders.renders[gunsRenderId] = value;
+            }
+        }
+        public GunDecorator gunDecorator
+        {
+            get
+            {
+                if (gunsDecorator == null || gunsRenderId == -1) return null;
+                if (gunsDecorator.renders.Count <= gunRenderId) return null;
+                if (gunsDecorator.renders[gunRenderId] is not GunDecorator) return null;
+                return gunsDecorator.renders[gunRenderId] as GunDecorator;
+            }
+            set
+            {
+                if (gunRenderId != -1 && gunsDecorator != null && gunsDecorator.renders.Count > gunsRenderId && gunsDecorator.renders[gunsRenderId] is GunDecorator)
+                    gunsDecorator.renders[gunsRenderId] = value;
+            }
         }
         
 
@@ -77,57 +118,54 @@ namespace BlazorGame.Game.GameComponents
             int[] renderOffset1 = new int[2];
             renderOffset1[0] = (int)(sin * offset2[1] + cos * offset2[0]);
             renderOffset1[1] = (int)(-cos * offset2[1] + sin * offset2[0]);
-            if (gunsRenderId != -1 && gunRenderId != -1)
+            if (gunDecorator != null)
             {
-                (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset  = renderOffset;
-                (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset1 = renderOffset1;
-            }
-            if(gunsRenderId != -1 && gunLineRenderId != -1)
-            {
-                (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunLineRenderId] as LineRender).offset = renderOffset;
-                (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunLineRenderId] as LineRender).offset1 = renderOffset1;
+                (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset  = renderOffset;
+                (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1 = renderOffset1;
+                (gunDecorator.renders[(int)GunDecorator.Type.detail] as LineRender).offset = renderOffset;
+                (gunDecorator.renders[(int)GunDecorator.Type.detail] as LineRender).offset1 = renderOffset1;
             }
         }
         public void Shooting()
         {
-            if(gunsRenderId != -1 && gunRenderId != -1 && gunLineRenderId != -1)
+            if(gunDecorator != null)
             {
                 float[] velocity = new float[2];
-                velocity[0] = (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset1[0];
-                velocity[1] = (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset1[1];
-                velocity[0] -= (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset[0];
-                velocity[1] -= (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset[1];
+                velocity[0] = (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[0];
+                velocity[1] = (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[1];
+                velocity[0] -= (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset[0];
+                velocity[1] -= (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset[1];
                 velocity[0] = velocity[0] / barrelLenght * 300f;
                 velocity[1] = velocity[1] / barrelLenght * 300f;
 
-                BulletBuilder bulletBuilder = new BulletBuilder(
-                    new float[2]{
-                    (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset1[0] + gameObject.position[0],
-                    (((gameObject.components[typeof(Renders)] as Renders).renders[gunsRenderId] as DecoratorRender).renders[gunRenderId] as LineRender).offset1[1] + gameObject.position[1]
-                    }, velocity
-                    );
-                Director.director.Construct(ref bulletBuilder, gameObject.id, player.damage, player.damage);
-                MainFrame.Instantiate(bulletBuilder.GetResult());
+                if(player.spawner != null)
+                {
+                    BulletObject bulletObject = player.spawner.bulletObject.Clone();
+                    bulletObject.position = new float[2]{
+                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[0] + gameObject.position[0],
+                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[1] + gameObject.position[1]
+                    };
+                    bulletObject.velocity = velocity;
+                    MainFrame.Instantiate(bulletObject);
+                }
             }
         }
-        public void ConnectionUpdate()
+        public void ConnectionUpdate(GameObject gameObject)
         {
-            for(int i=0;i< (gameObject.components[typeof(Renders)] as Renders).renders.Count; i++)
+            this.gameObject = gameObject;
+            for(int i=0;i< renders.renders.Count; i++)
             {
-                if((gameObject.components[typeof(Renders)] as Renders).renders[i].type == RendersDecorum.Render.Type.Guns)
+                if(renders.renders[i] is GunsDecorator)
                 {
                     gunsRenderId = i;
 
-                    ((gameObject.components[typeof(Renders)] as Renders).renders[i] as DecoratorRender).renders.Add(
-                        new LineRender(RendersDecorum.Render.Type.Gun, offset1, offset2, width + 3, color));
-                    gunLineRenderId = ((gameObject.components[typeof(Renders)] as Renders).renders[i] as DecoratorRender).renders.Count - 1;
-                    
-                    ((gameObject.components[typeof(Renders)] as Renders).renders[i] as DecoratorRender).renders.Add(
-                        new LineRender(RendersDecorum.Render.Type.Gun, offset1, offset2, width, color));
-                    gunRenderId = ((gameObject.components[typeof(Renders)] as Renders).renders[i] as DecoratorRender).renders.Count - 1;
+                    LineRender main = new LineRender(offset1, offset2, width, color);
+                    LineRender details = new LineRender(offset1, offset2, width + 4, "black");
+                    GunDecorator gunDecorator = new GunDecorator(main, details);
 
-                    ((gameObject.components[typeof(Renders)] as Renders).renders[i] as DecoratorRender).ConnectionUpdate(gameObject);
-
+                    gunsDecorator.renders.Add(gunDecorator);
+                    gunRenderId = gunsDecorator.renders.Count - 1;
+                    gunsDecorator.ConnectionUpdate(gameObject);
                     break;
                 }
             }

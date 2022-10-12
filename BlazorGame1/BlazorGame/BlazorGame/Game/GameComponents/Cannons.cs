@@ -1,4 +1,6 @@
 ﻿using BlazorGame.Game.Builder;
+using BlazorGame.Game.GameComponents.RendersDecorum;
+using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents
@@ -50,30 +52,24 @@ namespace BlazorGame.Game.GameComponents
             {
                 cannon.Shooting();
             }
-            //for (int i = 0; i < lenghts.Length; i++)
-            //{
-            //    if (shootingCannons[i])
-            //    {
-            //        float x = dimensions[0] * lenghts[i] + MainFrame.gameObjects[gameObject].position[0];
-            //        float y = dimensions[1] * lenghts[i] + MainFrame.gameObjects[gameObject].position[1];
-            //        float vx = dimensions[0] * lenghts[i];
-            //        float vy = dimensions[1] * lenghts[i];
-            //        BulletBuilder bulletBuilder = new BulletBuilder(new float[] { x, y }, new float[] { vx, vy });
-            //        Director.director.Construct(ref bulletBuilder, gameObject, damage, damage);
-            //        GameObject bullet = bulletBuilder.GetResult();
-            //        MainFrame.createGameObjectsQueue.Enqueue(bullet);
-            //    }
-            //}
         }
-        public override void CollisonTrigger(int gameObject, string data, int number) { }
+        public override void CollisonTrigger(int gameObject) { }
         public override void ConnectionUpdate()
         {
             //Console.WriteLine("cannon GameObject:" + gameObject.id);
-            for (int i = 0; i < cannons.Count; i++)
+            if (gameObject.components.ContainsKey(typeof(Renders)))
             {
-                cannons[i].gameObject = gameObject;
-                cannons[i].ConnectionUpdate();
+                foreach (Render render in (gameObject.components[typeof(Renders)] as Renders).renders)
+                { if (render is GunsDecorator) { (render as GunsDecorator).renders = new List<Render>(); } }
+
+                for (int i = 0; i < cannons.Count; i++)
+                {
+                    cannons[i].gameObject = gameObject;
+                    cannons[i].ConnectionUpdate(gameObject);
+                }
             }
+            
+            
         }
 
     }

@@ -39,6 +39,11 @@ namespace BlazorGame.Game.GameComponents.Colliders
             float totalRadius = (MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] as Collider).radius + collider.radius;
             if (totalRadius * totalRadius > x * x + y * y)
             {
+                // Circles are totaly collide
+                MainFrame.gameObjects[gameObjectId].CollisionTrigger(gameObject.id);
+                base.gameObject.CollisionTrigger(gameObjectId);
+
+
                 // fix circles positions
                 float totalDistance = MathF.Sqrt(x * x + y * y);
                 float dirx = x / totalDistance;

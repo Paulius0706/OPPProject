@@ -26,7 +26,7 @@ namespace BlazorGame.Game.GameComponents
 
         public ObjectComponent() { }
         public abstract void Update();
-        public abstract void CollisonTrigger(int gameObject, string data, int number);
+        public abstract void CollisonTrigger(int gameObject);
 
         public abstract void ConnectionUpdate();
     }

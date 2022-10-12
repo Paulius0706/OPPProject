@@ -1,4 +1,7 @@
-﻿using BlazorGame.Game.GameComponents.RendersDecorum;
+﻿using BlazorGame.Game.Builder;
+using BlazorGame.Game.GameComponents;
+using BlazorGame.Game.GameComponents.RendersDecorum;
+using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
 
 namespace BlazorGame.Game.GameObjects
 {
@@ -12,14 +15,25 @@ namespace BlazorGame.Game.GameObjects
 
             Renders renders = new Renders();
 
-            renders.renders.Add(new GameComponents.RendersDecorum.CircleRender(GameComponents.RendersDecorum.Render.Type.Body, new int[] { 0, 0 }, 20, "green"));
+            renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 20, "green"));
 
-            DecoratorRender healthRender = new DecoratorRender(GameComponents.RendersDecorum.Render.Type.Health);
-            healthRender.renders.Add(new GameComponents.RendersDecorum.BoxRender(GameComponents.RendersDecorum.Render.Type.GameUI, new int[] { -15, 5 }, new int[] { 30, 10 }, "grey"));
-            healthRender.renders.Add(new GameComponents.RendersDecorum.BoxRender(GameComponents.RendersDecorum.Render.Type.Health, new int[] { -14, 6 }, new int[] { 28,  8 }, "red" ));
-            renders.renders.Add(healthRender);
+            BoxRender health = new BoxRender(new int[] { -14, 6 }, new int[] { 28, 8 }, "red");
+            BoxRender healthBackGround = new BoxRender(new int[] { -15, 5 }, new int[] { 30, 10 }, "grey");
+            DecoratorRender healthDecorator = new HealthDecorator(health,healthBackGround);
+            renders.renders.Add(healthDecorator);
 
             components.Add(typeof(Renders), renders);
+        }
+        public void Mutate()
+        {
+
+        }
+
+        public CollectibleObject Clone()
+        {
+            CollectibleBuilder collectibleBuilder = new CollectibleBuilder(position);
+            Director.director.Construct(ref collectibleBuilder, (components[typeof(Collectible)] as Collectible).type);
+            return collectibleBuilder.GetResult() as CollectibleObject;
         }
     }
 }

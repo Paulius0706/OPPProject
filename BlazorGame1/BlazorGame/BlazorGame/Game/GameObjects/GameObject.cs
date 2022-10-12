@@ -19,6 +19,7 @@ namespace BlazorGame.Game.GameObjects
         //LOGIC
         public int id { get; set; }
         public float[] position { get; set; }
+        public float scale;
         public float[] velocity { get; set; }
         public float mass { get; set; }
         public bool Unmoving { get; set; } // states if object can have velocity
@@ -41,13 +42,15 @@ namespace BlazorGame.Game.GameObjects
 
         public GameObject()
         {
-            id = MainFrame.gameObjectsCounting;
-            MainFrame.gameObjectsCounting++;
+            //id = MainFrame.gameObjectsCounting;
+            //MainFrame.gameObjectsCounting++;
+            id = -1;
             position = new float[2];
             velocity = new float[2];
             components = new Dictionary<Type, ObjectComponent>();
             objectType = ObjectType.undentified;
             mass = 1f;
+            scale = 1f;
             deacceleration = 0f;
             Create();
         }
@@ -124,11 +127,11 @@ namespace BlazorGame.Game.GameObjects
                 objectComponent.ConnectionUpdate();
             }
         }
-        public void CollisionTrigger(string data, int number)
+        public void CollisionTrigger(int gameObject)
         {
             foreach (ObjectComponent objectComponent in components.Values)
             {
-                objectComponent.CollisonTrigger(id,data, number);
+                objectComponent.CollisonTrigger(gameObject);
             }
         }
     }
