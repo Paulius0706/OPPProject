@@ -1,20 +1,55 @@
 using BlazorGame.Game;
 using BlazorGame.Game.Builder;
+using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameObjects;
+using BlazorGame.Game.GameObjects.Factories;
 
 namespace BlazorGame.Tests
 {
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public void GetComponent()
         {
-            bool result = false;
+            // set enviroment
+            MainFrame.gameObjects = new Dictionary<int, GameObject>();
+            MainFrame.detaTime = 0.07f;
+            float timeCount = 3f / MainFrame.detaTime;
 
-            Assert.False(result, "1 should not be prime");
+            // create player
+            int newHealth = 1000000;
+            int playerId = MainFrame.CreateNewPlayer("ss");
+            MainFrame.Update();
+
+            // Test getComponent
+            MainFrame.gameObjects[playerId].GetComponent<Player>().health = 100000;
+
+            Assert.False(MainFrame.gameObjects[playerId].GetComponent<Player>().health == newHealth);
         }
 
-        enum objectType
+        [Fact]
+        public void AddComponent_addPlayerToBullet()
+        {
+            // set enviroment
+            MainFrame.gameObjects = new Dictionary<int, GameObject>();
+            MainFrame.detaTime = 0.07f;
+            float timeCount = 3f / MainFrame.detaTime;
+
+
+            // create bullet
+            BulletBuilder bulletBuilder = new BulletBuilder(new float[] { 0, 0 }, new float[] { 0, 0 });
+            Director.director.Construct(ref bulletBuilder, 0, 0, 51);
+            BulletObject bulletObject = (BulletObject)bulletBuilder.GetResult();
+            
+            // Do AddComponent
+            bulletObject.AddComponent(new Player("AKA", 1));
+            MainFrame.Update();
+
+            // Test AddComponent
+            Assert.True((bulletObject.GetComponent<Player>() is Player) && (bulletObject.GetComponent<Player>().name == "AKA"));
+        }
+
+        public enum ObjectType
         {
             col1,
             col2,
@@ -22,8 +57,69 @@ namespace BlazorGame.Tests
             mob,
             player
         }
+        
+        
+        [Theory]
+        [InlineData(ObjectType.col1)]
+        [InlineData(ObjectType.col2)]
+        [InlineData(ObjectType.col3)]
+        [InlineData(ObjectType.mob)]
+        [InlineData(ObjectType.player)]
+        // TM 6 - 1
+        public void GetExpFromBullets(ObjectType objectType)
+        {
+            // set enviroment
+            MainFrame.gameObjects = new Dictionary<int, GameObject>();
+            MainFrame.detaTime = 0.07f;
+            float timeCount = 3f / MainFrame.detaTime;
 
+            // create shooter
+            int playerId = MainFrame.CreateNewPlayer("ss",false);
+            MainFrame.Update();
+            (MainFrame.gameObjects[playerId].GetComponent<Player>()).experiance = 0;
 
+            // create target
+            float[] newPos = new float[] { 200, 0 };
+            CollectibleBuilder collectibleBuilder = new CollectibleBuilder(newPos);
+            switch (objectType)
+            {
+                case ObjectType.col1: Director.director.Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col1); break;
+                case ObjectType.col2: Director.director.Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col2); break;
+                case ObjectType.col3: Director.director.Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col3); break;
+                case ObjectType.mob: Director.director.Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.mob); break;
+            }
+            if(objectType == ObjectType.player)
+            {
+                // if target is player
+                int newPlayerId = MainFrame.CreateNewPlayer("ss",false);
+                MainFrame.Update();
+                MainFrame.gameObjects[newPlayerId].position = newPos;
+                MainFrame.gameObjects[newPlayerId].GetComponent<Player>().health = 1;
+            }
+            else
+            {
+                // if target is collectibe
+                CollectibleObject collectible = (CollectibleObject)collectibleBuilder.GetResult();
+                collectible.GetComponent<Collectible>().health = 1;
+                MainFrame.Instantiate(collectible);
+            }
+
+            //create bullet
+            float[] bulletPos = new float[] { 100, 0 };
+            float[] bulletVel = new float[] { 500, 0 };
+            BulletBuilder bulletBuilder = new BulletBuilder(bulletPos, bulletVel);
+            Director.director.Construct(ref bulletBuilder, playerId, 5, 5);
+            MainFrame.Instantiate(bulletBuilder.GetResult());
+
+            //simulate
+            for(int i=0; i < timeCount; i++){MainFrame.Update();}
+
+            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().experiance > 0 || MainFrame.gameObjects[playerId].GetComponent<Player>().level > 1);
+        }
+        // TM 6 - 2
+        //needs from body
+
+        
         /// <summary>
         /// Test where 2 players collide and canlculate correct final position
         /// this test game determinism and emulate real life
@@ -43,40 +139,80 @@ namespace BlazorGame.Tests
             new float[] { 400, 0 }, new float[] {   0, 0 },
             new float[] {   0, 0 }, new float[] { 400, 0 },
             new float[] { 500, 0 }, new float[] { 300, 0 })]
+        // TM 2
         public void CircleCollision(
             float[] pos1, float[] pos2,
             float[] vel1, float[] vel2,
             float[] newPos1, float[] newPos2)
         {
+            // set enviroment
             MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            PlayerBuilder playerBuilder0 = new PlayerBuilder(pos1);
-            Director.director.Construct(ref playerBuilder0, "0", 0);
-            PlayerObject player0 = (PlayerObject)playerBuilder0.GetResult();
-            player0.id = 0;
-            player0.velocity = vel1;
-            MainFrame.gameObjects.Add(0, player0);
-
-            PlayerBuilder playerBuilder1 = new PlayerBuilder(pos2);
-            Director.director.Construct(ref playerBuilder1, "1", 0);
-            PlayerObject player1 = (PlayerObject)playerBuilder1.GetResult();
-            player0.id = 1;
-            player1.velocity = vel2;
-            MainFrame.gameObjects.Add(1, player0);
-
-            
             MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / 0.01f;
+            float timeCount = 3f / MainFrame.detaTime;
 
-            for(int i = 0; i < timeCount; i++)
+            // Spawn players
+            int player1Id = MainFrame.CreateNewPlayer("1", false);
+            int player2Id = MainFrame.CreateNewPlayer("2", false);
+            MainFrame.Update();
+            MainFrame.gameObjects[player1Id].velocity = vel1;
+            MainFrame.gameObjects[player2Id].velocity = vel2;
+
+            MainFrame.gameObjects[player1Id].position = pos1;
+            MainFrame.gameObjects[player2Id].position = pos2;
+
+            for (int i = 0; i < timeCount; i++)
             {
                 MainFrame.Update();
             }
-            float errorDelta = 10f;
+            float errorDelta = 20f;
             Assert.True(
-                   (MainFrame.gameObjects[0].position[0] < newPos1[0] + errorDelta || MainFrame.gameObjects[0].position[0] > newPos1[0] - errorDelta)
-                && (MainFrame.gameObjects[0].position[1] < newPos1[1] + errorDelta || MainFrame.gameObjects[0].position[1] > newPos1[1] - errorDelta)
-                && (MainFrame.gameObjects[1].position[0] < newPos2[0] + errorDelta || MainFrame.gameObjects[1].position[0] > newPos2[0] - errorDelta)
-                && (MainFrame.gameObjects[1].position[1] < newPos2[1] + errorDelta || MainFrame.gameObjects[1].position[1] > newPos2[1] - errorDelta));
+                   (MainFrame.gameObjects[player1Id].position[0] < newPos1[0] + errorDelta && MainFrame.gameObjects[player1Id].position[0] > newPos1[0] - errorDelta)
+                && (MainFrame.gameObjects[player1Id].position[1] < newPos1[1] + errorDelta && MainFrame.gameObjects[player1Id].position[1] > newPos1[1] - errorDelta)
+                
+                && (MainFrame.gameObjects[player2Id].position[0] < newPos2[0] + errorDelta && MainFrame.gameObjects[player2Id].position[0] > newPos2[0] - errorDelta)
+                && (MainFrame.gameObjects[player2Id].position[1] < newPos2[1] + errorDelta && MainFrame.gameObjects[player2Id].position[1] > newPos2[1] - errorDelta),
+                   "x: "+ (newPos1[0] - errorDelta) + "<" + MainFrame.gameObjects[player1Id].position[0] + ">" + (newPos1[0] + errorDelta)+"\n"+
+                   "y: "+ (newPos1[1] - errorDelta) + "<" + MainFrame.gameObjects[player1Id].position[1] + ">" + (newPos1[1] + errorDelta) + "\n" + "\n" +
+                   "x: "+ (newPos2[0] - errorDelta) + "<" + MainFrame.gameObjects[player2Id].position[0] + ">" + (newPos2[0] + errorDelta) + "\n" +
+                   "y: "+ (newPos2[1] - errorDelta) + "<" + MainFrame.gameObjects[player2Id].position[1] + ">" + (newPos2[1] + errorDelta));
+        }
+
+        
+        [Fact]
+        // TM 7
+        public void LevelUp_levelUpfrom1()
+        {
+            // set enviroment
+            MainFrame.gameObjects = new Dictionary<int, GameObject>();
+            MainFrame.detaTime = 0.07f;
+            float timeCount = 3f / MainFrame.detaTime;
+
+            // spawn player
+            int playerId = MainFrame.CreateNewPlayer("AKA");
+            MainFrame.Update();
+            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
+            MainFrame.gameObjects[playerId].GetComponent<Player>().experiance = MainFrame.gameObjects[playerId].GetComponent<Player>().maxExperiance -1;
+
+            // spawn collectible
+            CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 100, 0 });
+            Director.director.Construct(ref collectibleBuilder, Collectible.CollectibleType.col1);
+            CollectibleObject collectibleObject = (CollectibleObject)collectibleBuilder.GetResult();
+            MainFrame.Instantiate(collectibleObject);
+            MainFrame.Update();
+
+            // spawn bullet from player
+            BulletBuilder bulletBuilder = new BulletBuilder(new float[] { 100, 0 }, new float[] { 100, 0 });
+            Director.director.Construct(ref bulletBuilder, playerId, 1000, 1000);
+            MainFrame.Instantiate(bulletBuilder.GetResult());
+            MainFrame.Update();
+
+            // Update Collisions
+            MainFrame.Update();
+            MainFrame.Update();
+
+            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().level > 1, "level:" + MainFrame.gameObjects[playerId].GetComponent<Player>().level + " exp:" + MainFrame.gameObjects[playerId].GetComponent<Player>().experiance);
+
+
         }
     }
 }

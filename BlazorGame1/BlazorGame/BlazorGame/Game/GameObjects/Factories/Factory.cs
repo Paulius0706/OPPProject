@@ -26,14 +26,14 @@ namespace BlazorGame.Game.GameObjects.Factories
             get
             {
                 if (!MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player))) return null;
-                return (MainFrame.gameObjects[gameObjectId].components[typeof(Player)] as Player);
+                    || !MainFrame.gameObjects[gameObjectId].ContainsComponent<Player>()) return null;
+                return (MainFrame.gameObjects[gameObjectId].GetComponent<Player>());
             }
             set
             {
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Player)))
-                    MainFrame.gameObjects[gameObjectId].components[typeof(Player)] = value;
+                    && MainFrame.gameObjects[gameObjectId].ContainsComponent<Player>())
+                    player = value;
             }
         }
     }

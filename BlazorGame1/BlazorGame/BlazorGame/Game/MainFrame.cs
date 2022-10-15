@@ -48,15 +48,17 @@ namespace BlazorGame.Game
         public static int offsetX = 1280 / 2;
         public static int offsetY = 720 / 2;
 
-        public static int CreateNewPlayer(string name)
+        public static int CreateNewPlayer(string name, bool spawner = true)
         {
             // instatijuoti player
             PlayerBuilder playerBuilder = new PlayerBuilder(new float[]{ 0,0});
             Director.director.Construct(ref playerBuilder,name,1);
             GameObject gameObject = playerBuilder.GetResult();
-            Instantiate(gameObject);
+            if (!spawner) (gameObject as PlayerObject).GetComponent<Player>().spawner = null;
             gameObject.id = gameObjectsCounting;
             gameObjectsCounting++;
+            Instantiate(gameObject);
+            //gameObjectsCounting++;
             // sets render and update active
             gameStarted = true;
 

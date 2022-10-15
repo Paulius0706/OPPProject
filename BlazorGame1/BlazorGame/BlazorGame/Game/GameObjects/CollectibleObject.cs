@@ -22,7 +22,7 @@ namespace BlazorGame.Game.GameObjects
             DecoratorRender healthDecorator = new HealthDecorator(health,healthBackGround);
             renders.renders.Add(healthDecorator);
 
-            components.Add(typeof(Renders), renders);
+            AddComponent(renders);
         }
         public void Mutate()
         {
@@ -32,7 +32,7 @@ namespace BlazorGame.Game.GameObjects
         public CollectibleObject Clone()
         {
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(position);
-            Director.director.Construct(ref collectibleBuilder, (components[typeof(Collectible)] as Collectible).type);
+            Director.director.Construct(ref collectibleBuilder, GetComponent<Collectible>().type);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }
     }

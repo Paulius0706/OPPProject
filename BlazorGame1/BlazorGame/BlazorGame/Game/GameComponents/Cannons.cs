@@ -57,9 +57,9 @@ namespace BlazorGame.Game.GameComponents
         public override void ConnectionUpdate()
         {
             //Console.WriteLine("cannon GameObject:" + gameObject.id);
-            if (gameObject.components.ContainsKey(typeof(Renders)))
+            if (gameObject.ContainsComponent<Renders>())
             {
-                foreach (Render render in (gameObject.components[typeof(Renders)] as Renders).renders)
+                foreach (Render render in gameObject.GetComponent<Renders>().renders)
                 { if (render is GunsDecorator) { (render as GunsDecorator).renders = new List<Render>(); } }
 
                 for (int i = 0; i < cannons.Count; i++)

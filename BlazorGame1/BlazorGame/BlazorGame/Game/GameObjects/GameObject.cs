@@ -25,8 +25,8 @@ namespace BlazorGame.Game.GameObjects
         public bool Unmoving { get; set; } // states if object can have velocity
         public bool ColliderDetector { get; set; }
 
-        //public List<ObjectComponent> components;
-        public Dictionary<Type, ObjectComponent> components;
+        private Dictionary<Type, ObjectComponent> components;
+
 
         public float deacceleration { get; set; }
         public ObjectType objectType;
@@ -39,6 +39,7 @@ namespace BlazorGame.Game.GameObjects
             mob = 3,
             bullet = 4
         }
+        
 
         public GameObject()
         {
@@ -129,10 +130,25 @@ namespace BlazorGame.Game.GameObjects
         }
         public void CollisionTrigger(int gameObject)
         {
+             
             foreach (ObjectComponent objectComponent in components.Values)
             {
                 objectComponent.CollisonTrigger(gameObject);
             }
+        }
+
+
+        public Type GetComponent<Type>() where Type : ObjectComponent
+        {
+            return (Type)components[typeof(Type)];
+        }
+        public void AddComponent<Type>(Type component) where Type : ObjectComponent
+        {
+            components.Add(typeof(Type),component);
+        }
+        public bool ContainsComponent<Type>() where Type : ObjectComponent
+        {
+            return components.ContainsKey(typeof(Type));
         }
     }
 }

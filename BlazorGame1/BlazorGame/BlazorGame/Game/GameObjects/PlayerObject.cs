@@ -34,21 +34,20 @@ namespace BlazorGame.Game.GameObjects
             ExperienceDecorator experienceDecorator = new ExperienceDecorator(exp, expBackGround);
             renders.renders.Add(experienceDecorator);
 
-
-            components.Add(typeof(Renders), renders);
+            AddComponent(renders);
         }
 
         public void SetInputs(int x, int y)
         {
-            (components[typeof(Player)] as Player).SetInputs(x, y);
+            GetComponent<Player>().SetInputs(x, y);
         }
         public void SetCannons(int x, int y)
         {
-            (components[typeof(Cannons)] as Cannons).SetCannons(x, y);
+            GetComponent<Cannons>().SetCannons(x, y);
         }
         public void SetShooting(bool shooting)
         {
-            (components[typeof(Cannons)] as Cannons).SetShooting(shooting);
+            GetComponent<Cannons>().SetShooting(shooting);
         }
     }
 }

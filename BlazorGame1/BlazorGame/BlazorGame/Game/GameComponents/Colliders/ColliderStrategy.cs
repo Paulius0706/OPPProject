@@ -17,14 +17,14 @@ namespace BlazorGame.Game.GameComponents.Colliders
             get
             {
                 if (!MainFrame.gameObjects.ContainsKey(gameObjectId) 
-                    || !MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Collider))) return null;
-                return (MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] as Collider);
+                    || !MainFrame.gameObjects[gameObjectId].ContainsComponent<Collider>()) return null;
+                return (MainFrame.gameObjects[gameObjectId].GetComponent<Collider>());
             }
             set
             {
                 if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && MainFrame.gameObjects[gameObjectId].components.ContainsKey(typeof(Collider)))
-                    MainFrame.gameObjects[gameObjectId].components[typeof(Collider)] = value;
+                    && MainFrame.gameObjects[gameObjectId].ContainsComponent<Collider>())
+                    collider = value;
             }
         }
         public abstract void AlgorithmInterface();

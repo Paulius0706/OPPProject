@@ -120,8 +120,8 @@ Welcome to your new app.
         int xoffset = (int)posX - Game.MainFrame.offsetX;
         int yoffset = (int)posY - Game.MainFrame.offsetY;
         foreach(GameObject gameObject in MainFrame.gameObjects.Values){
-            if (gameObject.components.ContainsKey(typeof(Renders)))
-            (gameObject.components[typeof(Renders)] as Renders).Render(ref context, xoffset, yoffset);
+            if (gameObject.ContainsComponent<Renders>() )
+            gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
         }
     }
     /*

@@ -17,7 +17,7 @@ namespace BlazorGame.Game.GameObjects
 
             renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 15, "red"));
 
-            components.Add(typeof(Renders), renders);
+            AddComponent(renders);
         }
 
         public void Mutate()
@@ -28,10 +28,11 @@ namespace BlazorGame.Game.GameObjects
         public BulletObject Clone()
         {
             BulletBuilder bulletBuilder = new BulletBuilder(position, velocity);
+            Console.WriteLine("BulletClone: shooter" + GetComponent<Bullet>().shooter);
             Director.director.Construct(ref bulletBuilder, 
-                (components[typeof(Bullet)] as Bullet).shooter, 
-                (components[typeof(Bullet)] as Bullet).damage, 
-                (components[typeof(Bullet)] as Bullet).health);
+                GetComponent<Bullet>().shooter,
+                GetComponent<Bullet>().damage,
+                GetComponent<Bullet>().health);
             return bulletBuilder.GetResult() as BulletObject;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
+using BlazorGame.Game.GameComponents.Colliders;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents
@@ -33,7 +34,7 @@ namespace BlazorGame.Game.GameComponents
             switch (MainFrame.gameObjects[gameObject].objectType)
             {
                 case GameObject.ObjectType.collectible: MainFrame.Destroy(this.gameObject); break;
-                case GameObject.ObjectType.bullet: TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).damage); break;
+                case GameObject.ObjectType.bullet: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Bullet>().damage); break;
                 case GameObject.ObjectType.player: MainFrame.Destroy(this.gameObject); break;
                 case GameObject.ObjectType.mob: MainFrame.Destroy(this.gameObject); break;
                 case GameObject.ObjectType.undentified: break;

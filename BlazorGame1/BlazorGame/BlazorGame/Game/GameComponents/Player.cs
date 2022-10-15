@@ -41,15 +41,16 @@ namespace BlazorGame.Game.GameComponents
         public Player(string name, int level)
         {
             this.name = name;
-            maxHealth = DefaultHealth;
-            health = maxHealth;
-            atributePoints = 0;
-            experiance = 0;
-            maxExperiance = DefaultExperiance;
-            moveSpeed = DefaultMoveSpeed;
-            damage = DefaultDamage;
-            bodyDamage = DefaultBodyDamage;
-            inputs = new float[2];
+            this.level = level;
+            this.maxHealth = DefaultHealth;
+            this.health = maxHealth;
+            this.atributePoints = 0;
+            this.experiance = 0;
+            this.maxExperiance = DefaultExperiance;
+            this.moveSpeed = DefaultMoveSpeed;
+            this.damage = DefaultDamage;
+            this.bodyDamage = DefaultBodyDamage;
+            this.inputs = new float[2];
         }
         public void GiveExp(float exp)
         {
@@ -60,6 +61,7 @@ namespace BlazorGame.Game.GameComponents
                 atributePoints++;
                 experiance -= maxExperiance;
                 maxExperiance = CalculateMaxExp();
+                Console.WriteLine("Player id:" + gameObject.id + " have new level:" + level);
             }
         }
 
@@ -81,34 +83,42 @@ namespace BlazorGame.Game.GameComponents
         }
         public override void CollisonTrigger(int gameObject)
         {
+            
             //Console.WriteLine("Collision Trigger: " + this.gameObject.id +" HP:"+health);
             switch (MainFrame.gameObjects[gameObject].objectType)
             {
-                case GameObject.ObjectType.collectible: TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Collectible)] as Collectible).bodyDamage); break;
-                case GameObject.ObjectType.bullet:      TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).damage); break;
-                case GameObject.ObjectType.player:      TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Player)] as Player).bodyDamage); break;
-                case GameObject.ObjectType.mob:         TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Collectible)] as Collectible).bodyDamage); break;
+                case GameObject.ObjectType.collectible: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Collectible>().bodyDamage); break;
+                case GameObject.ObjectType.bullet:      TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Bullet>().damage); break;
+                case GameObject.ObjectType.player:      TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Player>().bodyDamage); break;
+                case GameObject.ObjectType.mob:         TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Collectible>().bodyDamage); break;
                 case GameObject.ObjectType.undentified: break;
             }
         }
         public void TakeDamage(int gameObject, float damage)
         {
-            health -= damage;
-            if (health <= 0)
+            if(health > 0) 
             {
-                switch (MainFrame.gameObjects[gameObject].objectType)
+                health -= damage;
+                Console.WriteLine("PlayerObject of level:"+level+" gotHit by Id:" + gameObject + " type:" + MainFrame.gameObjects[gameObject].objectType);
+                if (health <= 0)
                 {
-                    //case of bullet damage
-                    case GameObject.ObjectType.bullet:
-                        int playerId = (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).shooter;
-                        if (MainFrame.gameObjects.ContainsKey(playerId)) { (MainFrame.gameObjects[playerId].components[typeof(Player)] as Player).GiveExp(CalculateDeathExp()); }
-                        break;
-                    //case of player object damage
-                    case GameObject.ObjectType.player:
-                        (MainFrame.gameObjects[gameObject].components[typeof(Player)] as Player).GiveExp(CalculateDeathExp());
-                        break;
+                    Console.WriteLine("PlayerObject died by Id:" + gameObject + " type:" + MainFrame.gameObjects[gameObject].objectType);
+                    switch (MainFrame.gameObjects[gameObject].objectType)
+                    {
+                        //case of bullet damage
+                        case GameObject.ObjectType.bullet:
+                            int playerId = MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter;
+                            if (!MainFrame.gameObjects.ContainsKey(playerId)) Console.WriteLine("plauerId is not valid: " + playerId);
+                            else Console.WriteLine("playerId is: " + playerId + " and gets: " + CalculateDeathExp());
+                            if (MainFrame.gameObjects.ContainsKey(playerId)) { MainFrame.gameObjects[playerId].GetComponent<Player>().GiveExp(CalculateDeathExp()); }
+                            break;
+                        //case of player object damage
+                        case GameObject.ObjectType.player:
+                            MainFrame.gameObjects[gameObject].GetComponent<Player>().GiveExp(CalculateDeathExp());
+                            break;
+                    }
+                    MainFrame.Destroy(this.gameObject);
                 }
-                MainFrame.Destroy(this.gameObject);
             }
         }
         public float CalculateDeathExp(){ return level * 10;}
@@ -184,13 +194,13 @@ namespace BlazorGame.Game.GameComponents
             get
             {
                 if (gameObject == null) return null;
-                if (!gameObject.components.ContainsKey(typeof(Renders))) return null;
-                return (gameObject.components[typeof(Renders)] as Renders);
+                if (!gameObject.ContainsComponent<Renders>()) return null;
+                return (gameObject.GetComponent<Renders>());
             }
             set
             {
-                if (gameObject != null && gameObject.components.ContainsKey(typeof(Renders)))
-                    gameObject.components[typeof(Renders)] = value;
+                if (gameObject != null && gameObject.ContainsComponent<Renders>())
+                    renders = value;
             }
         }
         private int expRenderId = -1;

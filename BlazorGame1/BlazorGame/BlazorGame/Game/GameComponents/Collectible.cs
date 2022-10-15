@@ -53,8 +53,8 @@ namespace BlazorGame.Game.GameComponents
             foreach (GameObject gameObject in MainFrame.gameObjects.Values)
             {
                 if (gameObject.objectType == GameObject.ObjectType.player
-                    && MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) < Player.DespawnCollectiblesDist
-                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) < Player.DespawnCollectiblesDist)
+                    && MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) <= Player.DespawnCollectiblesDist
+                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) <= Player.DespawnCollectiblesDist)
                 {
                     delete = false;
                     break;
@@ -72,8 +72,8 @@ namespace BlazorGame.Game.GameComponents
                 case GameObject.ObjectType.collectible: 
                     
                     break;
-                case GameObject.ObjectType.bullet: TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).damage); break;
-                case GameObject.ObjectType.player: TakeDamage(gameObject, (MainFrame.gameObjects[gameObject].components[typeof(Player)] as Player).bodyDamage); break;
+                case GameObject.ObjectType.bullet: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Bullet>().damage); break;
+                case GameObject.ObjectType.player: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Player>().bodyDamage); break;
                 case GameObject.ObjectType.mob: break;
                 case GameObject.ObjectType.undentified: break;
             }
@@ -87,12 +87,12 @@ namespace BlazorGame.Game.GameComponents
                 {
                     //case of bullet damage
                     case GameObject.ObjectType.bullet:
-                        int playerId = (MainFrame.gameObjects[gameObject].components[typeof(Bullet)] as Bullet).shooter;
-                        if (MainFrame.gameObjects.ContainsKey(playerId)) { (MainFrame.gameObjects[playerId].components[typeof(Player)] as Player).GiveExp(exp); }
+                        int playerId = MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter;
+                        if (MainFrame.gameObjects.ContainsKey(playerId)) { MainFrame.gameObjects[playerId].GetComponent<Player>().GiveExp(exp); }
                         break;
                     //case of player object damage
                     case GameObject.ObjectType.player:
-                        (MainFrame.gameObjects[gameObject].components[typeof(Player)] as Player).GiveExp(exp);
+                        MainFrame.gameObjects[gameObject].GetComponent<Player>().GiveExp(exp);
                         break;
                 }
                 MainFrame.Destroy(this.gameObject);
@@ -116,13 +116,13 @@ namespace BlazorGame.Game.GameComponents
             get
             {
                 if (gameObject == null) return null;
-                if (!gameObject.components.ContainsKey(typeof(Renders))) return null;
-                return (gameObject.components[typeof(Renders)] as Renders);
+                if (!gameObject.ContainsComponent<Renders>()) return null;
+                return (gameObject.GetComponent<Renders>());
             }
             set
             {
-                if (gameObject != null && gameObject.components.ContainsKey(typeof(Renders)))
-                    gameObject.components[typeof(Renders)] = value;
+                if (gameObject != null && gameObject.ContainsComponent<Renders>())
+                    renders = value;
             }
         }
         private int healthRenderId = -1;

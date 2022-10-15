@@ -33,13 +33,12 @@ namespace BlazorGame.Game.GameComponents
             get 
             {
                 if (gameObject == null) return null;
-                if (!gameObject.components.ContainsKey(typeof(Player))) return null;
-                return gameObject.components[typeof(Player)] as Player; 
+                if (!gameObject.ContainsComponent<Player>()) return null;
+                return gameObject.GetComponent<Player>(); 
             }
             set 
             { 
-                if (gameObject != null && gameObject.components.ContainsKey(typeof(Player)))
-                    gameObject.components[typeof(Player)] = value; 
+                if (gameObject != null && gameObject.ContainsComponent<Player>()) player = value; 
             }
         }
         public Renders renders
@@ -47,13 +46,12 @@ namespace BlazorGame.Game.GameComponents
             get
             {
                 if (gameObject == null) return null;
-                if (!gameObject.components.ContainsKey(typeof(Renders))) return null;
-                return (gameObject.components[typeof(Renders)] as Renders);
+                if (!gameObject.ContainsComponent<Renders>()) return null;
+                return gameObject.GetComponent<Renders>();
             }
             set
             {
-                if (gameObject != null && gameObject.components.ContainsKey(typeof(Renders)))
-                    gameObject.components[typeof(Renders)] = value;
+                if (gameObject != null && gameObject.ContainsComponent<Renders>()) renders = value;
             }
         }
         public GunsDecorator gunsDecorator
