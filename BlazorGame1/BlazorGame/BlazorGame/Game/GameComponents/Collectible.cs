@@ -2,15 +2,12 @@
 using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
 using BlazorGame.Game.GameComponents.RendersDecorum;
 using BlazorGame.Game.GameObjects;
+using BlazorGame.Game.GameComponents.Units;
 
 namespace BlazorGame.Game.GameComponents
 {
-    public class Collectible : ObjectComponent
+    public class Collectible : Unit
     {
-        public int exp;
-        public float health;
-        public float maxHealth;
-        public float bodyDamage;
         public CollectibleType type;
         public enum CollectibleType
         {
@@ -26,19 +23,19 @@ namespace BlazorGame.Game.GameComponents
             switch (collectibleType)
             {
                 case CollectibleType.col1:
-                    exp = 2;
+                    experiance = 2;
                     health = 2;
                     maxHealth = health;
                     bodyDamage = 2;
                     break;
                 case CollectibleType.col2:
-                    exp = 8;
+                    experiance = 8;
                     health = 6;
                     maxHealth = health;
                     bodyDamage = 4;
                     break;
                 case CollectibleType.col3:
-                    exp = 32;
+                    experiance = 32;
                     health = 18;
                     maxHealth = health;
                     bodyDamage = 12;
@@ -66,36 +63,9 @@ namespace BlazorGame.Game.GameComponents
         }
         public override void CollisonTrigger(int gameObject)
         {
-            //Console.WriteLine("Collectible Collision Trigger: " + this.gameObject.id + " HP:" + health);
-            switch (MainFrame.gameObjects[gameObject].objectType)
+            if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
             {
-                case GameObject.ObjectType.collectible: 
-                    
-                    break;
-                case GameObject.ObjectType.bullet: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Bullet>().damage); break;
-                case GameObject.ObjectType.player: TakeDamage(gameObject, MainFrame.gameObjects[gameObject].GetComponent<Player>().bodyDamage); break;
-                case GameObject.ObjectType.mob: break;
-                case GameObject.ObjectType.undentified: break;
-            }
-        }
-        public void TakeDamage(int gameObject, float damage)
-        {
-            health -= damage;
-            if (health <= 0)
-            {
-                switch (MainFrame.gameObjects[gameObject].objectType)
-                {
-                    //case of bullet damage
-                    case GameObject.ObjectType.bullet:
-                        int playerId = MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter;
-                        if (MainFrame.gameObjects.ContainsKey(playerId)) { MainFrame.gameObjects[playerId].GetComponent<Player>().GiveExp(exp); }
-                        break;
-                    //case of player object damage
-                    case GameObject.ObjectType.player:
-                        MainFrame.gameObjects[gameObject].GetComponent<Player>().GiveExp(exp);
-                        break;
-                }
-                MainFrame.Destroy(this.gameObject);
+                MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
             }
         }
         public override void ConnectionUpdate()
@@ -110,6 +80,13 @@ namespace BlazorGame.Game.GameComponents
                 }
             }
         }
+
+        public override float CalculateDeathExp()
+        {
+            return experiance;
+        }
+
+        public override void OnDestroy() { }
 
         public Renders renders
         {

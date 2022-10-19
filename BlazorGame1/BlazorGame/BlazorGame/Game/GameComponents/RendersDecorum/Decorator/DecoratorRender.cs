@@ -20,10 +20,7 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum.Decorator
 
         public override void Show(ref Canvas2DContext context, int xoffset, int yoffset)
         {
-            foreach (Render render in renders)
-            {
-                render.Show(ref context, xoffset, yoffset);
-            }
+            foreach (Render render in renders){render.Show(ref context, xoffset, yoffset);}
         }
 
     }

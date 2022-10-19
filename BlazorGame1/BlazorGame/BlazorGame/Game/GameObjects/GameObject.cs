@@ -138,9 +138,25 @@ namespace BlazorGame.Game.GameObjects
         }
 
 
-        public Type GetComponent<Type>() where Type : ObjectComponent
+        public T GetComponent<T>() where T : ObjectComponent
         {
-            return (Type)components[typeof(Type)];
+            return (T)components[typeof(T)];
+        }
+        public T AbstractGetComponent<T>() where T : ObjectComponent
+        {
+            foreach (Type key in components.Keys)
+            {
+                if (components[key].GetType().IsSubclassOf(typeof(T))) { return (T)components[key]; }
+            }
+            return null;
+        }
+        public Type GetComponentType<T>() where T : ObjectComponent
+        {
+            foreach (Type key in components.Keys)
+            {
+                if (components[key].GetType().IsSubclassOf(typeof(T))) { return components[key].GetType(); }
+            }
+            return null;
         }
         public void AddComponent<Type>(Type component) where Type : ObjectComponent
         {
@@ -150,5 +166,14 @@ namespace BlazorGame.Game.GameObjects
         {
             return components.ContainsKey(typeof(Type));
         }
+        public bool AbstarctContainsComponent<Type>() where Type : ObjectComponent
+        {
+            foreach(ObjectComponent component in components.Values)
+            {
+                if (component.GetType().IsSubclassOf(typeof(Type))) { return true; }
+            }
+            return false;
+        }
+        
     }
 }
