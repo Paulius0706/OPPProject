@@ -1,5 +1,6 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.Builder;
+using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameObjects;
 using Microsoft.AspNetCore.Components.RenderTree;
@@ -41,12 +42,42 @@ namespace BlazorGame.Game
 
 
         public static int gameObjectsCounting = 0;
+        public static List<Score> scores = new List<Score>();
         public static Dictionary<int, GameObject> gameObjects= new Dictionary<int, GameObject>();
         private static Queue<GameObject> createGameObjectsQueue = new Queue<GameObject>();
         private static Queue<int> destroyGameObjectsQueue = new Queue<int>();
         public static bool gameStarted = false;
         public static int offsetX = 1280 / 2;
         public static int offsetY = 720 / 2;
+
+        public static void addScore(int playerId, float score)
+        {
+            foreach (var item in scores)
+            {
+                if(item._playerId == playerId)
+                {
+                    item._score += score;
+                }
+            }
+        }
+
+        public static void deleteScore(int playerId)
+        {
+            for(int i = 0; i < scores.Count; i++)
+            {
+                if(scores[i]._playerId == playerId)
+                {
+                    scores.RemoveAt(i);
+                    break;
+                }
+                
+            }
+        }
+
+        public static void setScore(int playerId)
+        {
+            Score score = new Score(playerId,0);
+        }
 
         public static int CreateNewPlayer(string name, bool spawner = true)
         {

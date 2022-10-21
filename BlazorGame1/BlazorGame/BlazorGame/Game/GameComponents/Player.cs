@@ -7,6 +7,7 @@ using BlazorGame.Game.GameObjects.Factories;
 using System.Numerics;
 using System.Drawing;
 using BlazorGame.Game.GameComponents.Units;
+using BlazorGame.Game.Command;
 
 namespace BlazorGame.Game.GameComponents
 {
@@ -52,6 +53,9 @@ namespace BlazorGame.Game.GameComponents
         }
         public void GiveExp(float exp)
         {
+            CommandInvoker commandInvoker = new CommandInvoker();
+            commandInvoker.SetCommand(new AddPlayerScore(gameObject.id, exp));
+            commandInvoker.ExecuteCommand();
             experiance += exp;
             while(experiance >= maxExperiance)
             {
@@ -69,6 +73,9 @@ namespace BlazorGame.Game.GameComponents
             inputs[0] = inputX;
             inputs[1] = inputY;
         }
+        
+
+        
 
         public override void Update()
         {
@@ -94,7 +101,9 @@ namespace BlazorGame.Game.GameComponents
         
         public override void OnDestroy()
         {
-
+            CommandInvoker commandInvoker = new CommandInvoker();
+            commandInvoker.SetCommand(new DeletePlayerScore(gameObject.id));
+            commandInvoker.ExecuteCommand();
         }
 
         public override float CalculateDeathExp(){ return level * 10;}
