@@ -34,16 +34,19 @@ namespace BlazorGame.Game.GameComponents
         {
             if(hitObject == -1)
             {
+                //do damage
                 if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
                 {
                     MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
                 }
+                //check if object on verge of death( it will disapear next frame)
                 if (MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.id
                     && MainFrame.gameObjects.ContainsKey(shooter)
                     && MainFrame.gameObjects[shooter].ContainsComponent<Player>())
                 {
                     MainFrame.gameObjects[shooter].GetComponent<Player>().GiveExp(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
                 }
+                //checks what tipe of object it is
                 if(MainFrame.gameObjects[gameObject] is  not BulletObject)
                 {
                     hitObject = gameObject;

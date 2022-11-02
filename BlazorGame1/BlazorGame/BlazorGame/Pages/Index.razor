@@ -2,6 +2,7 @@
 @using Blazor.Extensions
 @using Blazor.Extensions.Canvas;
 @using Blazor.Extensions.Canvas.Canvas2D
+@using BlazorGame.Game.Command
 @using BlazorGame.Game.GameObjects
 @using BlazorGame.Game.GameComponents.RendersDecorum
 @using Game
@@ -46,7 +47,7 @@ Welcome to your new app.
     {
         if (firstRender)
         {
-            playerId = Game.MainFrame.CreateNewPlayer("");
+            playerId = Game.MainFrame.CreateNewPlayer("AWA");
             context = await this._myCanvas.CreateCanvas2DAsync();
             //recive message
             Game.MainFrame.updateEvent += async date =>
@@ -60,7 +61,7 @@ Welcome to your new app.
                         velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
                         posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
                         posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
-                        
+
                     }
                     Render();
                     //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
@@ -121,8 +122,19 @@ Welcome to your new app.
         int yoffset = (int)posY - Game.MainFrame.offsetY;
         foreach(GameObject gameObject in MainFrame.gameObjects.Values){
             if (gameObject.ContainsComponent<Renders>() )
-            gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
+                gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
         }
+        //for (int i = 0; i < Math.Min(MainFrame.scores.Count, 10); i++)
+        //{
+        //    this.context.SetFillStyleAsync("green");
+        //    //this.context.FillRectAsync(MainFrame.width - MainFrame.scoreWidth - 5, +5 + i * (MainFrame.scoreHeight + 5), MainFrame.scoreWidth, MainFrame.scoreHeight);
+        //    this.context.FillRectAsync(0, 0, MainFrame.scoreWidth, MainFrame.scoreHeight);
+
+        //}
+        //Console.WriteLine(MainFrame.scores.Count);
+        MainFrame.RenderScores(ref this.context);
+        player.RenderUI();
+
     }
     /*
     //render stuff gotten from server

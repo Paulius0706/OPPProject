@@ -323,6 +323,7 @@ namespace BlazorGame.Tests
             Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().health < MainFrame.gameObjects[playerId].GetComponent<Player>().maxHealth, "gameobjects count: " + MainFrame.gameObjects.Values.Count);
         }
 
-        // TM 16
+        // TM 16 Scores
+
     }
 }

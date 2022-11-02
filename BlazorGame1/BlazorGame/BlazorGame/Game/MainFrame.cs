@@ -6,6 +6,7 @@ using BlazorGame.Game.GameObjects;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -32,6 +33,7 @@ namespace BlazorGame.Game
                     watch.Restart();
                     Update();
                     if (updateEvent != null) await updateEvent?.Invoke(DateTime.Now);
+                    scores.Sort((emp1, emp2) => emp2._score.CompareTo(emp1._score));
                 }
 
                 
@@ -49,6 +51,11 @@ namespace BlazorGame.Game
         public static bool gameStarted = false;
         public static int offsetX = 1280 / 2;
         public static int offsetY = 720 / 2;
+        public static int width = 1280;
+        public static int height = 720;
+
+        public static int scoreWidth = 250;
+        public static int scoreHeight = 50;
 
         public static void addScore(int playerId, float score)
         {
@@ -59,6 +66,10 @@ namespace BlazorGame.Game
                     item._score += score;
                 }
             }
+        }
+        public static void setScore(int playerId)
+        {
+            scores.Add(new Score(playerId, 0));
         }
 
         public static void deleteScore(int playerId)
@@ -73,11 +84,23 @@ namespace BlazorGame.Game
                 
             }
         }
-
-        public static void setScore(int playerId)
+        public static void RenderScores(ref Canvas2DContext context)
         {
-            Score score = new Score(playerId,0);
+            for (int i = 0; i < Math.Min(MainFrame.scores.Count, 10); i++)
+            {
+                if (MainFrame.gameObjects.ContainsKey(scores[i]._playerId) && gameObjects[scores[i]._playerId] is PlayerObject)
+                {
+                    string str = (i+1) + ". " + MainFrame.gameObjects[scores[i]._playerId].GetComponent<Player>().name + " " + scores[i]._score;
+                    context.SetFillStyleAsync("silver");
+                    context.FillRectAsync(width - scoreWidth - 5, +5 + i * (scoreHeight + 5), scoreWidth, scoreHeight);
+                    context.SetFontAsync("48px MathSansItalic");
+                    context.StrokeTextAsync(str, width - scoreWidth, +20 + i * (scoreHeight + 5) + scoreHeight / 2f, scoreWidth);
+                }
+                
+            }
         }
+
+        
 
         public static int CreateNewPlayer(string name, bool spawner = true)
         {
@@ -95,6 +118,7 @@ namespace BlazorGame.Game
 
             //testing
             Console.WriteLine("GAME SATRT playerID:" + gameObject.id + " PlayerComponentIndex:" + 0 + " GameObjects-exist: " + (gameObjects != null));
+            setScore(gameObject.id);
             return gameObject.id;
         }
         public static void Destroy(GameObject gameObject)

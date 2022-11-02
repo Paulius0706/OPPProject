@@ -1,22 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "ny1hvjjeAHF87DEnked2PHbWaFV/YxDHptJESiyD0WNzqfjpf3oIryCDAaNbWlSWBFNEisgpDPZbN7tdlyX27w==",
+  "dgSpecHash": "khlCCEfRDa2kKmCbkyCTvCwMowqy9pRsJhGmjIdhyD8NCZn9ZxShS2VYSVcY7PZd7/66X1s+IYe4XAVYuH8DHg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
+  "projectFilePath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\stelm\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\blazor.extensions.canvas.1.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.0\\microsoft.aspnetcore.authorization.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.components\\3.0.0\\microsoft.aspnetcore.components.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.0.0\\microsoft.aspnetcore.components.analyzers.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\3.0.0\\microsoft.aspnetcore.components.forms.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.components.web\\3.0.0\\microsoft.aspnetcore.components.web.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.0.0\\microsoft.aspnetcore.metadata.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.0\\microsoft.extensions.dependencyinjection.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.0\\microsoft.extensions.logging.abstractions.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
-    "C:\\Users\\stelm\\.nuget\\packages\\microsoft.jsinterop\\3.0.0\\microsoft.jsinterop.3.0.0.nupkg.sha512"
+    "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\blazor.extensions.canvas.1.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.0.0\\microsoft.aspnetcore.authorization.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components\\3.0.0\\microsoft.aspnetcore.components.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.0.0\\microsoft.aspnetcore.components.analyzers.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\3.0.0\\microsoft.aspnetcore.components.forms.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.components.web\\3.0.0\\microsoft.aspnetcore.components.web.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.0.0\\microsoft.aspnetcore.metadata.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.0\\microsoft.extensions.dependencyinjection.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.0\\microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.0\\microsoft.extensions.logging.abstractions.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.jsinterop\\3.0.0\\microsoft.jsinterop.3.0.0.nupkg.sha512"
   ],
   "logs": []
 }

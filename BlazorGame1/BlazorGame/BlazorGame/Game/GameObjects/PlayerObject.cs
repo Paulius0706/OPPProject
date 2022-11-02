@@ -49,5 +49,10 @@ namespace BlazorGame.Game.GameObjects
         {
             GetComponent<Cannons>().SetShooting(shooting);
         }
+
+        public void RenderUI()
+        {
+
+        }
     }
 }

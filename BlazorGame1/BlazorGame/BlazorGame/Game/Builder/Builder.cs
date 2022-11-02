@@ -15,7 +15,7 @@ namespace BlazorGame.Game.Builder
         }
         public void BuildPlayer(string name, int level)
         {
-            Player player = new Player("", level);
+            Player player = new Player(name, level);
             gameObject.AddComponent(player);
             //ConnectionUpdate();
         }
