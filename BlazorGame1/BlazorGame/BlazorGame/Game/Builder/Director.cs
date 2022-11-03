@@ -6,24 +6,28 @@ namespace BlazorGame.Game.Builder
 {
     public class Director
     {
-        public static Director director = new Director();
-        public void Construct(ref PlayerBuilder playerBuilder, string name, int level)
+        private static Director director = null;
+
+        public static void Construct(ref PlayerBuilder playerBuilder, string name, int level)
         {
+            if(director == null) director = new Director();
             // add components
             playerBuilder.BuildPlayer(name, level);
             playerBuilder.BuildCannons();
             playerBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 50f, false, true);
         }
-        public void Construct(ref CollectibleBuilder collectibleBuilder, Collectible.CollectibleType collectibleType)
+        public static void Construct(ref CollectibleBuilder collectibleBuilder, Collectible.CollectibleType collectibleType)
         {
-            // add components
-            collectibleBuilder.BuildCollectible(collectibleType);
+			if (director == null) director = new Director();
+			// add components
+			collectibleBuilder.BuildCollectible(collectibleType);
             collectibleBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 20f);
         }
-        public void Construct(ref BulletBuilder bulletBuilder, int shooter, float damage, float health)
+        public static void Construct(ref BulletBuilder bulletBuilder, int shooter, float damage, float health)
         {
-            // add components
-            bulletBuilder.BuildBullet(shooter, damage, health);
+			if (director == null) director = new Director();
+			// add components
+			bulletBuilder.BuildBullet(shooter, damage, health);
             bulletBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 15f,false,true);
         }
     }

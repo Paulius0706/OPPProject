@@ -106,7 +106,8 @@ namespace BlazorGame.Game
         {
             // instatijuoti player
             PlayerBuilder playerBuilder = new PlayerBuilder(new float[]{ 0,0});
-            Director.director.Construct(ref playerBuilder,name,1);
+            Director.Construct(ref playerBuilder,name,1);
+            
             GameObject gameObject = playerBuilder.GetResult();
             if (!spawner) (gameObject as PlayerObject).GetComponent<Player>().setSpawner = false;
             gameObject.id = gameObjectsCounting;

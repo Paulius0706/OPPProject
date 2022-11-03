@@ -133,7 +133,7 @@ Welcome to your new app.
         //}
         //Console.WriteLine(MainFrame.scores.Count);
         MainFrame.RenderScores(ref this.context);
-        player.RenderUI();
+        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.RenderUI(); }
 
     }
     /*

@@ -32,7 +32,7 @@ namespace BlazorGame.Game.GameObjects
         public CollectibleObject Clone()
         {
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(position);
-            Director.director.Construct(ref collectibleBuilder, GetComponent<Collectible>().type);
+            Director.Construct(ref collectibleBuilder, GetComponent<Collectible>().type);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }
     }
