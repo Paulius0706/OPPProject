@@ -4,28 +4,34 @@ using static BlazorGame.Game.GameObjects.GameObject;
 
 namespace BlazorGame.Game.Builder
 {
-    public class Director
+    public sealed class Director
     {
-        private static Director director = null;
-
-        public static void Construct(ref PlayerBuilder playerBuilder, string name, int level)
+        private static readonly Director director = new Director();
+        
+		private static object threadLock = new object();
+		private Director() { }
+		public static Director GetInstance()
         {
-            if(director == null) director = new Director();
+           lock(threadLock) { return director;}
+        }
+        public void Construct(ref PlayerBuilder playerBuilder, string name, int level)
+        {
+           // if(director == null) director = new Director();
             // add components
             playerBuilder.BuildPlayer(name, level);
             playerBuilder.BuildCannons();
             playerBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 50f, false, true);
         }
-        public static void Construct(ref CollectibleBuilder collectibleBuilder, Collectible.CollectibleType collectibleType)
+        public void Construct(ref CollectibleBuilder collectibleBuilder, Collectible.CollectibleType collectibleType)
         {
-			if (director == null) director = new Director();
+			//if (director == null) director = new Director();
 			// add components
 			collectibleBuilder.BuildCollectible(collectibleType);
             collectibleBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 20f);
         }
-        public static void Construct(ref BulletBuilder bulletBuilder, int shooter, float damage, float health)
+        public void Construct(ref BulletBuilder bulletBuilder, int shooter, float damage, float health)
         {
-			if (director == null) director = new Director();
+			//if (director == null) director = new Director();
 			// add components
 			bulletBuilder.BuildBullet(shooter, damage, health);
             bulletBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 15f,false,true);

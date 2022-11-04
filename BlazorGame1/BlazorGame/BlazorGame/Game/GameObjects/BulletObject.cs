@@ -29,7 +29,7 @@ namespace BlazorGame.Game.GameObjects
         {
             BulletBuilder bulletBuilder = new BulletBuilder(position, velocity);
             //Console.WriteLine("BulletClone: shooter" + GetComponent<Bullet>().shooter);
-            Director.Construct(ref bulletBuilder,
+            Director.GetInstance().Construct(ref bulletBuilder,
                 GetComponent<Bullet>().shooter,
                 GetComponent<Bullet>().bodyDamage,
                 GetComponent<Bullet>().health);

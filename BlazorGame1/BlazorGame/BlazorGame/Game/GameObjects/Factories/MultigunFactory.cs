@@ -12,7 +12,7 @@ namespace BlazorGame.Game.GameObjects.Factories
         {
             //needs override
             BulletBuilder bulletBuilder = new BulletBuilder(new float[] { 0, 0 }, new float[] { 0, 0 });
-            Director.Construct(ref bulletBuilder, gameObject.id, player.damage, player.damage);
+            Director.GetInstance().Construct(ref bulletBuilder, gameObject.id, player.damage, player.damage);
             return bulletBuilder.GetResult() as BulletObject;
         }
 
@@ -20,7 +20,7 @@ namespace BlazorGame.Game.GameObjects.Factories
         {
             //needs override
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 0, 0 });
-            Director.Construct(ref collectibleBuilder, GameComponents.Collectible.CollectibleType.col1);
+            Director.GetInstance().Construct(ref collectibleBuilder, GameComponents.Collectible.CollectibleType.col2);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }
     }
