@@ -11,6 +11,9 @@
 
 <h1 style="background-color: @style">Hello, world!</h1>
 <p> PlayerID:@playerId inputXY:@inputX @inputY velocity:@velX @velY position:@posX @posY cannonDirection:@mouseposX @mouseposY shooting: @shooting</p>
+
+<input type="text" @bind="nameInput" />
+<button type="button" @onclick="PlayGame"> Start Play </button>
 <div @ref="focusRef" tabindex="0" @onkeydown="HandleKeyDown" @onkeyup="HandleKeyUp" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" @onmousedown="OnMouseDown">
     <BECanvas @ref="_myCanvas" Width="1280" Height="720"></BECanvas>
 </div>
@@ -23,13 +26,15 @@ Welcome to your new app.
 @code {
     private Canvas2DContext context;
     private ElementReference focusRef;
+    public string nameInput = "Guest";
     protected BECanvasComponent _myCanvas;
-    public int playerId;
+    public int playerId = -1;
     public PlayerObject player 
     {
         get { return (MainFrame.gameObjects[playerId] as PlayerObject); } 
         set { MainFrame.gameObjects[playerId] = value; }
     }
+
     string style = "white";
     public int inputX = 0;
     public int inputY = 0;
@@ -37,9 +42,9 @@ Welcome to your new app.
     public int velY = 0;
     public int posX = 0;
     public int posY = 0;
-    public float mouseposX;
-    public float mouseposY;
-    public bool shooting;
+    public float mouseposX = 0;
+    public float mouseposY = 0;
+    public bool shooting = false;
 
 
 
@@ -47,31 +52,59 @@ Welcome to your new app.
     {
         if (firstRender)
         {
-            playerId = Game.MainFrame.CreateNewPlayer("AWA");
-            context = await this._myCanvas.CreateCanvas2DAsync();
-            //recive message
-            Game.MainFrame.updateEvent += async date =>
-            {
-                await InvokeAsync(() =>
-                {
-                    //StateHasChanged();
-                    //style = style == "grey" ? "black" : "grey";
-                    if(MainFrame.gameObjects.ContainsKey(playerId)){
-                        velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
-                        velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
-                        posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
-                        posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+            //playerId = Game.MainFrame.CreateNewPlayer("AWA");
+            //context = await this._myCanvas.CreateCanvas2DAsync();
+            ////recive message
+            //Game.MainFrame.updateEvent += async date =>
+            //{
+            //    await InvokeAsync(() =>
+            //    {
+            //        //StateHasChanged();
+            //        //style = style == "grey" ? "black" : "grey";
+            //        if(MainFrame.gameObjects.ContainsKey(playerId)){
+            //            velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
+            //            velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
+            //            posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
+            //            posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
 
-                    }
-                    Render();
-                    //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
-                    //mouseposY = (Game.MainFrame.gameObjects[playerId].components[0] as Player).cannon.dimensions[1];
-                    StateHasChanged();
+            //        }
+            //        Render();
+            //        //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
+            //        //mouseposY = (Game.MainFrame.gameObjects[playerId].components[0] as Player).cannon.dimensions[1];
+            //        StateHasChanged();
 
-                });
-            };
+            //    });
+            //};
 
         }
+    }
+    public async void PlayGame()
+    {
+        playerId = Game.MainFrame.CreateNewPlayer(nameInput);
+        context = await this._myCanvas.CreateCanvas2DAsync();
+        //recive message
+        Game.MainFrame.updateEvent += async date =>
+        {
+            await InvokeAsync(() =>
+            {
+                //StateHasChanged();
+                //style = style == "grey" ? "black" : "grey";
+                if (MainFrame.gameObjects.ContainsKey(playerId))
+                {
+                    velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
+                    velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
+                    posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
+                    posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+
+                }
+                Render();
+                //mouseposX = (Game.MainFrame.gameObjects[playerId].components[0] as Game.GameComponents.Player).cannons.dimensions[0];
+                //mouseposY = (Game.MainFrame.gameObjects[playerId].components[0] as Player).cannon.dimensions[1];
+                StateHasChanged();
+
+            });
+        };
+        StateHasChanged();
     }
 
     // send message

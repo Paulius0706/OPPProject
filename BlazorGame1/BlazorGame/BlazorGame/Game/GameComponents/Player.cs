@@ -91,7 +91,10 @@ namespace BlazorGame.Game.GameComponents
 
             if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
             {
-                MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                if(MainFrame.gameObjects[gameObject] is not BulletObject)
+                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                if(MainFrame.gameObjects[gameObject] is BulletObject && MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter != base.gameObject.id)
+                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
             }
             if(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.id)
             {

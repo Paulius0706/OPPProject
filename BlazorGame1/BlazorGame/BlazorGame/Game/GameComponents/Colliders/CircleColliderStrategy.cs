@@ -21,6 +21,10 @@ namespace BlazorGame.Game.GameComponents.Colliders
                     {
                         CollideCircleCircle(gameObject.id);
                     }
+                    if (gameObject is BulletObject)
+                    {
+                        CollideCircleCircle(gameObject.id);
+                    }
                     if (gameObject.objectType == GameObject.ObjectType.mob)
                     {
                         CollideCircleCircle(gameObject.id);
@@ -43,7 +47,7 @@ namespace BlazorGame.Game.GameComponents.Colliders
                 MainFrame.gameObjects[gameObjectId].CollisionTrigger(gameObject.id);
                 base.gameObject.CollisionTrigger(gameObjectId);
 
-
+                if (base.gameObject is BulletObject && MainFrame.gameObjects[gameObjectId] is BulletObject) return;
                 // fix circles positions
                 float totalDistance = MathF.Sqrt(x * x + y * y);
                 float dirx = x / totalDistance;
@@ -64,10 +68,10 @@ namespace BlazorGame.Game.GameComponents.Colliders
                 float mass1 = base.gameObject.mass;
                 float mass2 = MainFrame.gameObjects[gameObjectId].mass;
 
-                base.gameObject.velocity[0] -= totalVelocity * dirx * (mass2 / (mass1 + mass2));
-                base.gameObject.velocity[1] -= totalVelocity * diry * (mass2 / (mass1 + mass2));
-                MainFrame.gameObjects[gameObjectId].velocity[0] += totalVelocity * dirx * (mass1 / (mass1 + mass2));
-                MainFrame.gameObjects[gameObjectId].velocity[1] += totalVelocity * diry * (mass1 / (mass1 + mass2));
+                base.gameObject.velocity[0] -= totalVelocity * dirx * (mass2 / (mass1 + mass2))*2;
+                base.gameObject.velocity[1] -= totalVelocity * diry * (mass2 / (mass1 + mass2))*2;
+                MainFrame.gameObjects[gameObjectId].velocity[0] += totalVelocity * dirx * (mass1 / (mass1 + mass2))*2;
+                MainFrame.gameObjects[gameObjectId].velocity[1] += totalVelocity * diry * (mass1 / (mass1 + mass2))*2;
             }
         }
     }

@@ -35,7 +35,11 @@ namespace BlazorGame.Game.GameComponents
             if(hitObject == -1)
             {
                 //do damage
-                if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
+                if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>() && shooter != gameObject && MainFrame.gameObjects[gameObject] is not BulletObject)
+                {
+                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                }
+                if(MainFrame.gameObjects[gameObject] is BulletObject && shooter != MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter)
                 {
                     MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
                 }
@@ -47,7 +51,7 @@ namespace BlazorGame.Game.GameComponents
                     MainFrame.gameObjects[shooter].GetComponent<Player>().GiveExp(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
                 }
                 //checks what tipe of object it is
-                if(MainFrame.gameObjects[gameObject] is  not BulletObject)
+                if(MainFrame.gameObjects[gameObject] is  not BulletObject && (gameObject != shooter))
                 {
                     hitObject = gameObject;
                     OnDestroy();
