@@ -31,8 +31,8 @@ Welcome to your new app.
     public int playerId = -1;
     public PlayerObject player 
     {
-        get { return (MainFrame.gameObjects[playerId] as PlayerObject); } 
-        set { MainFrame.gameObjects[playerId] = value; }
+        get { return (MainFrame.GameObjects[playerId] as PlayerObject); } 
+        set { MainFrame.GameObjects[playerId] = value; }
     }
 
     string style = "white";
@@ -83,18 +83,18 @@ Welcome to your new app.
         playerId = Game.MainFrame.CreateNewPlayer(nameInput);
         context = await this._myCanvas.CreateCanvas2DAsync();
         //recive message
-        Game.MainFrame.updateEvent += async date =>
+        Game.MainFrame.UpdateEvent += async date =>
         {
             await InvokeAsync(() =>
             {
                 //StateHasChanged();
                 //style = style == "grey" ? "black" : "grey";
-                if (MainFrame.gameObjects.ContainsKey(playerId))
+                if (MainFrame.GameObjects.ContainsKey(playerId))
                 {
-                    velX = (int)Game.MainFrame.gameObjects[playerId].velocity[0];
-                    velY = (int)Game.MainFrame.gameObjects[playerId].velocity[1];
-                    posX = (int)Game.MainFrame.gameObjects[playerId].position[0];
-                    posY = (int)Game.MainFrame.gameObjects[playerId].position[1];
+                    velX = (int)Game.MainFrame.GameObjects[playerId].Velocity[0];
+                    velY = (int)Game.MainFrame.GameObjects[playerId].Velocity[1];
+                    posX = (int)Game.MainFrame.GameObjects[playerId].Position[0];
+                    posY = (int)Game.MainFrame.GameObjects[playerId].Position[1];
 
                 }
                 Render();
@@ -115,7 +115,7 @@ Welcome to your new app.
         if (e.Key == "s" || e.Key == "S") { inputY = 1; }
         if (e.Key == "a" || e.Key == "A") { inputX = -1; }
         if (e.Key == "d" || e.Key == "D") { inputX = 1; }
-        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
+        if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
     }
     private void HandleKeyUp(KeyboardEventArgs e)
     {
@@ -124,20 +124,20 @@ Welcome to your new app.
         if ((e.Key == "s" || e.Key == "S") && inputY == 1) { inputY = 0; }
         if ((e.Key == "a" || e.Key == "A") && inputX == -1) { inputX = 0; }
         if ((e.Key == "d" || e.Key == "D") && inputX == 1) { inputX = 0; }
-        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
+        if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.SetInputs(inputX, inputY); }
     }
     private void OnMouseMove(MouseEventArgs e)
     {
-        mouseposX = (int)e.OffsetX - Game.MainFrame.offsetX;
-        mouseposY = (int)e.OffsetY - Game.MainFrame.offsetY;
-        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetCannons((int)e.OffsetX, (int)e.OffsetY); }
+        mouseposX = (int)e.OffsetX - Game.MainFrame.OffsetX;
+        mouseposY = (int)e.OffsetY - Game.MainFrame.OffsetY;
+        if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.SetCannons((int)e.OffsetX, (int)e.OffsetY); }
     }
     private void OnMouseUp(MouseEventArgs e)
     {
         if (e.Button == 0 && playerId != -1)
         {
             shooting = false;
-            if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetShooting(false); }
+            if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.SetShooting(false); }
         } 
     }
     private void OnMouseDown(MouseEventArgs e)
@@ -145,15 +145,15 @@ Welcome to your new app.
         if (e.Button == 0 && playerId != -1)
         {
             shooting = true;
-            if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.SetShooting(true); }
+            if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.SetShooting(true); }
         }
     }
     private void Render(){
         this.context.SetFillStyleAsync("lightgray");
         this.context.FillRectAsync(0, 0, 1280, 720);
-        int xoffset = (int)posX - Game.MainFrame.offsetX;
-        int yoffset = (int)posY - Game.MainFrame.offsetY;
-        foreach(GameObject gameObject in MainFrame.gameObjects.Values){
+        int xoffset = (int)posX - Game.MainFrame.OffsetX;
+        int yoffset = (int)posY - Game.MainFrame.OffsetY;
+        foreach(GameObject gameObject in MainFrame.GameObjects.Values){
             if (gameObject.ContainsComponent<Renders>() )
                 gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
         }
@@ -166,7 +166,7 @@ Welcome to your new app.
         //}
         //Console.WriteLine(MainFrame.scores.Count);
         MainFrame.RenderScores(ref this.context);
-        if (Game.MainFrame.gameObjects.ContainsKey(playerId)) { player.RenderUI(); }
+        if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { player.RenderUI(); }
 
     }
     /*

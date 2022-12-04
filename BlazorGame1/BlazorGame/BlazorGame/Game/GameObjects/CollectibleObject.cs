@@ -9,9 +9,9 @@ namespace BlazorGame.Game.GameObjects
     {
         public override void Create()
         {
-            base.objectType = ObjectType.collectible;
-            base.mass = 1f;
-            base.deacceleration = CollectiblesDecceleration;
+            base.objectType = ObjectType.Collectible;
+            base.Mass = 1f;
+            base.Deacceleration = CollectiblesDecceleration;
 
             Renders renders = new Renders();
 
@@ -31,7 +31,7 @@ namespace BlazorGame.Game.GameObjects
 
         public CollectibleObject Clone()
         {
-            CollectibleBuilder collectibleBuilder = new CollectibleBuilder(position);
+            CollectibleBuilder collectibleBuilder = new CollectibleBuilder(Position);
             Director.GetInstance().Construct(ref collectibleBuilder, GetComponent<Collectible>().type);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }

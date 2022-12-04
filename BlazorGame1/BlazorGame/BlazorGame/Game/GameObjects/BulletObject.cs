@@ -9,9 +9,9 @@ namespace BlazorGame.Game.GameObjects
     {
         public override void Create()
         {
-            base.objectType = ObjectType.bullet;
-            base.mass = 1f;
-            base.deacceleration = BulletDecceleration;
+            base.objectType = ObjectType.Bullet;
+            base.Mass = 1f;
+            base.Deacceleration = BulletDecceleration;
 
             Renders renders = new Renders();
 
@@ -27,7 +27,7 @@ namespace BlazorGame.Game.GameObjects
 
         public BulletObject Clone()
         {
-            BulletBuilder bulletBuilder = new BulletBuilder(position, velocity);
+            BulletBuilder bulletBuilder = new BulletBuilder(Position, Velocity);
             //Console.WriteLine("BulletClone: shooter" + GetComponent<Bullet>().shooter);
             Director.GetInstance().Construct(ref bulletBuilder,
                 GetComponent<Bullet>().shooter,

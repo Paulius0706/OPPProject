@@ -7,27 +7,27 @@ namespace BlazorGame.Game.GameComponents.Colliders
     {
         public override void AlgorithmInterface()
         {
-            foreach (GameObject gameObject in MainFrame.gameObjects.Values)
+            foreach (GameObject gameObject in MainFrame.GameObjects.Values)
             {
-                if (gameObject.id != this.gameObject.id
-                    && (base.gameObject.position[0] < gameObject.position[0] + Collider.CollisionRange || base.gameObject.position[0] > gameObject.position[0] - Collider.CollisionRange)
-                    && (base.gameObject.position[1] < gameObject.position[1] + Collider.CollisionRange || base.gameObject.position[1] > gameObject.position[1] - Collider.CollisionRange))
+                if (gameObject.Id != this.gameObject.Id
+                    && (base.gameObject.Position[0] < gameObject.Position[0] + Collider.CollisionRange || base.gameObject.Position[0] > gameObject.Position[0] - Collider.CollisionRange)
+                    && (base.gameObject.Position[1] < gameObject.Position[1] + Collider.CollisionRange || base.gameObject.Position[1] > gameObject.Position[1] - Collider.CollisionRange))
                 {
                     if (gameObject is PlayerObject)
                     {
-                        CollideCircleCircle(gameObject.id);
+                        CollideCircleCircle(gameObject.Id);
                     }
                     if (gameObject is CollectibleObject)
                     {
-                        CollideCircleCircle(gameObject.id);
+                        CollideCircleCircle(gameObject.Id);
                     }
                     if (gameObject is BulletObject)
                     {
-                        CollideCircleCircle(gameObject.id);
+                        CollideCircleCircle(gameObject.Id);
                     }
-                    if (gameObject.objectType == GameObject.ObjectType.mob)
+                    if (gameObject.objectType == GameObject.ObjectType.Mob)
                     {
-                        CollideCircleCircle(gameObject.id);
+                        CollideCircleCircle(gameObject.Id);
                     }
                 }
             }
@@ -35,43 +35,43 @@ namespace BlazorGame.Game.GameComponents.Colliders
 
         private void CollideCircleCircle(int gameObjectId)
         {
-            float x = MainFrame.gameObjects[gameObjectId].GetComponent<Collider>().offset[0] + MainFrame.gameObjects[gameObjectId].position[0] -
-                      (collider.offset[0] + base.gameObject.position[0]);
-            float y = MainFrame.gameObjects[gameObjectId].GetComponent<Collider>().offset[1] + MainFrame.gameObjects[gameObjectId].position[1] -
-                      (collider.offset[1] + base.gameObject.position[1]);
+            float x = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().offset[0] + MainFrame.GameObjects[gameObjectId].Position[0] -
+                      (collider.offset[0] + base.gameObject.Position[0]);
+            float y = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().offset[1] + MainFrame.GameObjects[gameObjectId].Position[1] -
+                      (collider.offset[1] + base.gameObject.Position[1]);
 
-            float totalRadius = MainFrame.gameObjects[gameObjectId].GetComponent<Collider>().radius + collider.radius;
+            float totalRadius = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().radius + collider.radius;
             if (totalRadius * totalRadius > x * x + y * y)
             {
                 // Circles are totaly collide
-                MainFrame.gameObjects[gameObjectId].CollisionTrigger(gameObject.id);
+                MainFrame.GameObjects[gameObjectId].CollisionTrigger(gameObject.Id);
                 base.gameObject.CollisionTrigger(gameObjectId);
 
-                if (base.gameObject is BulletObject && MainFrame.gameObjects[gameObjectId] is BulletObject) return;
+                if (base.gameObject is BulletObject && MainFrame.GameObjects[gameObjectId] is BulletObject) return;
                 // fix circles positions
                 float totalDistance = MathF.Sqrt(x * x + y * y);
                 float dirx = x / totalDistance;
                 float diry = y / totalDistance;
-                base.gameObject.position[0] -= (totalRadius - totalDistance) * dirx * 1.01f;
-                base.gameObject.position[1] -= (totalRadius - totalDistance) * diry * 1.01f;
+                base.gameObject.Position[0] -= (totalRadius - totalDistance) * dirx * 1.01f;
+                base.gameObject.Position[1] -= (totalRadius - totalDistance) * diry * 1.01f;
 
-                MainFrame.gameObjects[gameObjectId].position[0] += (totalRadius - totalDistance) * dirx * 1.01f;
-                MainFrame.gameObjects[gameObjectId].position[1] += (totalRadius - totalDistance) * diry * 1.01f;
+                MainFrame.GameObjects[gameObjectId].Position[0] += (totalRadius - totalDistance) * dirx * 1.01f;
+                MainFrame.GameObjects[gameObjectId].Position[1] += (totalRadius - totalDistance) * diry * 1.01f;
 
                 // change circles velocities
-                float[] velocity1 = base.gameObject.velocity;
-                float[] velocity2 = MainFrame.gameObjects[gameObjectId].velocity;
+                float[] velocity1 = base.gameObject.Velocity;
+                float[] velocity2 = MainFrame.GameObjects[gameObjectId].Velocity;
 
                 float[] velocity = new float[] { velocity2[0] - velocity1[0], velocity2[1] - velocity1[1] };
                 float totalVelocity = MathF.Sqrt(velocity[0] * velocity[0] + velocity[1] * velocity[1]);
 
-                float mass1 = base.gameObject.mass;
-                float mass2 = MainFrame.gameObjects[gameObjectId].mass;
+                float mass1 = base.gameObject.Mass;
+                float mass2 = MainFrame.GameObjects[gameObjectId].Mass;
 
-                base.gameObject.velocity[0] -= totalVelocity * dirx * (mass2 / (mass1 + mass2))*2;
-                base.gameObject.velocity[1] -= totalVelocity * diry * (mass2 / (mass1 + mass2))*2;
-                MainFrame.gameObjects[gameObjectId].velocity[0] += totalVelocity * dirx * (mass1 / (mass1 + mass2))*2;
-                MainFrame.gameObjects[gameObjectId].velocity[1] += totalVelocity * diry * (mass1 / (mass1 + mass2))*2;
+                base.gameObject.Velocity[0] -= totalVelocity * dirx * (mass2 / (mass1 + mass2))*2;
+                base.gameObject.Velocity[1] -= totalVelocity * diry * (mass2 / (mass1 + mass2))*2;
+                MainFrame.GameObjects[gameObjectId].Velocity[0] += totalVelocity * dirx * (mass1 / (mass1 + mass2))*2;
+                MainFrame.GameObjects[gameObjectId].Velocity[1] += totalVelocity * diry * (mass1 / (mass1 + mass2))*2;
             }
         }
     }

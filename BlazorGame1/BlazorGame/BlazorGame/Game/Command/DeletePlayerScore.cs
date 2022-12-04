@@ -2,15 +2,15 @@
 {
     public class DeletePlayerScore : Command
     {
-        int _playerId;
+        private int playerId;
         public DeletePlayerScore(int playerId)
         {
-            this._playerId = playerId;
+            this.playerId = playerId;
         }
 
         public override void Execute()
         {
-            MainFrame.deleteScore(_playerId);
+            MainFrame.DeleteScore(playerId);
         }
     }
 }

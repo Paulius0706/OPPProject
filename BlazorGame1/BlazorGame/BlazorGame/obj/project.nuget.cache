@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "khlCCEfRDa2kKmCbkyCTvCwMowqy9pRsJhGmjIdhyD8NCZn9ZxShS2VYSVcY7PZd7/66X1s+IYe4XAVYuH8DHg==",
+  "dgSpecHash": "IDNm7A61KVzxUjNIv7fluKOTv0mmylZ1O+7GGHS5LLKcxRcNQ89GNzxzIeFQDo58E1xHlF9lqdP9kMArF7KagQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\BlazorGame.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,8 @@
     "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.0\\microsoft.extensions.logging.abstractions.3.0.0.nupkg.sha512",
     "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.options\\3.0.0\\microsoft.extensions.options.3.0.0.nupkg.sha512",
     "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.0\\microsoft.extensions.primitives.3.0.0.nupkg.sha512",
-    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.jsinterop\\3.0.0\\microsoft.jsinterop.3.0.0.nupkg.sha512"
+    "C:\\Users\\Paulius\\.nuget\\packages\\microsoft.jsinterop\\3.0.0\\microsoft.jsinterop.3.0.0.nupkg.sha512",
+    "C:\\Users\\Paulius\\.nuget\\packages\\stylecop.analyzers\\1.1.118\\stylecop.analyzers.1.1.118.nupkg.sha512"
   ],
   "logs": []
 }

@@ -9,21 +9,21 @@ namespace BlazorGame.Game.GameComponents.Colliders
         private int gameObjectId = -1;
         public GameObject gameObject
         {
-            get{ if (!MainFrame.gameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.gameObjects[gameObjectId]; }
-            set{ gameObjectId = value.id; if (MainFrame.gameObjects.ContainsKey(gameObjectId)) MainFrame.gameObjects[gameObjectId] = value; }
+            get{ if (!MainFrame.GameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.GameObjects[gameObjectId]; }
+            set{ gameObjectId = value.Id; if (MainFrame.GameObjects.ContainsKey(gameObjectId)) MainFrame.GameObjects[gameObjectId] = value; }
         }
         public Collider collider
         {
             get
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId) 
-                    || !MainFrame.gameObjects[gameObjectId].ContainsComponent<Collider>()) return null;
-                return (MainFrame.gameObjects[gameObjectId].GetComponent<Collider>());
+                if (!MainFrame.GameObjects.ContainsKey(gameObjectId) 
+                    || !MainFrame.GameObjects[gameObjectId].ContainsComponent<Collider>()) return null;
+                return (MainFrame.GameObjects[gameObjectId].GetComponent<Collider>());
             }
             set
             {
-                if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && MainFrame.gameObjects[gameObjectId].ContainsComponent<Collider>())
+                if (MainFrame.GameObjects.ContainsKey(gameObjectId)
+                    && MainFrame.GameObjects[gameObjectId].ContainsComponent<Collider>())
                     collider = value;
             }
         }

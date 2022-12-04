@@ -58,3 +58,5 @@ C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debu
 C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.pdb
 C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.genruntimeconfig.cache
 C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\ref\BlazorGame.dll
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.Properties.Resources.resources
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.GenerateResource.cache

@@ -27,8 +27,8 @@ namespace BlazorGame.Game.GameComponents
         }
         public void SetCannons(int x, int y)
         {
-            x = x - MainFrame.offsetX;
-            y = y - MainFrame.offsetY;
+            x = x - MainFrame.OffsetX;
+            y = y - MainFrame.OffsetY;
             float len = MathF.Sqrt(MathF.Abs(x) * MathF.Abs(x) + MathF.Abs(y) * MathF.Abs(y));
             dimensions[0] = x / len;
             dimensions[1] = y / len;
@@ -41,7 +41,7 @@ namespace BlazorGame.Game.GameComponents
             //foreach(Cannon cannon in cannons) { cannon.Update(); }
             if (gameObject != null)
             {
-                timer += MainFrame.detaTime;
+                timer += MainFrame.DeltaTime;
                 if (timer > shootInterval && shooting) { SpawnBullets(); }
             }
         }

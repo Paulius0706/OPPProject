@@ -8,11 +8,11 @@ namespace BlazorGame.Game.Builder
         public BulletBuilder(float[] position, float[] velocity)
         {
             base.gameObject = new BulletObject();
-            base.gameObject.mass = 1f;
-            base.gameObject.objectType = ObjectType.bullet;
-            base.gameObject.deacceleration = GameObject.BulletDecceleration;
-            base.gameObject.position = position;
-            base.gameObject.velocity = velocity;
+            base.gameObject.Mass = 1f;
+            base.gameObject.objectType = ObjectType.Bullet;
+            base.gameObject.Deacceleration = GameObject.BulletDecceleration;
+            base.gameObject.Position = position;
+            base.gameObject.Velocity = velocity;
         }
 
     }

@@ -6,21 +6,20 @@ namespace BlazorGame.Game.GameComponents
     public abstract class ObjectComponent
     {
         public static int idCounter = 0;
-        public int id;
 
         private int gameObjectId = -1;
         public GameObject gameObject 
         { 
             get 
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId)) return null;
-                return MainFrame.gameObjects[gameObjectId]; 
+                if (!MainFrame.GameObjects.ContainsKey(gameObjectId)) return null;
+                return MainFrame.GameObjects[gameObjectId]; 
             }
             set 
             {
-                gameObjectId = value.id;
-                if (MainFrame.gameObjects.ContainsKey(gameObjectId)) 
-                    MainFrame.gameObjects[gameObjectId] = value; 
+                gameObjectId = value.Id;
+                if (MainFrame.GameObjects.ContainsKey(gameObjectId)) 
+                    MainFrame.GameObjects[gameObjectId] = value; 
             }
         }
 

@@ -16,9 +16,9 @@ namespace BlazorGame.Tests
         public void GetComponent()
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // create player
             int newHealth = 1000000;
@@ -26,18 +26,18 @@ namespace BlazorGame.Tests
             MainFrame.Update();
 
             // Test getComponent
-            MainFrame.gameObjects[playerId].GetComponent<Player>().health = 100000;
+            MainFrame.GameObjects[playerId].GetComponent<Player>().health = 100000;
 
-            Assert.False(MainFrame.gameObjects[playerId].GetComponent<Player>().health == newHealth);
+            Assert.False(MainFrame.GameObjects[playerId].GetComponent<Player>().health == newHealth);
         }
 
         [Fact]
         public void AddComponent_addPlayerToBullet()
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
 
             // create bullet
@@ -79,19 +79,19 @@ namespace BlazorGame.Tests
         public void CircleCollision(float[] pos1, float[] pos2, float[] vel1, float[] vel2, float[] newPos1, float[] newPos2)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // Spawn players
             int player1Id = MainFrame.CreateNewPlayer("1", false);
             int player2Id = MainFrame.CreateNewPlayer("2", false);
             MainFrame.Update();
-            MainFrame.gameObjects[player1Id].velocity = vel1;
-            MainFrame.gameObjects[player2Id].velocity = vel2;
+            MainFrame.GameObjects[player1Id].Velocity = vel1;
+            MainFrame.GameObjects[player2Id].Velocity = vel2;
 
-            MainFrame.gameObjects[player1Id].position = pos1;
-            MainFrame.gameObjects[player2Id].position = pos2;
+            MainFrame.GameObjects[player1Id].Position = pos1;
+            MainFrame.GameObjects[player2Id].Position = pos2;
 
             for (int i = 0; i < timeCount; i++)
             {
@@ -100,15 +100,15 @@ namespace BlazorGame.Tests
 
             float errorDelta = 20f;
             Assert.True(
-                   (MainFrame.gameObjects[player1Id].position[0] < newPos1[0] + errorDelta && MainFrame.gameObjects[player1Id].position[0] > newPos1[0] - errorDelta)
-                && (MainFrame.gameObjects[player1Id].position[1] < newPos1[1] + errorDelta && MainFrame.gameObjects[player1Id].position[1] > newPos1[1] - errorDelta)
+                   (MainFrame.GameObjects[player1Id].Position[0] < newPos1[0] + errorDelta && MainFrame.GameObjects[player1Id].Position[0] > newPos1[0] - errorDelta)
+                && (MainFrame.GameObjects[player1Id].Position[1] < newPos1[1] + errorDelta && MainFrame.GameObjects[player1Id].Position[1] > newPos1[1] - errorDelta)
 
-                && (MainFrame.gameObjects[player2Id].position[0] < newPos2[0] + errorDelta && MainFrame.gameObjects[player2Id].position[0] > newPos2[0] - errorDelta)
-                && (MainFrame.gameObjects[player2Id].position[1] < newPos2[1] + errorDelta && MainFrame.gameObjects[player2Id].position[1] > newPos2[1] - errorDelta),
-                   "x: " + (newPos1[0] - errorDelta) + "<" + MainFrame.gameObjects[player1Id].position[0] + ">" + (newPos1[0] + errorDelta) + "\n" +
-                   "y: " + (newPos1[1] - errorDelta) + "<" + MainFrame.gameObjects[player1Id].position[1] + ">" + (newPos1[1] + errorDelta) + "\n" + "\n" +
-                   "x: " + (newPos2[0] - errorDelta) + "<" + MainFrame.gameObjects[player2Id].position[0] + ">" + (newPos2[0] + errorDelta) + "\n" +
-                   "y: " + (newPos2[1] - errorDelta) + "<" + MainFrame.gameObjects[player2Id].position[1] + ">" + (newPos2[1] + errorDelta));
+                && (MainFrame.GameObjects[player2Id].Position[0] < newPos2[0] + errorDelta && MainFrame.GameObjects[player2Id].Position[0] > newPos2[0] - errorDelta)
+                && (MainFrame.GameObjects[player2Id].Position[1] < newPos2[1] + errorDelta && MainFrame.GameObjects[player2Id].Position[1] > newPos2[1] - errorDelta),
+                   "x: " + (newPos1[0] - errorDelta) + "<" + MainFrame.GameObjects[player1Id].Position[0] + ">" + (newPos1[0] + errorDelta) + "\n" +
+                   "y: " + (newPos1[1] - errorDelta) + "<" + MainFrame.GameObjects[player1Id].Position[1] + ">" + (newPos1[1] + errorDelta) + "\n" + "\n" +
+                   "x: " + (newPos2[0] - errorDelta) + "<" + MainFrame.GameObjects[player2Id].Position[0] + ">" + (newPos2[0] + errorDelta) + "\n" +
+                   "y: " + (newPos2[1] - errorDelta) + "<" + MainFrame.GameObjects[player2Id].Position[1] + ">" + (newPos2[1] + errorDelta));
         }
 
         public enum ObjectType
@@ -132,14 +132,14 @@ namespace BlazorGame.Tests
         public void GetExpFromBullets(ObjectType objectType)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // create shooter
             int playerId = MainFrame.CreateNewPlayer("ss", false);
             MainFrame.Update();
-            (MainFrame.gameObjects[playerId].GetComponent<Player>()).experiance = 0;
+            (MainFrame.GameObjects[playerId].GetComponent<Player>()).experiance = 0;
 
             // create target
             float[] newPos = new float[] { 200, 0 };
@@ -156,8 +156,8 @@ namespace BlazorGame.Tests
                 // if target is player
                 int newPlayerId = MainFrame.CreateNewPlayer("ss", false);
                 MainFrame.Update();
-                MainFrame.gameObjects[newPlayerId].position = newPos;
-                MainFrame.gameObjects[newPlayerId].GetComponent<Player>().health = 1;
+                MainFrame.GameObjects[newPlayerId].Position = newPos;
+                MainFrame.GameObjects[newPlayerId].GetComponent<Player>().health = 1;
             }
             else
             {
@@ -177,7 +177,7 @@ namespace BlazorGame.Tests
             //simulate
             for (int i = 0; i < timeCount; i++) { MainFrame.Update(); }
 
-            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().experiance > 0 || MainFrame.gameObjects[playerId].GetComponent<Player>().level > 1);
+            Assert.True(MainFrame.GameObjects[playerId].GetComponent<Player>().experiance > 0 || MainFrame.GameObjects[playerId].GetComponent<Player>().level > 1);
         }
         [Theory]
         [InlineData(ObjectType.col1)]
@@ -189,15 +189,15 @@ namespace BlazorGame.Tests
         public void GetExpFromBody(ObjectType objectType)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // create player that have exp
             int playerId = MainFrame.CreateNewPlayer("ss", false);
             MainFrame.Update();
-            (MainFrame.gameObjects[playerId].GetComponent<Player>()).experiance = 0;
-            (MainFrame.gameObjects[playerId].GetComponent<Player>()).health = 100000;
+            (MainFrame.GameObjects[playerId].GetComponent<Player>()).experiance = 0;
+            (MainFrame.GameObjects[playerId].GetComponent<Player>()).health = 100000;
 
             // create target
             float[] newPos = new float[] { 0, 0 };
@@ -214,8 +214,8 @@ namespace BlazorGame.Tests
                 // if target is player
                 int newPlayerId = MainFrame.CreateNewPlayer("ss", false);
                 MainFrame.Update();
-                MainFrame.gameObjects[newPlayerId].position = newPos;
-                MainFrame.gameObjects[newPlayerId].GetComponent<Player>().health = 1;
+                MainFrame.GameObjects[newPlayerId].Position = newPos;
+                MainFrame.GameObjects[newPlayerId].GetComponent<Player>().health = 1;
             }
             else
             {
@@ -228,7 +228,7 @@ namespace BlazorGame.Tests
             //simulate
             for (int i = 0; i < timeCount; i++) { MainFrame.Update(); }
 
-            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().experiance > 0 || MainFrame.gameObjects[playerId].GetComponent<Player>().level > 1);
+            Assert.True(MainFrame.GameObjects[playerId].GetComponent<Player>().experiance > 0 || MainFrame.GameObjects[playerId].GetComponent<Player>().level > 1);
         }
 
         [Fact]
@@ -236,15 +236,15 @@ namespace BlazorGame.Tests
         public void LevelUp_levelUpfrom1()
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
             int playerId = MainFrame.CreateNewPlayer("AKA");
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
-            MainFrame.gameObjects[playerId].GetComponent<Player>().experiance = MainFrame.gameObjects[playerId].GetComponent<Player>().maxExperiance - 1;
+            MainFrame.GameObjects[playerId].Position = new float[] { 0, 0 };
+            MainFrame.GameObjects[playerId].GetComponent<Player>().experiance = MainFrame.GameObjects[playerId].GetComponent<Player>().maxExperiance - 1;
 
             // spawn collectible
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 100, 0 });
@@ -263,7 +263,7 @@ namespace BlazorGame.Tests
             MainFrame.Update();
             MainFrame.Update();
 
-            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().level > 1, "level:" + MainFrame.gameObjects[playerId].GetComponent<Player>().level + " exp:" + MainFrame.gameObjects[playerId].GetComponent<Player>().experiance);
+            Assert.True(MainFrame.GameObjects[playerId].GetComponent<Player>().level > 1, "level:" + MainFrame.GameObjects[playerId].GetComponent<Player>().level + " exp:" + MainFrame.GameObjects[playerId].GetComponent<Player>().experiance);
         }
 
 
@@ -276,14 +276,14 @@ namespace BlazorGame.Tests
         public void Despawn(float[] playerPos, float[] collectiblePos, bool despawn)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
             int playerId = MainFrame.CreateNewPlayer("AKA", false);
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = playerPos;
+            MainFrame.GameObjects[playerId].Position = playerPos;
 
 
             // spawn collectible
@@ -295,7 +295,7 @@ namespace BlazorGame.Tests
 
             for (int i = 0; i < timeCount; i++) { MainFrame.Update(); }
 
-            Assert.True((MainFrame.gameObjects.Values.Count == 1) == despawn, "gameobjects count: " + MainFrame.gameObjects.Values.Count);
+            Assert.True((MainFrame.GameObjects.Values.Count == 1) == despawn, "gameobjects count: " + MainFrame.GameObjects.Values.Count);
         }
 
         // TM 13
@@ -303,14 +303,14 @@ namespace BlazorGame.Tests
         public void TakeDamage_Player()
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
             int playerId = MainFrame.CreateNewPlayer("AKA");
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
+            MainFrame.GameObjects[playerId].Position = new float[] { 0, 0 };
 
             // spawn collectible
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 0, 0 });
@@ -321,7 +321,7 @@ namespace BlazorGame.Tests
 
             for (int i = 0; i < timeCount; i++) { MainFrame.Update(); }
 
-            Assert.True(MainFrame.gameObjects[playerId].GetComponent<Player>().health < MainFrame.gameObjects[playerId].GetComponent<Player>().maxHealth, "gameobjects count: " + MainFrame.gameObjects.Values.Count);
+            Assert.True(MainFrame.GameObjects[playerId].GetComponent<Player>().health < MainFrame.GameObjects[playerId].GetComponent<Player>().maxHealth, "gameobjects count: " + MainFrame.GameObjects.Values.Count);
         }
 
         // TM 16 Scores
@@ -335,14 +335,14 @@ namespace BlazorGame.Tests
         public void DestoryObjectOnDeath(ObjectType objectType)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
             int playerId = MainFrame.CreateNewPlayer("AKA", false);
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
+            MainFrame.GameObjects[playerId].Position = new float[] { 0, 0 };
 
 
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 0, 200 });
@@ -352,8 +352,8 @@ namespace BlazorGame.Tests
                 // if target is player
                 int newPlayerId = MainFrame.CreateNewPlayer("ss", false);
                 MainFrame.Update();
-                MainFrame.gameObjects[newPlayerId].position = new float[] { 0, 200 };
-                MainFrame.gameObjects[newPlayerId].AbstractGetComponent<Unit>().TakeDamage(playerId, 100);
+                MainFrame.GameObjects[newPlayerId].Position = new float[] { 0, 200 };
+                MainFrame.GameObjects[newPlayerId].AbstractGetComponent<Unit>().TakeDamage(playerId, 100);
             }
             else if (objectType == ObjectType.bullet)
             {
@@ -384,7 +384,7 @@ namespace BlazorGame.Tests
             MainFrame.Update();
             MainFrame.Update();
 
-            Assert.True(MainFrame.gameObjects.Count <= 1, "There are objects count: " + MainFrame.gameObjects.Count);
+            Assert.True(MainFrame.GameObjects.Count <= 1, "There are objects count: " + MainFrame.GameObjects.Count);
         }
 
         [Theory]
@@ -397,36 +397,36 @@ namespace BlazorGame.Tests
         public void JoinGame(string name)
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
             
             int playerId = MainFrame.CreateNewPlayer(name, false);
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
+            MainFrame.GameObjects[playerId].Position = new float[] { 0, 0 };
 
             MainFrame.Update();
             MainFrame.Update();
             MainFrame.Update();
 
-            Assert.True(MainFrame.gameObjects.Count <= 1 && MainFrame.gameObjects[playerId].GetComponent<Player>().name == name, "There are objects count: " + MainFrame.gameObjects.Count);
+            Assert.True(MainFrame.GameObjects.Count <= 1 && MainFrame.GameObjects[playerId].GetComponent<Player>().name == name, "There are objects count: " + MainFrame.GameObjects.Count);
         }
 
         [Fact]
         public void NoFrendlyFire()
         {
             // set enviroment
-            MainFrame.gameObjects = new Dictionary<int, GameObject>();
-            MainFrame.detaTime = 0.07f;
-            float timeCount = 3f / MainFrame.detaTime;
+            MainFrame.GameObjects = new Dictionary<int, GameObject>();
+            MainFrame.DeltaTime = 0.07f;
+            float timeCount = 3f / MainFrame.DeltaTime;
 
             // spawn player
 
             int playerId = MainFrame.CreateNewPlayer("AKA", false);
             MainFrame.Update();
-            MainFrame.gameObjects[playerId].position = new float[] { 0, 0 };
+            MainFrame.GameObjects[playerId].Position = new float[] { 0, 0 };
 
             BulletObject bulletObject;
             BulletBuilder bulletBuilder;
@@ -455,12 +455,12 @@ namespace BlazorGame.Tests
             MainFrame.Update();
             MainFrame.Update();
 
-            Assert.False(MainFrame.gameObjects[playerId].GetComponent<Player>().health != MainFrame.gameObjects[playerId].GetComponent<Player>().maxHealth, "player was damaged");
+            Assert.False(MainFrame.GameObjects[playerId].GetComponent<Player>().health != MainFrame.GameObjects[playerId].GetComponent<Player>().maxHealth, "player was damaged");
 
-            Assert.False(MainFrame.gameObjects.Count != 4, "gameobjects count: "+ MainFrame.gameObjects.Count);
-            foreach(GameObject gameObject in MainFrame.gameObjects.Values)
+            Assert.False(MainFrame.GameObjects.Count != 4, "gameobjects count: "+ MainFrame.GameObjects.Count);
+            foreach(GameObject gameObject in MainFrame.GameObjects.Values)
             {
-                Assert.False(gameObject.AbstractGetComponent<Unit>().health != gameObject.AbstractGetComponent<Unit>().maxHealth, gameObject.id + ": object was damaged" + MainFrame.gameObjects.Count);
+                Assert.False(gameObject.AbstractGetComponent<Unit>().health != gameObject.AbstractGetComponent<Unit>().maxHealth, gameObject.Id + ": object was damaged" + MainFrame.GameObjects.Count);
             }
             Assert.True(true);
             

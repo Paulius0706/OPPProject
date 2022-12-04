@@ -3,20 +3,18 @@
 namespace BlazorGame.Game.Command
 {
     public class AddPlayerScore : Command
-
     {
-
-        int _playerId;
-        float _score;
+        private int playerId;
+        private float score;
         public AddPlayerScore(int playerId, float score)
         {
-            this._playerId = playerId;
-            this._score = score;
+            this.playerId = playerId;
+            this.score = score;
         }
 
         public override void Execute()
         {
-            MainFrame.addScore(_playerId, _score);
+            MainFrame.AddScore(playerId, score);
         }
     }
 }

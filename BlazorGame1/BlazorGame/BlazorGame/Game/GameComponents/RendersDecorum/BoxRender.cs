@@ -19,8 +19,8 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         {
             context.SetFillStyleAsync(color);
             context.FillRectAsync(
-                gameObject.position[0] + offset[0] - xoffset,
-                gameObject.position[1] + offset[1] - yoffset,
+                gameObject.Position[0] + offset[0] - xoffset,
+                gameObject.Position[1] + offset[1] - yoffset,
                 size[0], size[1]
                 );
         }

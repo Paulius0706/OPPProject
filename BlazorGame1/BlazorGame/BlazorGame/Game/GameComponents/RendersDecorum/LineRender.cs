@@ -24,11 +24,11 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
             context.SetLineWidthAsync(width);
             context.BeginPathAsync();
             context.MoveToAsync(
-                gameObject.position[0] + offset[0] - xoffset,
-                gameObject.position[1] + offset[1] - yoffset);
+                gameObject.Position[0] + offset[0] - xoffset,
+                gameObject.Position[1] + offset[1] - yoffset);
             context.LineToAsync(
-                gameObject.position[0] + offset1[0] - xoffset,
-                gameObject.position[1] + offset1[1] - yoffset);
+                gameObject.Position[0] + offset1[0] - xoffset,
+                gameObject.Position[1] + offset1[1] - yoffset);
             context.StrokeAsync();
         }
         public override void ConnectionUpdate(GameObject gameObject)

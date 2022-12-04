@@ -24,7 +24,7 @@ namespace BlazorGame.Game.GameComponents
 
         public override void Update()
         {
-            time += MainFrame.detaTime;
+            time += MainFrame.DeltaTime;
             if (time > lifeTime)
             {
                 MainFrame.Destroy(gameObject);
@@ -35,23 +35,23 @@ namespace BlazorGame.Game.GameComponents
             if(hitObject == -1)
             {
                 //do damage
-                if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>() && shooter != gameObject && MainFrame.gameObjects[gameObject] is not BulletObject)
+                if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>() && shooter != gameObject && MainFrame.GameObjects[gameObject] is not BulletObject)
                 {
-                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.Id, bodyDamage);
                 }
-                if(MainFrame.gameObjects[gameObject] is BulletObject && shooter != MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter)
+                if(MainFrame.GameObjects[gameObject] is BulletObject && shooter != MainFrame.GameObjects[gameObject].GetComponent<Bullet>().shooter)
                 {
-                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.Id, bodyDamage);
                 }
                 //check if object on verge of death( it will disapear next frame)
-                if (MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.id
-                    && MainFrame.gameObjects.ContainsKey(shooter)
-                    && MainFrame.gameObjects[shooter].ContainsComponent<Player>())
+                if (MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.Id
+                    && MainFrame.GameObjects.ContainsKey(shooter)
+                    && MainFrame.GameObjects[shooter].ContainsComponent<Player>())
                 {
-                    MainFrame.gameObjects[shooter].GetComponent<Player>().GiveExp(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
+                    MainFrame.GameObjects[shooter].GetComponent<Player>().GiveExp(MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
                 }
                 //checks what tipe of object it is
-                if(MainFrame.gameObjects[gameObject] is  not BulletObject && (gameObject != shooter))
+                if(MainFrame.GameObjects[gameObject] is  not BulletObject && (gameObject != shooter))
                 {
                     hitObject = gameObject;
                     OnDestroy();

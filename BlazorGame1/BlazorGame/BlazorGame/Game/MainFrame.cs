@@ -1,186 +1,199 @@
-﻿using Blazor.Extensions.Canvas.Canvas2D;
+﻿// Copyright (c) LAB 4 KTU. All rights reserved.
+using System.Diagnostics;
+using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.Builder;
 using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameObjects;
-using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Numerics;
 
 namespace BlazorGame.Game
 {
+    /// <summary>
+    /// Sets backGround service and game engine.
+    /// </summary>
     public class MainFrame : BackgroundService
     {
-        public static event Func<DateTime,Task> updateEvent;
-        public static event Func<Task> mouseEvent;
-        public static event Func<Task> keyResetEvent;
-        public static Stopwatch watch = new Stopwatch();
-        public static float detaTime;
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            //foo()
-            await Task.Delay(100);
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                
-                if (!watch.IsRunning) watch.Start();
-                if(watch.ElapsedMilliseconds > 60)
-                {
-                    detaTime = (float)watch.ElapsedMilliseconds / 1000f;
-                    watch.Restart();
-                    Update();
-                    if (updateEvent != null) await updateEvent?.Invoke(DateTime.Now);
-                    scores.Sort((emp1, emp2) => emp2._score.CompareTo(emp1._score));
-                }
+        public static bool GameStarted = false;
+        public static int OffsetX = 1280 / 2;
+        public static int OffsetY = 720 / 2;
+        public static int GameObjectsCounting = 0;
+        public static float DeltaTime;
+        public static List<Score> Scores = new List<Score>();
+        public static Dictionary<int, GameObject> GameObjects = new Dictionary<int, GameObject>();
 
-                
-                
-            }
-        }
-        
+        public static event Func<DateTime, Task> UpdateEvent = async delegate(DateTime s) { };
 
-
-        public static int gameObjectsCounting = 0;
-        public static List<Score> scores = new List<Score>();
-        public static Dictionary<int, GameObject> gameObjects= new Dictionary<int, GameObject>();
         private static Queue<GameObject> createGameObjectsQueue = new Queue<GameObject>();
         private static Queue<int> destroyGameObjectsQueue = new Queue<int>();
-        public static bool gameStarted = false;
-        public static int offsetX = 1280 / 2;
-        public static int offsetY = 720 / 2;
-        public static int width = 1280;
-        public static int height = 720;
+        private static int width = 1280;
+        private static int height = 720;
+        private static int scoreWidth = 250;
+        private static int scoreHeight = 50;
 
-        public static int scoreWidth = 250;
-        public static int scoreHeight = 50;
+        private Stopwatch watch = new Stopwatch();
 
-        public static void addScore(int playerId, float score)
+        /// <summary>
+        /// Adds score to existing one.
+        /// </summary>
+        /// <param name="playerId"> player indentificator. </param>
+        /// <param name="score"> ammount of points. </param>
+        public static void AddScore(int playerId, float score)
         {
-            foreach (var item in scores)
+            foreach (var item in Scores)
             {
-                if(item._playerId == playerId)
+                if (item.PlayerId == playerId)
                 {
-                    item._score += score;
+                    item.ScorePoints += score;
                 }
             }
         }
-        public static void setScore(int playerId)
+
+        /// <summary>
+        /// Adds new score points item.
+        /// </summary>
+        /// <param name="playerId"> player indentificator. </param>
+        public static void SetScore(int playerId)
         {
-            scores.Add(new Score(playerId, 0));
+            Scores.Add(new Score(playerId, 0));
         }
 
-        public static void deleteScore(int playerId)
+        public static void DeleteScore(int playerId)
         {
-            for(int i = 0; i < scores.Count; i++)
+            for (int i = 0; i < Scores.Count; i++)
             {
-                if(scores[i]._playerId == playerId)
+                if (Scores[i].PlayerId == playerId)
                 {
-                    scores.RemoveAt(i);
+                    Scores.RemoveAt(i);
                     break;
                 }
-                
             }
         }
+
+        /// <summary>
+        /// Renders scores.
+        /// </summary>
+        /// <param name="context"> client canvas. </param>
         public static void RenderScores(ref Canvas2DContext context)
         {
-            for (int i = 0; i < Math.Min(MainFrame.scores.Count, 10); i++)
+            for (int i = 0; i < Math.Min(MainFrame.Scores.Count, 10); i++)
             {
-                if (MainFrame.gameObjects.ContainsKey(scores[i]._playerId) && gameObjects[scores[i]._playerId] is PlayerObject)
+                if (MainFrame.GameObjects.ContainsKey(Scores[i].PlayerId) && GameObjects[Scores[i].PlayerId] is PlayerObject)
                 {
-                    string str = (i+1) + ". " + MainFrame.gameObjects[scores[i]._playerId].GetComponent<Player>().name + " " + scores[i]._score;
+                    string str = (i + 1) + ". " + MainFrame.GameObjects[Scores[i].PlayerId].GetComponent<Player>().name + " " + Scores[i].ScorePoints;
                     context.SetFillStyleAsync("silver");
-                    context.FillRectAsync(width - scoreWidth - 5, +5 + i * (scoreHeight + 5), scoreWidth, scoreHeight);
+                    context.FillRectAsync(width - scoreWidth - 5, +5 + (i * (scoreHeight + 5)), scoreWidth, scoreHeight);
                     context.SetFontAsync("48px MathSansItalic");
-                    context.StrokeTextAsync(str, width - scoreWidth, +20 + i * (scoreHeight + 5) + scoreHeight / 2f, scoreWidth);
+                    context.StrokeTextAsync(str, width - scoreWidth, +20 + (i * (scoreHeight + 5)) + (scoreHeight / 2f), scoreWidth);
                 }
-                
             }
         }
 
-        
-
+        /// <summary>
+        /// Creates new player.
+        /// </summary>
+        /// <param name="name">Name of player.</param>
+        /// <param name="spawner">Set spawner.</param>
+        /// <returns>Player id.</returns>
         public static int CreateNewPlayer(string name, bool spawner = true)
         {
             // instatijuoti player
-            PlayerBuilder playerBuilder = new PlayerBuilder(new float[]{ 0,0});
-            Director.GetInstance().Construct(ref playerBuilder,name,1);
-            
-            GameObject gameObject = playerBuilder.GetResult();
-            if (!spawner) (gameObject as PlayerObject).GetComponent<Player>().setSpawner = false;
-            gameObject.id = gameObjectsCounting;
-            gameObjectsCounting++;
-            Instantiate(gameObject);
-            //gameObjectsCounting++;
-            // sets render and update active
-            gameStarted = true;
+            PlayerBuilder playerBuilder = new PlayerBuilder(new float[] { 0, 0 });
+            Director.GetInstance().Construct(ref playerBuilder, name, 1);
 
-            //testing
-            Console.WriteLine("GAME SATRT playerID:" + gameObject.id + " PlayerComponentIndex:" + 0 + " GameObjects-exist: " + (gameObjects != null));
-            setScore(gameObject.id);
-            return gameObject.id;
+            GameObject gameObject = playerBuilder.GetResult();
+            if (!spawner && gameObject is PlayerObject) { ((PlayerObject)gameObject).GetComponent<Player>().setSpawner = false; }
+
+            gameObject.Id = GameObjectsCounting;
+            GameObjectsCounting++;
+            Instantiate(gameObject);
+            GameStarted = true;
+
+            Console.WriteLine("GAME SATRT playerID:" + gameObject.Id + " PlayerComponentIndex:" + 0 + " GameObjects-exist: " + (GameObjects != null));
+            SetScore(gameObject.Id);
+            return gameObject.Id;
         }
+
+        /// <summary>
+        /// Removes object in the game.
+        /// </summary>
+        /// <param name="gameObject">Object.</param>
         public static void Destroy(GameObject gameObject)
         {
-            destroyGameObjectsQueue.Enqueue(gameObject.id);
+            destroyGameObjectsQueue.Enqueue(gameObject.Id);
         }
+
+        /// <summary>
+        /// Adds object to the game.
+        /// </summary>
+        /// <param name="gameObject">Object.</param>
         public static void Instantiate(GameObject gameObject)
         {
             createGameObjectsQueue.Enqueue(gameObject);
         }
+
+        /// <summary>
+        /// Sets game time.
+        /// </summary>
         public static void Update()
         {
-            if (gameStarted)
+            if (GameStarted)
             {
-                //Console.WriteLine("objects count:" + gameObjects.Count);
-                foreach (GameObject gameObject in gameObjects.Values)
+                foreach (GameObject gameObject in GameObjects.Values)
                 {
                     gameObject.Update();
                 }
-                while(createGameObjectsQueue.Count > 0)
+
+                while (createGameObjectsQueue.Count > 0)
                 {
                     GameObject gameObject = createGameObjectsQueue.Dequeue();
-                    //Console.WriteLine("Pre Create new object (id):" + gameObject.id + " (type):" + gameObject.objectType);
-                    if (gameObject.id == -1)
+                    if (gameObject.Id == -1)
                     {
-                        gameObject.id = gameObjectsCounting;
-                        gameObjectsCounting++;
+                        gameObject.Id = GameObjectsCounting;
+                        GameObjectsCounting++;
                     }
-                    if (gameObjects.ContainsKey(gameObject.id))
-                    {
-                        //Console.WriteLine("    Error Same key (id):" + gameObject.id + " (type):" + gameObject.objectType);
-                    }
-                    else 
-                    {
-                        //Console.WriteLine("    Create new object (id):" + gameObject.id + " (type):" + gameObject.objectType);
-                        gameObjects.Add(gameObject.id, gameObject);
-                        gameObjects[gameObject.id].ConnectionUpdate();
-                    }
-                    //Console.WriteLine();
 
+                    if (!GameObjects.ContainsKey(gameObject.Id))
+                    {
+                        GameObjects.Add(gameObject.Id, gameObject);
+                        GameObjects[gameObject.Id].ConnectionUpdate();
+                    }
                 }
-                while(destroyGameObjectsQueue.Count > 0)
+
+                while (destroyGameObjectsQueue.Count > 0)
                 {
-                    gameObjects.Remove(destroyGameObjectsQueue.Dequeue());
+                    GameObjects.Remove(destroyGameObjectsQueue.Dequeue());
                 }
             }
         }
 
+        /// <summary>
+        /// Execute starting code.
+        /// </summary>
+        /// <param name="stoppingToken">LOL param.</param>
+        /// <returns> Not needed.</returns>
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await Task.Delay(100);
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                if (!this.watch.IsRunning) 
+                {
+                    this.watch.Start(); 
+                }
 
-        //public static void Render(int playerId, ref Canvas2DContext context)
-        //{
-        //    if (gameStarted)
-        //    {
-        //        context.SetFillStyleAsync("lightgray");
-        //        context.FillRectAsync(0, 0, 1280, 720);
-        //        //Console.WriteLine("obj count:" + gameObjects.Count);
-        //        foreach (GameObject gameObject in gameObjects.Values)
-        //        {
-        //            gameObject.Render(playerId, ref context);
-        //        }
-        //    }
-        //}
+                if (this.watch.ElapsedMilliseconds > 60)
+                {
+                    DeltaTime = (float)this.watch.ElapsedMilliseconds / 1000f;
+                    this.watch.Restart();
+                    Update();
+                    if (UpdateEvent != null) 
+                    {
+                        await UpdateEvent?.Invoke(DateTime.Now); 
+                    }
+
+                    Scores.Sort((emp1, emp2) => emp2.ScorePoints.CompareTo(emp1.ScorePoints));
+                }
+            }
+        }
     }
 }

@@ -8,10 +8,10 @@ namespace BlazorGame.Game.Builder
         public CollectibleBuilder(float[] position)
         {
             base.gameObject = new CollectibleObject();
-            base.gameObject.mass = 1f;
-            base.gameObject.objectType = ObjectType.collectible;
-            base.gameObject.deacceleration = GameObject.CollectiblesDecceleration;
-            base.gameObject.position = position;
+            base.gameObject.Mass = 1f;
+            base.gameObject.objectType = ObjectType.Collectible;
+            base.gameObject.Deacceleration = GameObject.CollectiblesDecceleration;
+            base.gameObject.Position = position;
         }
     }
 }

@@ -47,11 +47,11 @@ namespace BlazorGame.Game.GameComponents
             bool delete = true;
             
             // despawn
-            foreach (GameObject gameObject in MainFrame.gameObjects.Values)
+            foreach (GameObject gameObject in MainFrame.GameObjects.Values)
             {
-                if (gameObject.objectType == GameObject.ObjectType.player
-                    && MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) <= Player.DespawnCollectiblesDist
-                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) <= Player.DespawnCollectiblesDist)
+                if (gameObject.objectType == GameObject.ObjectType.Player
+                    && MathF.Abs(gameObject.Position[0] - this.gameObject.Position[0]) <= Player.DespawnCollectiblesDist
+                    && Math.Abs(gameObject.Position[1] - this.gameObject.Position[1]) <= Player.DespawnCollectiblesDist)
                 {
                     delete = false;
                     break;
@@ -63,9 +63,9 @@ namespace BlazorGame.Game.GameComponents
         }
         public override void CollisonTrigger(int gameObject)
         {
-            if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
+            if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>())
             {
-                MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.Id, bodyDamage);
             }
         }
         public override void ConnectionUpdate()

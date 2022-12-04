@@ -22,8 +22,8 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
             context.SetFillStyleAsync(color);
             context.SetLineWidthAsync(1);
             context.ArcAsync(
-                (int)gameObject.position[0] + offset[0] - xoffset,
-                (int)gameObject.position[1] + offset[1] - yoffset,
+                (int)gameObject.Position[0] + offset[0] - xoffset,
+                (int)gameObject.Position[1] + offset[1] - yoffset,
                 radius, 0, 2 * Math.PI
                 );
             context.ClosePathAsync();

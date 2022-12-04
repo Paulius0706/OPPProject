@@ -25,8 +25,8 @@ namespace BlazorGame.Game.GameComponents
 
         public GameObject gameObject
         {
-            get { if (!MainFrame.gameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.gameObjects[gameObjectId]; }
-            set { gameObjectId = value.id; if (MainFrame.gameObjects.ContainsKey(gameObjectId)) MainFrame.gameObjects[gameObjectId] = value; }
+            get { if (!MainFrame.GameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.GameObjects[gameObjectId]; }
+            set { gameObjectId = value.Id; if (MainFrame.GameObjects.ContainsKey(gameObjectId)) MainFrame.GameObjects[gameObjectId] = value; }
         }
         public Player player
         {
@@ -139,11 +139,11 @@ namespace BlazorGame.Game.GameComponents
                 if(player.spawner != null)
                 {
                     BulletObject bulletObject = player.spawner.bulletObject.Clone();
-                    bulletObject.position = new float[2]{
-                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[0] + gameObject.position[0],
-                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[1] + gameObject.position[1]
+                    bulletObject.Position = new float[2]{
+                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[0] + gameObject.Position[0],
+                        (gunDecorator.renders[(int)GunDecorator.Type.gun] as LineRender).offset1[1] + gameObject.Position[1]
                     };
-                    bulletObject.velocity = velocity;
+                    bulletObject.Velocity = velocity;
                     MainFrame.Instantiate(bulletObject);
                 }
             }

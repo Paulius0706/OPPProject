@@ -18,21 +18,21 @@ namespace BlazorGame.Game.GameObjects.Factories
         private int gameObjectId = -1;
         public GameObject gameObject
         {
-            get { if (!MainFrame.gameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.gameObjects[gameObjectId]; }
-            set { gameObjectId = value.id; if (MainFrame.gameObjects.ContainsKey(gameObjectId)) MainFrame.gameObjects[gameObjectId] = value; }
+            get { if (!MainFrame.GameObjects.ContainsKey(gameObjectId)) return null; return MainFrame.GameObjects[gameObjectId]; }
+            set { gameObjectId = value.Id; if (MainFrame.GameObjects.ContainsKey(gameObjectId)) MainFrame.GameObjects[gameObjectId] = value; }
         }
         public Player player
         {
             get
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    || !MainFrame.gameObjects[gameObjectId].ContainsComponent<Player>()) return null;
-                return (MainFrame.gameObjects[gameObjectId].GetComponent<Player>());
+                if (!MainFrame.GameObjects.ContainsKey(gameObjectId)
+                    || !MainFrame.GameObjects[gameObjectId].ContainsComponent<Player>()) return null;
+                return (MainFrame.GameObjects[gameObjectId].GetComponent<Player>());
             }
             set
             {
-                if (MainFrame.gameObjects.ContainsKey(gameObjectId)
-                    && MainFrame.gameObjects[gameObjectId].ContainsComponent<Player>())
+                if (MainFrame.GameObjects.ContainsKey(gameObjectId)
+                    && MainFrame.GameObjects[gameObjectId].ContainsComponent<Player>())
                     player = value;
             }
         }

@@ -54,7 +54,7 @@ namespace BlazorGame.Game.GameComponents
         public void GiveExp(float exp)
         {
             CommandInvoker commandInvoker = new CommandInvoker();
-            commandInvoker.SetCommand(new AddPlayerScore(gameObject.id, exp));
+            commandInvoker.SetCommand(new AddPlayerScore(gameObject.Id, exp));
             commandInvoker.ExecuteCommand();
             experiance += exp;
             while(experiance >= maxExperiance)
@@ -63,7 +63,7 @@ namespace BlazorGame.Game.GameComponents
                 atributePoints++;
                 experiance -= maxExperiance;
                 maxExperiance = CalculateMaxExp();
-                Console.WriteLine("Player id:" + gameObject.id + " have new level:" + level);
+                Console.WriteLine("Player id:" + gameObject.Id + " have new level:" + level);
             }
         }
 
@@ -89,23 +89,23 @@ namespace BlazorGame.Game.GameComponents
         public override void CollisonTrigger(int gameObject)
         {
 
-            if (MainFrame.gameObjects[gameObject].AbstarctContainsComponent<Unit>())
+            if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>())
             {
-                if(MainFrame.gameObjects[gameObject] is not BulletObject)
-                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
-                if(MainFrame.gameObjects[gameObject] is BulletObject && MainFrame.gameObjects[gameObject].GetComponent<Bullet>().shooter != base.gameObject.id)
-                    MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.id, bodyDamage);
+                if(MainFrame.GameObjects[gameObject] is not BulletObject)
+                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.Id, bodyDamage);
+                if(MainFrame.GameObjects[gameObject] is BulletObject && MainFrame.GameObjects[gameObject].GetComponent<Bullet>().shooter != base.gameObject.Id)
+                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(this.gameObject.Id, bodyDamage);
             }
-            if(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.id)
+            if(MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == this.gameObject.Id)
             {
-                GiveExp(MainFrame.gameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
+                GiveExp(MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
             }
         }
         
         public override void OnDestroy()
         {
             CommandInvoker commandInvoker = new CommandInvoker();
-            commandInvoker.SetCommand(new DeletePlayerScore(gameObject.id));
+            commandInvoker.SetCommand(new DeletePlayerScore(gameObject.Id));
             commandInvoker.ExecuteCommand();
         }
 
@@ -113,7 +113,7 @@ namespace BlazorGame.Game.GameComponents
         public float CalculateMaxExp() { return DefaultExperiance + DefaultExperiance * (level - 1) * 2f; }
         public void UpdateVelocity()
         {
-            float[] currentVelocity = gameObject.velocity;
+            float[] currentVelocity = gameObject.Velocity;
 
             float x = currentVelocity[0] > 50f && inputs[0] > 0f ? 0f : inputs[0];
             x = currentVelocity[0] < -50f && inputs[0] < 0f ? 0f : inputs[0];
@@ -122,35 +122,35 @@ namespace BlazorGame.Game.GameComponents
             currentVelocity[0] += x;
             currentVelocity[1] += y;
 
-            gameObject.velocity = currentVelocity;
+            gameObject.Velocity = currentVelocity;
         }
         public void SpawnCollectibles()
         {
             int counter = 0;
-            foreach (GameObject gameObject in MainFrame.gameObjects.Values)
+            foreach (GameObject gameObject in MainFrame.GameObjects.Values)
             {
-                if (MathF.Abs(gameObject.position[0] - this.gameObject.position[0]) < DespawnCollectiblesDist
-                    && Math.Abs(gameObject.position[1] - this.gameObject.position[1]) < DespawnCollectiblesDist) counter++;
+                if (MathF.Abs(gameObject.Position[0] - this.gameObject.Position[0]) < DespawnCollectiblesDist
+                    && Math.Abs(gameObject.Position[1] - this.gameObject.Position[1]) < DespawnCollectiblesDist) counter++;
                 if (counter > MaxCollectiblesCount) break;
             }
             if (counter < MaxCollectiblesCount)
             {
                 Random random = new Random();
-                if (random.NextDouble() < 1 * MainFrame.detaTime)
+                if (random.NextDouble() < 1 * MainFrame.DeltaTime)
                 {
                     float x = random.NextSingle() * 2f - 1f;
                     float y = random.NextSingle() * 2f - 1f;
                     x += x > 0 ? 
-                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + gameObject.position[0] 
-                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + gameObject.position[0];
+                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + gameObject.Position[0] 
+                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + gameObject.Position[0];
                     y += y > 0 ? 
-                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + gameObject.position[1] 
-                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + gameObject.position[1];
+                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + gameObject.Position[1] 
+                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + gameObject.Position[1];
 
                     if(spawner != null)
                     {
                         CollectibleObject collectibleObject = spawner.collectibleObject.Clone();
-                        collectibleObject.position = new float[] { x, y };
+                        collectibleObject.Position = new float[] { x, y };
                         MainFrame.Instantiate(collectibleObject);
                     }
                 }

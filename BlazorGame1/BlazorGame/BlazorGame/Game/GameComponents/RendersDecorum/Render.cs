@@ -10,29 +10,17 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         {
             get
             {
-                if (!MainFrame.gameObjects.ContainsKey(gameObjectId)) return null;
-                return MainFrame.gameObjects[gameObjectId];
+                if (!MainFrame.GameObjects.ContainsKey(gameObjectId)) return null;
+                return MainFrame.GameObjects[gameObjectId];
             }
             set
             {
-                gameObjectId = value.id;
-                if (MainFrame.gameObjects.ContainsKey(gameObjectId))
-                    MainFrame.gameObjects[gameObjectId] = value;
+                gameObjectId = value.Id;
+                if (MainFrame.GameObjects.ContainsKey(gameObjectId))
+                    MainFrame.GameObjects[gameObjectId] = value;
             }
         }
 
-        //public enum Type
-        //{
-        //    UI,
-        //    GameUI,
-        //    Body,
-        //    Gun,
-        //    Guns,
-        //    Health,
-        //    Exp
-
-        //}
-        //public Type type;
         public int[] offset { get; set; }
 
         public abstract void Show(ref Canvas2DContext context, int xoffset, int yoffset);

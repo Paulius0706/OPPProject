@@ -2,7 +2,7 @@
 {
     public class CommandInvoker
     {
-        Command command;
+        private Command command;
         public void SetCommand(Command command)
         {
             this.command = command;

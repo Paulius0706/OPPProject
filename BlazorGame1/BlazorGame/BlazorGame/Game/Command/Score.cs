@@ -3,13 +3,13 @@
     //electronic device
     public class Score
     {
-        public int _playerId;
-        public float _score; 
+        public int PlayerId;
+        public float ScorePoints; 
         
         public Score(int playerId,float score)
         {
-            _playerId = playerId;
-            _score = score;
+            PlayerId = playerId;
+            ScorePoints = score;
         }
 
     }

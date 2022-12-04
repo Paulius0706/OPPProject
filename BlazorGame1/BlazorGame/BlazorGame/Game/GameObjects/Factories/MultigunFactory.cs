@@ -12,7 +12,7 @@ namespace BlazorGame.Game.GameObjects.Factories
         {
             //needs override
             BulletBuilder bulletBuilder = new BulletBuilder(new float[] { 0, 0 }, new float[] { 0, 0 });
-            Director.GetInstance().Construct(ref bulletBuilder, gameObject.id, player.damage, player.damage);
+            Director.GetInstance().Construct(ref bulletBuilder, gameObject.Id, player.damage, player.damage);
             return bulletBuilder.GetResult() as BulletObject;
         }
 

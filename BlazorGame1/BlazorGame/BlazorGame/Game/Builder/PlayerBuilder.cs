@@ -8,9 +8,9 @@ namespace BlazorGame.Game.Builder
         public PlayerBuilder(float[] position)
         {
             base.gameObject = new PlayerObject();
-            base.gameObject.mass = 10f;
-            base.gameObject.objectType = GameObject.ObjectType.player;
-            base.gameObject.position = position;
+            base.gameObject.Mass = 10f;
+            base.gameObject.objectType = GameObject.ObjectType.Player;
+            base.gameObject.Position = position;
         }
     }
 }

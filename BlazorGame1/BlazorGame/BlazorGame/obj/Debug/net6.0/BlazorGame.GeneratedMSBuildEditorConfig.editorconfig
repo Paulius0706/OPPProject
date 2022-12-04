@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Paulius/Desktop/projektavimo modulis/code/GitTankio/OPPProject/BlazorGame1/BlazorGame/BlazorGame/stylecop.json]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Paulius/Desktop/projektavimo modulis/code/GitTankio/OPPProject/BlazorGame1/BlazorGame/BlazorGame/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
