@@ -6,6 +6,7 @@ using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 using BlazorGame.Game.Iterator;
+using BlazorGame.Game.Memento;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BlazorGame.Game
@@ -115,6 +116,8 @@ namespace BlazorGame.Game
             SetScore(gameObject.Id);
             return gameObject.Id;
         }
+       static Originator originator = new Originator();
+       public static CareTaker careTaker = new CareTaker();
 
         /// <summary>
         /// Removes object in the game.
@@ -122,6 +125,13 @@ namespace BlazorGame.Game
         /// <param name="gameObject">Object.</param>
         public static void Destroy(GameObject gameObject)
         {
+            if(gameObject is PlayerObject)
+            {
+            Experience experience = new Experience(gameObject.GetComponent<Player>().name, gameObject.GetComponent<Player>().level, gameObject.GetComponent<Player>().experiance);
+            originator.setState(experience);
+            careTaker.add(originator.saveStateToMemento());
+            }
+            
             DestroyGameObjectsQueue.Enqueue(gameObject.Id);
         }
 
