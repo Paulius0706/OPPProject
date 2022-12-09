@@ -1,4 +1,5 @@
 ﻿using BlazorGame.Game.Builder;
+using BlazorGame.Game.GameComponents.Units;
 
 namespace BlazorGame.Game.GameObjects.Factories
 {
@@ -20,7 +21,7 @@ namespace BlazorGame.Game.GameObjects.Factories
         {
             //needs override
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(new float[] { 0, 0 });
-            Director.GetInstance().Construct(ref collectibleBuilder, GameComponents.Collectible.CollectibleType.col1);
+            Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col1);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }
     }

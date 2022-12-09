@@ -1,4 +1,4 @@
-﻿using BlazorGame.Game.GameComponents;
+﻿using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 using static BlazorGame.Game.GameObjects.GameObject;
 

@@ -17,7 +17,7 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         {
             foreach (Render render in renders)
             {
-                render.ConnectionUpdate(gameObject);
+                render.ConnectionUpdate(GameObject);
             }
         }
         public void Render(ref Canvas2DContext context, int xoffset, int yoffset)

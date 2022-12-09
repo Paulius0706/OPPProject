@@ -1,6 +1,5 @@
 using BlazorGame.Game;
 using BlazorGame.Game.Builder;
-using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 using BlazorGame.Game.GameObjects.Factories;
@@ -146,10 +145,10 @@ namespace BlazorGame.Tests
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(newPos);
             switch (objectType)
             {
-                case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col1); break;
-                case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col2); break;
-                case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col3); break;
-                case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.mob); break;
+                case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col1); break;
+                case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col2); break;
+                case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col3); break;
+                case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.mob); break;
             }
             if (objectType == ObjectType.player)
             {
@@ -204,10 +203,10 @@ namespace BlazorGame.Tests
             CollectibleBuilder collectibleBuilder = new CollectibleBuilder(newPos);
             switch (objectType)
             {
-                case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col1); break;
-                case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col2); break;
-                case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col3); break;
-                case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.mob); break;
+                case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col1); break;
+                case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col2); break;
+                case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col3); break;
+                case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.mob); break;
             }
             if (objectType == ObjectType.player)
             {
@@ -368,10 +367,10 @@ namespace BlazorGame.Tests
 
                 switch (objectType)
                 {
-                    case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col1); break;
-                    case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col2); break;
-                    case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.col3); break;
-                    case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Game.GameComponents.Collectible.CollectibleType.mob); break;
+                    case ObjectType.col1: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col1); break;
+                    case ObjectType.col2: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col2); break;
+                    case ObjectType.col3: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col3); break;
+                    case ObjectType.mob: Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.mob); break;
                 }
                 // if target is collectibe
                 CollectibleObject collectible = (CollectibleObject)collectibleBuilder.GetResult();

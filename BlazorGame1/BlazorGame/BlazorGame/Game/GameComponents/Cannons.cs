@@ -39,7 +39,7 @@ namespace BlazorGame.Game.GameComponents
         public override void Update()
         {
             //foreach(Cannon cannon in cannons) { cannon.Update(); }
-            if (gameObject != null)
+            if (GameObject != null)
             {
                 timer += MainFrame.DeltaTime;
                 if (timer > shootInterval && shooting) { SpawnBullets(); }
@@ -57,15 +57,15 @@ namespace BlazorGame.Game.GameComponents
         public override void ConnectionUpdate()
         {
             //Console.WriteLine("cannon GameObject:" + gameObject.id);
-            if (gameObject.ContainsComponent<Renders>())
+            if (GameObject.ContainsComponent<Renders>())
             {
-                foreach (Render render in gameObject.GetComponent<Renders>().renders)
+                foreach (Render render in GameObject.GetComponent<Renders>().renders)
                 { if (render is GunsDecorator) { (render as GunsDecorator).renders = new List<Render>(); } }
 
                 for (int i = 0; i < cannons.Count; i++)
                 {
-                    cannons[i].gameObject = gameObject;
-                    cannons[i].ConnectionUpdate(gameObject);
+                    cannons[i].gameObject = GameObject;
+                    cannons[i].ConnectionUpdate(GameObject);
                 }
             }
             

@@ -1,9 +1,12 @@
-﻿using System.Reflection.Emit;
+﻿using BlazorGame.Game.Mediator;
+using System.Reflection.Emit;
 
 namespace BlazorGame.Game.GameComponents.Units
 {
     public abstract class Unit : ObjectComponent
     {
+        public DamageMediator damageMediator = DamageMediator.GetInstance();
+
         public float health { get; set; }
         public float maxHealth { get; set; }
         public float bodyDamage { get; set; }
@@ -18,11 +21,14 @@ namespace BlazorGame.Game.GameComponents.Units
             {
                 destroyedBy = gameObject;
                 OnDestroy();
-                MainFrame.Destroy(this.gameObject);
+                MainFrame.Destroy(this.GameObject);
             }
         }
         public abstract void OnDestroy();
+        public void Destroy()
+        {
 
+        }
         public abstract float CalculateDeathExp();
     }
 }

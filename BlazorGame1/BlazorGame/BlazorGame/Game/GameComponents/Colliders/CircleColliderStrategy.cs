@@ -35,12 +35,12 @@ namespace BlazorGame.Game.GameComponents.Colliders
 
         private void CollideCircleCircle(int gameObjectId)
         {
-            float x = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().offset[0] + MainFrame.GameObjects[gameObjectId].Position[0] -
-                      (collider.offset[0] + base.gameObject.Position[0]);
-            float y = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().offset[1] + MainFrame.GameObjects[gameObjectId].Position[1] -
-                      (collider.offset[1] + base.gameObject.Position[1]);
+            float x = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().Offset[0] + MainFrame.GameObjects[gameObjectId].Position[0] -
+                      (collider.Offset[0] + base.gameObject.Position[0]);
+            float y = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().Offset[1] + MainFrame.GameObjects[gameObjectId].Position[1] -
+                      (collider.Offset[1] + base.gameObject.Position[1]);
 
-            float totalRadius = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().radius + collider.radius;
+            float totalRadius = MainFrame.GameObjects[gameObjectId].GetComponent<Collider>().Radius + collider.Radius;
             if (totalRadius * totalRadius > x * x + y * y)
             {
                 // Circles are totaly collide

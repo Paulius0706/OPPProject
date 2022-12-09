@@ -5,10 +5,9 @@ namespace BlazorGame.Game.GameComponents
 {
     public abstract class ObjectComponent
     {
-        public static int idCounter = 0;
+        public static int IdCounter = 0;
 
-        private int gameObjectId = -1;
-        public GameObject gameObject 
+        public GameObject GameObject 
         { 
             get 
             {
@@ -22,10 +21,11 @@ namespace BlazorGame.Game.GameComponents
                     MainFrame.GameObjects[gameObjectId] = value; 
             }
         }
+        private int gameObjectId = -1;
 
         public ObjectComponent() { }
         public abstract void Update();
-        public abstract void CollisonTrigger(int gameObject);
+        public abstract void CollisonTrigger(int gameObjectId);
 
         public abstract void ConnectionUpdate();
     }

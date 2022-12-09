@@ -9,38 +9,41 @@ namespace BlazorGame.Game.GameComponents.Colliders
     public class Collider : ObjectComponent
     {
         public static readonly float CollisionRange = 300f;
-        public enum ColliderType
-        {
-            box = 0,
-            circle = 1
-        }
-        public bool trigger { get; set; } // trigger collider
+        
+        public bool Trigger { get; set; } // trigger collider
         public ColliderType colliderType;
-        public float[] offset; // requred becouse collider is from the corner 
-        public float[] size; // for box collider
-        public float radius; // for circle collider
-        public ColliderStrategy colliderStrategy;
-        public bool isActive { get; set; }
+        public float[] Offset; // requred becouse collider is from the corner 
+        public float[]? Size; // for box collider
+        public float Radius; // for circle collider
+        public ColliderStrategy ColliderStrategy;
+        public bool IsActive { get; set; }
 
         // box
-        public Collider(float[] offset, float[] size, bool trigger = false, bool active = false) { this.offset = offset; this.size = size; this.trigger = trigger; colliderType = ColliderType.box; isActive = active; colliderStrategy = new BoxColliderStrategy(); }
+        public Collider(float[] offset, float[] size, bool trigger = false, bool active = false) { this.Offset = offset; this.Size = size; this.Trigger = trigger; colliderType = ColliderType.box; IsActive = active; ColliderStrategy = new BoxColliderStrategy(); }
         // circle
-        public Collider(float[] offset, float radius, bool trigger = false, bool active = false) { this.offset = offset; this.radius = radius; this.trigger = trigger; colliderType = ColliderType.circle; isActive = active; colliderStrategy = new CircleColliderStrategy(); }
+        public Collider(float[] offset, float radius, bool trigger = false, bool active = false) { this.Offset = offset; this.Radius = radius; this.Trigger = trigger; colliderType = ColliderType.circle; IsActive = active; ColliderStrategy = new CircleColliderStrategy(); }
 
         public override void ConnectionUpdate()
         {
-            colliderStrategy.gameObject = this.gameObject;
+            ColliderStrategy.gameObject = this.GameObject;
         }
+
         public override void CollisonTrigger(int gameObject)
         {
 
         }
+
         public override void Update()
         {
-            if (isActive)
+            if (IsActive)
             {
-                colliderStrategy.AlgorithmInterface();
+                ColliderStrategy.AlgorithmInterface();
             }
+        }
+        public enum ColliderType
+        {
+            box = 0,
+            circle = 1
         }
     }
 }

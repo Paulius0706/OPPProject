@@ -1,12 +1,14 @@
 ﻿using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
+using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.Builder
 {
     public abstract class Builder
     {
-        protected GameObject gameObject;
+        protected GameObject gameObject = new CollectibleObject();
+
         public void BuildCicleCollider(float[] offset, float radius, bool trigger = false, bool active = false)
         {
             Collider collider= new Collider(offset,radius,trigger,active);
@@ -41,18 +43,5 @@ namespace BlazorGame.Game.Builder
         {
             return gameObject;
         }
-
-        //public void BuildRenderBox(int[] offset, int[] size, Render.Type type, string str)
-        //{
-        //    gameObject.renders.Add(new Game.Render(offset, size, type, str));
-        //}
-        //public void BuildRenderCircle(int[] offset, int radius, string str)
-        //{
-        //    gameObject.renders.Add(new Game.Render(offset, radius, str));
-        //}
-        //public void BuildRenderLine(int[] offset, int[] offset1, int width, string str)
-        //{
-        //    gameObject.renders.Add(new Game.Render(offset, offset1, width, str));
-        //}
     }
 }

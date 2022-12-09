@@ -2,6 +2,7 @@
 using BlazorGame.Game.GameComponents.Colliders;
 using BlazorGame.Game.GameComponents.RendersDecorum;
 using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
+using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents

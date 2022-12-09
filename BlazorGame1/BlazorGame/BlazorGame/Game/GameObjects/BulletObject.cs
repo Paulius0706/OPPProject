@@ -1,6 +1,6 @@
 ﻿using BlazorGame.Game.Builder;
-using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.RendersDecorum;
+using BlazorGame.Game.GameComponents.Units;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BlazorGame.Game.GameObjects

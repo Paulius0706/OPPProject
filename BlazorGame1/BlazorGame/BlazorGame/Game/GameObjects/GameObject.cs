@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
+using BlazorGame.Game.GameComponents.Units;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace BlazorGame.Game.GameObjects
@@ -122,7 +123,7 @@ namespace BlazorGame.Game.GameObjects
         {
             foreach (ObjectComponent objectComponent in components.Values)
             {
-                objectComponent.gameObject = this;
+                objectComponent.GameObject = this;
                 objectComponent.ConnectionUpdate();
             }
         }

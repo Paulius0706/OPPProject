@@ -3,6 +3,7 @@ using BlazorGame.Game.Builder;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.RendersDecorum;
 using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
+using BlazorGame.Game.GameComponents.Units;
 
 namespace BlazorGame.Game.GameObjects
 {

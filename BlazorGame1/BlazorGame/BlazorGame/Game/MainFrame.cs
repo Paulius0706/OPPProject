@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.Builder;
 using BlazorGame.Game.Command;
-using BlazorGame.Game.GameComponents;
+using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game
@@ -23,8 +23,8 @@ namespace BlazorGame.Game
 
         public static event Func<DateTime, Task> UpdateEvent = async delegate(DateTime s) { };
 
-        private static Queue<GameObject> createGameObjectsQueue = new Queue<GameObject>();
-        private static Queue<int> destroyGameObjectsQueue = new Queue<int>();
+        private static Queue<GameObject> CreateGameObjectsQueue = new Queue<GameObject>();
+        private static Queue<int> DestroyGameObjectsQueue = new Queue<int>();
         private static int width = 1280;
         private static int height = 720;
         private static int scoreWidth = 250;
@@ -119,7 +119,7 @@ namespace BlazorGame.Game
         /// <param name="gameObject">Object.</param>
         public static void Destroy(GameObject gameObject)
         {
-            destroyGameObjectsQueue.Enqueue(gameObject.Id);
+            DestroyGameObjectsQueue.Enqueue(gameObject.Id);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace BlazorGame.Game
         /// <param name="gameObject">Object.</param>
         public static void Instantiate(GameObject gameObject)
         {
-            createGameObjectsQueue.Enqueue(gameObject);
+            CreateGameObjectsQueue.Enqueue(gameObject);
         }
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace BlazorGame.Game
                     gameObject.Update();
                 }
 
-                while (createGameObjectsQueue.Count > 0)
+                while (CreateGameObjectsQueue.Count > 0)
                 {
-                    GameObject gameObject = createGameObjectsQueue.Dequeue();
+                    GameObject gameObject = CreateGameObjectsQueue.Dequeue();
                     if (gameObject.Id == -1)
                     {
                         gameObject.Id = GameObjectsCounting;
@@ -159,9 +159,9 @@ namespace BlazorGame.Game
                     }
                 }
 
-                while (destroyGameObjectsQueue.Count > 0)
+                while (DestroyGameObjectsQueue.Count > 0)
                 {
-                    GameObjects.Remove(destroyGameObjectsQueue.Dequeue());
+                    GameObjects.Remove(DestroyGameObjectsQueue.Dequeue());
                 }
             }
         }
