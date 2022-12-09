@@ -5,6 +5,8 @@ using BlazorGame.Game.Builder;
 using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
+using BlazorGame.Game.Iterator;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BlazorGame.Game
 {
@@ -29,6 +31,7 @@ namespace BlazorGame.Game
         private static int height = 720;
         private static int scoreWidth = 250;
         private static int scoreHeight = 50;
+        private static GameObjectRepository objectRepository = new GameObjectRepository();
 
         private Stopwatch watch = new Stopwatch();
 
@@ -131,15 +134,27 @@ namespace BlazorGame.Game
             CreateGameObjectsQueue.Enqueue(gameObject);
         }
 
+
+
         /// <summary>
         /// Sets game time.
         /// </summary>
+        /// 
+    
+
+
         public static void Update()
         {
             if (GameStarted)
             {
-                foreach (GameObject gameObject in GameObjects.Values)
+                //foreach (GameObject gameObject in GameObjects.Values)
+                //{
+                //    gameObject.Update();
+                //}
+                var iterator = objectRepository.getIterator();
+                for(iterator.First();iterator.Exist();iterator.Next())
                 {
+                    GameObject gameObject = (GameObject)iterator.Get();
                     gameObject.Update();
                 }
 

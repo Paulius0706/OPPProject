@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qFMa1Sl4gqvFPUq1NaC/GZUKDlT33NnJ+AaPqAF6sgE=",
+  "Hash": "0fpnAASKcNX2dMucsqHczydflXW+7bgpuIKCbm+wO0s=",
   "Source": "BlazorGame",
   "BasePath": "_content/BlazorGame",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "BlazorGame\\wwwroot",
       "Source": "BlazorGame",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\blazor.extensions.canvas.js",
+      "Identity": "C:\\Users\\stelm\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\blazor.extensions.canvas.js",
       "SourceId": "Blazor.Extensions.Canvas",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\stelm\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\",
       "BasePath": "_content/Blazor.Extensions.Canvas",
       "RelativePath": "blazor.extensions.canvas.js",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Paulius\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\blazor.extensions.canvas.js"
+      "OriginalItemSpec": "C:\\Users\\stelm\\.nuget\\packages\\blazor.extensions.canvas\\1.0.0\\staticwebassets\\blazor.extensions.canvas.js"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\BlazorGame.styles.css",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\BlazorGame.styles.css",
       "SourceId": "BlazorGame",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "BlazorGame.styles.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\BlazorGame.styles.css"
+      "OriginalItemSpec": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\bundle\\BlazorGame.styles.css"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\BlazorGame.bundle.scp.css",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\BlazorGame.bundle.scp.css",
       "SourceId": "BlazorGame",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "BlazorGame.bundle.scp.css",
       "AssetKind": "All",
@@ -65,13 +65,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\BlazorGame.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\BlazorGame.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\css\\site.css",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\favicon.ico",
       "SourceId": "BlazorGame",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Paulius\\Desktop\\projektavimo modulis\\code\\GitTankio\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\stelm\\Desktop\\OOP\\OPPProject\\BlazorGame1\\BlazorGame\\BlazorGame\\wwwroot\\",
       "BasePath": "_content/BlazorGame",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
