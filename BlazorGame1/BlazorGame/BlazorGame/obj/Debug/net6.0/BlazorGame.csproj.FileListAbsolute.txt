@@ -1,3 +1,13 @@
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.AssemblyReference.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.Properties.Resources.resources
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.GenerateResource.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfoInputs.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfo.cs
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.CoreCompileInputs.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cache
+C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cs
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\appsettings.json
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.staticwebassets.runtime.json
@@ -8,14 +18,6 @@ C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGa
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.pdb
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\Blazor.Extensions.Canvas.JS.dll
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\Blazor.Extensions.Canvas.dll
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.AssemblyReference.cache
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfoInputs.cache
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfo.cs
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.CoreCompileInputs.cache
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cache
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cs
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
@@ -28,37 +30,3 @@ C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGa
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.pdb
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.genruntimeconfig.cache
 C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\ref\BlazorGame.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\appsettings.Development.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\appsettings.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.staticwebassets.runtime.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.exe
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.deps.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.runtimeconfig.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\BlazorGame.pdb
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\Blazor.Extensions.Canvas.JS.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\bin\Debug\net6.0\Blazor.Extensions.Canvas.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.AssemblyReference.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfoInputs.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.AssemblyInfo.cs
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.CoreCompileInputs.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.RazorAssemblyInfo.cs
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\staticwebassets.build.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\scopedcss\bundle\BlazorGame.styles.css
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\scopedcss\projectbundle\BlazorGame.bundle.scp.css
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.CopyComplete
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\refint\BlazorGame.dll
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.pdb
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.genruntimeconfig.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\ref\BlazorGame.dll
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.Properties.Resources.resources
-C:\Users\Paulius\Desktop\projektavimo modulis\code\GitTankio\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.GenerateResource.cache
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.Properties.Resources.resources
-C:\Users\stelm\Desktop\OOP\OPPProject\BlazorGame1\BlazorGame\BlazorGame\obj\Debug\net6.0\BlazorGame.csproj.GenerateResource.cache

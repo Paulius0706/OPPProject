@@ -7,6 +7,7 @@ using BlazorGame.Game.GameComponents.RendersDecorum.FlyWeight;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 using BlazorGame.Game.Mediator;
+using BlazorGame.Game.Memento;
 
 namespace BlazorGame.Game
 {
@@ -33,6 +34,7 @@ namespace BlazorGame.Game
         private static int scoreHeight = 50;
 
         private Stopwatch watch = new Stopwatch();
+        public static CareTaker careTaker = new CareTaker();
 
         /// <summary>
         /// Adds score to existing one.
