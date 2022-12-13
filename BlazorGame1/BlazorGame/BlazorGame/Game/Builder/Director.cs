@@ -1,6 +1,7 @@
 ﻿using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
 using static BlazorGame.Game.GameObjects.GameObject;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BlazorGame.Game.Builder
 {
@@ -35,6 +36,14 @@ namespace BlazorGame.Game.Builder
 			// add components
 			bulletBuilder.BuildBullet(shooter, damage, health);
             bulletBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 15f,false,true);
+        }
+
+        public void Construct(ref MobBuilder mobBuilder, int size)
+        {
+            //if (director == null) director = new Director();
+            // add components
+            mobBuilder.BuildMob();
+            mobBuilder.BuildCicleCollider(new float[] { 0f, 0f }, 15f, false, true);
         }
     }
 }

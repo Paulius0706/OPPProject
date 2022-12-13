@@ -8,7 +8,7 @@
             fill = 1,
         }
         public int fillWidth { get; private set; }
-        public ExperienceDecorator(BoxRender fill, BoxRender backGround)
+        public ExperienceDecorator(BoxRender fill, FillerSpaceDecorator backGround)
         {
             renders = new List<Render>();
             renders.Add(backGround);

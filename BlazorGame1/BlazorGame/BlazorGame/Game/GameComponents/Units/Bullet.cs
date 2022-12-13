@@ -31,41 +31,12 @@ namespace BlazorGame.Game.GameComponents.Units
         }
         public override void CollisonTrigger(int gameObject)
         {
-            if (hitObject == -1)
-            {
-                //do damage
-                if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>() && shooter != gameObject && MainFrame.GameObjects[gameObject] is not BulletObject)
-                {
-                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(GameObject.Id, bodyDamage);
-                }
-                if (MainFrame.GameObjects[gameObject] is BulletObject && shooter != MainFrame.GameObjects[gameObject].GetComponent<Bullet>().shooter)
-                {
-                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(GameObject.Id, bodyDamage);
-                }
-                //check if object on verge of death( it will disapear next frame)
-                if (MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == GameObject.Id
-                    && MainFrame.GameObjects.ContainsKey(shooter)
-                    && MainFrame.GameObjects[shooter].ContainsComponent<Player>())
-                {
-                    MainFrame.GameObjects[shooter].GetComponent<Player>().GiveExp(MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
-                }
-                //checks what tipe of object it is
-                if (MainFrame.GameObjects[gameObject] is not BulletObject && gameObject != shooter)
-                {
-                    hitObject = gameObject;
-                    OnDestroy();
-                    MainFrame.Destroy(GameObject);
-                }
-
-            }
-
-
+            damageMediator.Collision(this, MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>());
         }
         public override void ConnectionUpdate()
         {
 
         }
-
         public override void OnDestroy()
         {
 

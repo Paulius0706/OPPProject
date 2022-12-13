@@ -62,10 +62,7 @@ namespace BlazorGame.Game.GameComponents.Units
         }
         public override void CollisonTrigger(int gameObject)
         {
-            if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>())
-            {
-                MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(GameObject.Id, bodyDamage);
-            }
+            damageMediator.Collision(this, MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>());
         }
         public override void ConnectionUpdate()
         {

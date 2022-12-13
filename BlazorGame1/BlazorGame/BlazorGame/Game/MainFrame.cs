@@ -3,8 +3,10 @@ using System.Diagnostics;
 using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.Builder;
 using BlazorGame.Game.Command;
+using BlazorGame.Game.GameComponents.RendersDecorum.FlyWeight;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
+using BlazorGame.Game.Mediator;
 
 namespace BlazorGame.Game
 {
@@ -138,6 +140,7 @@ namespace BlazorGame.Game
         {
             if (GameStarted)
             {
+                DamageMediator.Update();
                 foreach (GameObject gameObject in GameObjects.Values)
                 {
                     gameObject.Update();
@@ -174,6 +177,7 @@ namespace BlazorGame.Game
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await Task.Delay(100);
+            RenderLib.Load();
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (!this.watch.IsRunning) 

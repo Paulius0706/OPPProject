@@ -1,6 +1,7 @@
 ﻿using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
 using BlazorGame.Game.GameComponents.Units;
+using BlazorGame.Game.GameComponents.Units.Mobs;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.Builder
@@ -37,6 +38,12 @@ namespace BlazorGame.Game.Builder
         {
             Bullet bullet = new Bullet(damage, health, shooter);
             gameObject.AddComponent(bullet);
+            //ConnectionUpdate();
+        }
+        public void BuildMob()
+        {
+            Mob head = new Mob();
+            gameObject.AddComponent(head);
             //ConnectionUpdate();
         }
         public GameObject GetResult()

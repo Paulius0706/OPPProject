@@ -14,6 +14,7 @@ namespace BlazorGame.Game.GameObjects.Factories
 
         // there will be diffirent chances of collectibles for diffirent evolved players
         public abstract CollectibleObject CreateCollectibleObject();
+        public abstract MobObject CreateMobObject();
 
         private int gameObjectId = -1;
         public GameObject gameObject

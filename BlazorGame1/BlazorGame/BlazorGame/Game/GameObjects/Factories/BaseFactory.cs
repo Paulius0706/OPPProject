@@ -24,5 +24,11 @@ namespace BlazorGame.Game.GameObjects.Factories
             Director.GetInstance().Construct(ref collectibleBuilder, Collectible.CollectibleType.col1);
             return collectibleBuilder.GetResult() as CollectibleObject;
         }
+        public override MobObject CreateMobObject()
+        {
+            MobBuilder mobBuilder = new MobBuilder(new float[] { 0, 0 }, new float[] { 0, 0 });
+            Director.GetInstance().Construct(ref mobBuilder, 1);
+            return mobBuilder.GetResult() as MobObject;
+        }
     }
 }

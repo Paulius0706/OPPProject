@@ -17,9 +17,12 @@ namespace BlazorGame.Game.GameObjects
 
             renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 20, "green"));
 
+            BoxRender healthBorder = new BoxRender(new int[] { -15, 5 }, new int[] { 30, 10 }, "grey");
+            BoxRender healthBackGround = new BoxRender(new int[] { -14, 6 }, new int[] { 28, 8 }, "black");
+            FillerSpaceDecorator fillerSpaceDecorator = new FillerSpaceDecorator(healthBackGround, healthBorder);
+
             BoxRender health = new BoxRender(new int[] { -14, 6 }, new int[] { 28, 8 }, "red");
-            BoxRender healthBackGround = new BoxRender(new int[] { -15, 5 }, new int[] { 30, 10 }, "grey");
-            DecoratorRender healthDecorator = new HealthDecorator(health,healthBackGround);
+            DecoratorRender healthDecorator = new HealthDecorator(health, fillerSpaceDecorator);
             renders.renders.Add(healthDecorator);
 
             AddComponent(renders);

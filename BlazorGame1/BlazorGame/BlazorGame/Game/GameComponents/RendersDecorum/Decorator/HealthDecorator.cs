@@ -8,7 +8,7 @@
             fill = 1,
         }
         public float fillWidth { get; private set; }
-        public HealthDecorator(BoxRender fill, BoxRender backGround)
+        public HealthDecorator(BoxRender fill, FillerSpaceDecorator backGround)
         {
             renders = new List<Render>();
             renders.Add(backGround);

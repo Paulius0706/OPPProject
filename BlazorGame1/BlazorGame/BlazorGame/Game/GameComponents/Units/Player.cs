@@ -21,7 +21,9 @@ namespace BlazorGame.Game.GameComponents.Units
         public static readonly float MinCollectiblesDist = 150f;
         public static readonly float MaxCollectiblesDist = 300f;
         public static readonly float DespawnCollectiblesDist = 450f;
+        public static readonly float SpawnRate = 1f;
         public static readonly int MaxCollectiblesCount = 10;
+        
 
         public int id { get; set; }
         public string name { get; set; }
@@ -87,18 +89,7 @@ namespace BlazorGame.Game.GameComponents.Units
         }
         public override void CollisonTrigger(int gameObject)
         {
-
-            if (MainFrame.GameObjects[gameObject].AbstarctContainsComponent<Unit>())
-            {
-                if (MainFrame.GameObjects[gameObject] is not BulletObject)
-                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(GameObject.Id, bodyDamage);
-                if (MainFrame.GameObjects[gameObject] is BulletObject && MainFrame.GameObjects[gameObject].GetComponent<Bullet>().shooter != GameObject.Id)
-                    MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().TakeDamage(GameObject.Id, bodyDamage);
-            }
-            if (MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().destroyedBy == GameObject.Id)
-            {
-                GiveExp(MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>().CalculateDeathExp());
-            }
+            damageMediator.Collision(this, MainFrame.GameObjects[gameObject].AbstractGetComponent<Unit>());
         }
 
         public override void OnDestroy()
@@ -128,33 +119,64 @@ namespace BlazorGame.Game.GameComponents.Units
             int counter = 0;
             foreach (GameObject gameObject in MainFrame.GameObjects.Values)
             {
+
                 if (MathF.Abs(gameObject.Position[0] - GameObject.Position[0]) < DespawnCollectiblesDist
-                    && Math.Abs(gameObject.Position[1] - GameObject.Position[1]) < DespawnCollectiblesDist) counter++;
-                if (counter > MaxCollectiblesCount) break;
+                    && Math.Abs(gameObject.Position[1] - GameObject.Position[1]) < DespawnCollectiblesDist) 
+                {
+                    if(gameObject is CollectibleObject || gameObject is MobObject)
+                    {
+                        counter++;
+                        if (counter > MaxCollectiblesCount) break;
+                    }
+                } 
             }
             if (counter < MaxCollectiblesCount)
             {
                 Random random = new Random();
                 if (random.NextDouble() < 1 * MainFrame.DeltaTime)
                 {
-                    float x = random.NextSingle() * 2f - 1f;
-                    float y = random.NextSingle() * 2f - 1f;
-                    x += x > 0 ?
-                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0]
-                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0];
-                    y += y > 0 ?
-                        MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1]
-                     : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1];
+                    if(random.NextSingle() < 0.2f) SpawnMob(random);
+                    else SpawnCollectible(random);
 
-                    if (spawner != null)
-                    {
-                        CollectibleObject collectibleObject = spawner.collectibleObject.Clone();
-                        collectibleObject.Position = new float[] { x, y };
-                        MainFrame.Instantiate(collectibleObject);
-                    }
                 }
             }
 
+        }
+        private void SpawnCollectible(Random random)
+        {
+            float x = random.NextSingle() * 2f - 1f;
+            float y = random.NextSingle() * 2f - 1f;
+            x += x > 0 ?
+                MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0]
+             : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0];
+            y += y > 0 ?
+                MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1]
+             : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1];
+
+            if (spawner != null)
+            {
+                CollectibleObject collectibleObject = spawner.collectibleObject.Clone();
+                collectibleObject.Position = new float[] { x, y };
+                MainFrame.Instantiate(collectibleObject);
+            }
+        }
+        private void SpawnMob(Random random)
+        {
+            float x = random.NextSingle() * 2f - 1f;
+            float y = random.NextSingle() * 2f - 1f;
+            x += x > 0 ?
+                MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0]
+             : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * x + GameObject.Position[0];
+            y += y > 0 ?
+                MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1]
+             : -MinCollectiblesDist + (MaxCollectiblesDist - MinCollectiblesDist) * y + GameObject.Position[1];
+
+            if (spawner != null)
+            {
+                MobObject collectibleObject = spawner.mobObject.Clone();
+                collectibleObject.Position = new float[] { x, y };
+                MainFrame.Instantiate(collectibleObject);
+            }
         }
 
         public override void ConnectionUpdate()

@@ -25,15 +25,19 @@ namespace BlazorGame.Game.GameObjects
             renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 50, "blue"));
 
             // health
-            BoxRender healthBackGround = new BoxRender(new int[] { -40, 28 }, new int[] { 80, 10 }, "grey");
+            BoxRender healthBorder = new BoxRender(new int[] { -40, 28 }, new int[] { 80, 10 }, "grey");
+            BoxRender healthBackGround = new BoxRender(new int[] { -39, 29 }, new int[] { 78, 8 }, "black");
+            FillerSpaceDecorator healthBar = new FillerSpaceDecorator(healthBackGround, healthBorder);
             BoxRender health = new BoxRender(new int[] { -39, 29 }, new int[] { 78, 8 }, "red");
-            HealthDecorator healthDecorator = new HealthDecorator(health, healthBackGround);
+            HealthDecorator healthDecorator = new HealthDecorator(health, healthBar);
             renders.renders.Add(healthDecorator);
 
             // exp
-            BoxRender expBackGround = new BoxRender(new int[] { -40, 38 }, new int[] { 80, 10 }, "grey");
+            BoxRender expBackBorder = new BoxRender(new int[] { -40, 38 }, new int[] { 80, 10 }, "grey");
+            BoxRender expBackGround = new BoxRender(new int[] { -39, 39 }, new int[] { 78, 8 }, "white");
+            FillerSpaceDecorator expBar = new FillerSpaceDecorator(expBackGround, expBackBorder);
             BoxRender exp = new BoxRender(new int[] { -39, 39 }, new int[] { 78, 8 }, "yellow");
-            ExperienceDecorator experienceDecorator = new ExperienceDecorator(exp, expBackGround);
+            ExperienceDecorator experienceDecorator = new ExperienceDecorator(exp, expBar);
             renders.renders.Add(experienceDecorator);
 
             this.AddComponent(renders);

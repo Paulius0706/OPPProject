@@ -1,5 +1,6 @@
 ﻿using BlazorGame.Game.Builder;
 using BlazorGame.Game.GameComponents.RendersDecorum;
+using BlazorGame.Game.GameComponents.RendersDecorum.FlyWeight;
 using BlazorGame.Game.GameComponents.Units;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -14,8 +15,8 @@ namespace BlazorGame.Game.GameObjects
             base.Deacceleration = BulletDecceleration;
 
             Renders renders = new Renders();
-
-            renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 15, "red"));
+            renders.renders.Add(new LinkRender("bulletNormal"));
+            //renders.renders.Add(new CircleRender(new int[] { 0, 0 }, 15, "red"));
 
             AddComponent(renders);
         }
