@@ -6,6 +6,7 @@ using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents.RendersDecorum.FlyWeight;
 using BlazorGame.Game.GameComponents.Units;
 using BlazorGame.Game.GameObjects;
+using BlazorGame.Game.Iterator;
 using BlazorGame.Game.Mediator;
 using BlazorGame.Game.Memento;
 
@@ -32,9 +33,10 @@ namespace BlazorGame.Game
         private static int height = 720;
         private static int scoreWidth = 250;
         private static int scoreHeight = 50;
-
+        private static GameObjectRepository objectRepository = new GameObjectRepository();
         private Stopwatch watch = new Stopwatch();
         public static CareTaker careTaker = new CareTaker();
+        static Originator originator = new Originator();
 
         /// <summary>
         /// Adds score to existing one.
@@ -123,6 +125,12 @@ namespace BlazorGame.Game
         /// <param name="gameObject">Object.</param>
         public static void Destroy(GameObject gameObject)
         {
+            if (gameObject is PlayerObject)
+            {
+                Experience experience = new Experience(gameObject.GetComponent<Player>().name, gameObject.GetComponent<Player>().level, gameObject.GetComponent<Player>().experiance);
+                originator.setState(experience);
+                careTaker.add(originator.saveStateToMemento());
+            }
             DestroyGameObjectsQueue.Enqueue(gameObject.Id);
         }
 
@@ -143,8 +151,10 @@ namespace BlazorGame.Game
             if (GameStarted)
             {
                 DamageMediator.Update();
-                foreach (GameObject gameObject in GameObjects.Values)
+                var iterator = objectRepository.getIterator();
+                for (iterator.First(); iterator.Exist(); iterator.Next())
                 {
+                    GameObject gameObject = (GameObject)iterator.Get();
                     gameObject.Update();
                 }
 
