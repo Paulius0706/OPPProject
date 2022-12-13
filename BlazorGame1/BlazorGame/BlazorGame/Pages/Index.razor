@@ -3,8 +3,10 @@
 @using Blazor.Extensions.Canvas;
 @using Blazor.Extensions.Canvas.Canvas2D
 @using BlazorGame.Game.Command
+@using BlazorGame.Game.GameComponents.Units
 @using BlazorGame.Game.GameObjects
 @using BlazorGame.Game.GameComponents.RendersDecorum
+@using BlazorGame.Game.Memento
 @using Game
 
 <PageTitle>Index</PageTitle>
@@ -45,12 +47,20 @@ Welcome to your new app.
     protected BECanvasComponent myCanvas;
     private Canvas2DContext context;
     private ElementReference focusRef;
+    public bool mementoStuff = false;
+    public Experience experience;
 
 
-    
     public async void PlayGame()
     {
         playerId = Game.MainFrame.CreateNewPlayer(nameInput);
+
+        if (Game.MainFrame.careTaker.contains(nameInput))
+        {
+            mementoStuff = true;
+            experience = Game.MainFrame.careTaker.get(nameInput).getState();
+        }
+
         context = await this.myCanvas.CreateCanvas2DAsync();
         Game.MainFrame.UpdateEvent += async date =>
         {
@@ -63,6 +73,11 @@ Welcome to your new app.
                     PosX = (int)Game.MainFrame.GameObjects[playerId].Position[0];
                     PosY = (int)Game.MainFrame.GameObjects[playerId].Position[1];
 
+                }
+                if(mementoStuff){
+                    mementoStuff = false;
+                    Game.MainFrame.GameObjects[playerId].GetComponent<Player>().experiance = experience.Exp;
+                    Game.MainFrame.GameObjects[playerId].GetComponent<Player>().level = experience.Level;
                 }
                 Render();
                 StateHasChanged();
