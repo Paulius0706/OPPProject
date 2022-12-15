@@ -1,4 +1,5 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents
@@ -28,5 +29,7 @@ namespace BlazorGame.Game.GameComponents
         public abstract void CollisonTrigger(int gameObjectId);
 
         public abstract void ConnectionUpdate();
+
+        public abstract void accept(Visitor visitor);
     }
 }

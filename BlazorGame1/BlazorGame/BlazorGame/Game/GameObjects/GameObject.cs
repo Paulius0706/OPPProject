@@ -8,6 +8,7 @@ using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.GameComponents;
 using BlazorGame.Game.GameComponents.Colliders;
 using BlazorGame.Game.GameComponents.Units;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace BlazorGame.Game.GameObjects
@@ -15,7 +16,7 @@ namespace BlazorGame.Game.GameObjects
     /// <summary>
     /// Creator abstract class
     /// </summary>
-    public abstract class GameObject
+    public abstract class GameObject : Visitor
     {
         public static readonly float CollectiblesDecceleration = 50f;
         public static readonly float BulletDecceleration = 10f;
@@ -173,6 +174,21 @@ namespace BlazorGame.Game.GameObjects
             }
             return false;
         }
-        
+
+        public void visitBullet(Bullet bullet)
+        {
+            components.Add(typeof(Bullet), bullet);
+            //throw new NotImplementedException();
+        }
+
+        public void visitCollectible(Collectible collectible)
+        {
+            components.Add(typeof(Collectible), collectible);
+        }
+
+        public void visitPlayer(Player player)
+        {
+            components.Add(typeof(Player), player);
+        }
     }
 }

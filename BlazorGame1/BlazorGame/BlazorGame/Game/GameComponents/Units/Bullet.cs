@@ -1,5 +1,6 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.GameComponents.Colliders;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents.Units
@@ -43,5 +44,15 @@ namespace BlazorGame.Game.GameComponents.Units
         }
 
         public override float CalculateDeathExp() { return 0; }
+
+        public void Accept()
+        {
+
+        }
+
+        public override void accept(Visitor.Visitor visitor)
+        {
+            visitor.visitBullet(this);
+        }
     }
 }
