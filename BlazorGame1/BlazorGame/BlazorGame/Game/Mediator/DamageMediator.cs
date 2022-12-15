@@ -12,6 +12,8 @@ namespace BlazorGame.Game.Mediator
         public static DamageMediator GetInstance() { return damageMediator; }
         public override void Collision(Unit unit1, Unit unit2)
         {
+            if (unit1 == null) Console.WriteLine("unit1 is null");
+            if (unit2 == null) Console.WriteLine("unit2 is null");
             if (damageLog.Contains((unit1.GameObject.Id, unit2.GameObject.Id)) || damageLog.Contains((unit2.GameObject.Id, unit1.GameObject.Id))) return;
             damageLog.Add((unit1.GameObject.Id, unit2.GameObject.Id));
             if (!(unit1 is Player && unit2 is Bullet && (unit2 as Bullet).shooter == unit1.GameObject.Id)) unit1.TakeDamage(unit2.GameObject.Id, unit2.bodyDamage);

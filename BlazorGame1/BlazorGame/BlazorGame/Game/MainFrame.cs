@@ -5,6 +5,7 @@ using BlazorGame.Game.Builder;
 using BlazorGame.Game.Command;
 using BlazorGame.Game.GameComponents.RendersDecorum.FlyWeight;
 using BlazorGame.Game.GameComponents.Units;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using BlazorGame.Game.GameObjects;
 using BlazorGame.Game.Iterator;
 using BlazorGame.Game.Mediator;
@@ -37,6 +38,8 @@ namespace BlazorGame.Game
         private Stopwatch watch = new Stopwatch();
         public static CareTaker careTaker = new CareTaker();
         static Originator originator = new Originator();
+        static UpdateVisitor updateVisitor = new UpdateVisitor();
+
 
         /// <summary>
         /// Adds score to existing one.
@@ -155,7 +158,8 @@ namespace BlazorGame.Game
                 for (iterator.First(); iterator.Exist(); iterator.Next())
                 {
                     GameObject gameObject = (GameObject)iterator.Get();
-                    gameObject.Update();
+                    gameObject.VisitUpdate(updateVisitor);
+                    //gameObject.Update();
                 }
 
                 while (CreateGameObjectsQueue.Count > 0)

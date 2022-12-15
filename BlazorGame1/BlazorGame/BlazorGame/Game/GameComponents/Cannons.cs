@@ -1,6 +1,7 @@
 ﻿using BlazorGame.Game.Builder;
 using BlazorGame.Game.GameComponents.RendersDecorum;
 using BlazorGame.Game.GameComponents.RendersDecorum.Decorator;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents
@@ -72,5 +73,9 @@ namespace BlazorGame.Game.GameComponents
             
         }
 
+        public override void accept(IVisitor visitor)
+        {
+            
+        }
     }
 }

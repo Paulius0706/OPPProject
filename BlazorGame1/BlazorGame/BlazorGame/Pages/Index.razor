@@ -49,12 +49,13 @@ Welcome to your new app.
     private ElementReference focusRef;
     public bool mementoStuff = false;
     public Experience experience;
+    public Game.GameComponents.Units.Visitor.RenderVisitor renderVistor = new Game.GameComponents.Units.Visitor.RenderVisitor();
 
 
     public async void PlayGame()
     {
         playerId = Game.MainFrame.CreateNewPlayer(nameInput);
-
+        //renderVistor.context = context;
         if (Game.MainFrame.careTaker.contains(nameInput))
         {
             mementoStuff = true;
@@ -133,9 +134,12 @@ Welcome to your new app.
         this.context.FillRectAsync(0, 0, 1280, 720);
         int xoffset = (int)PosX - Game.MainFrame.OffsetX;
         int yoffset = (int)PosY - Game.MainFrame.OffsetY;
+        renderVistor.x = xoffset;
+        renderVistor.y = yoffset;
         foreach(GameObject gameObject in MainFrame.GameObjects.Values){
-            if (gameObject.ContainsComponent<Renders>() )
-                gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
+            gameObject.VisitRender(renderVistor, ref context);
+            //if (gameObject.ContainsComponent<Renders>() )
+            //    gameObject.GetComponent<Renders>().Render(ref context, xoffset, yoffset);
         }
         MainFrame.RenderScores(ref this.context);
         if (Game.MainFrame.GameObjects.ContainsKey(playerId)) { Player.RenderUI(); }

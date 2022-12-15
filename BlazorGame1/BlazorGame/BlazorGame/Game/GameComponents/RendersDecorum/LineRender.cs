@@ -30,6 +30,8 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
                 gameObject.Position[0] + offset1[0] - xoffset,
                 gameObject.Position[1] + offset1[1] - yoffset);
             context.StrokeAsync();
+            //int c = 0;
+            //int h = 1 / c;
         }
         public override void ConnectionUpdate(GameObject gameObject)
         {

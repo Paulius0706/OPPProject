@@ -126,6 +126,12 @@ namespace BlazorGame.Game.GameComponents.Units.Mobs
 
             GameObject.Velocity = currentVelocity;
         }
+
+        public override void accept(Visitor.IVisitor visitor)
+        {
+
+        }
+
         public Renders renders
         {
             get

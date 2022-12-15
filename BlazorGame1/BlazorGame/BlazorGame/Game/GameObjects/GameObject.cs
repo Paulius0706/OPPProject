@@ -16,13 +16,15 @@ namespace BlazorGame.Game.GameObjects
     /// <summary>
     /// Creator abstract class
     /// </summary>
-    public abstract class GameObject : Visitor
+    public abstract class GameObject
     {
         public static readonly float CollectiblesDecceleration = 50f;
         public static readonly float BulletDecceleration = 10f;
-        
+
+        public ObjectComponent firstComponent;
         public float Scale;
         public ObjectType objectType;
+        //elements
         private Dictionary<Type, ObjectComponent> components;
         public float[] Velocity { get; set; }
         public float Mass { get; set; }
@@ -122,10 +124,16 @@ namespace BlazorGame.Game.GameObjects
 
         public void ConnectionUpdate()
         {
+            ObjectComponent lastObjectComponent = null;
             foreach (ObjectComponent objectComponent in components.Values)
             {
+                if (lastObjectComponent == null) firstComponent = objectComponent;
+                else { lastObjectComponent.nextObject = objectComponent; }
+                //objectComponent.nextObject = lastObjectComponent;
+                
                 objectComponent.GameObject = this;
                 objectComponent.ConnectionUpdate();
+                lastObjectComponent = objectComponent;
             }
         }
         public void CollisionTrigger(int gameObject)
@@ -142,13 +150,17 @@ namespace BlazorGame.Game.GameObjects
         {
             return (T)components[typeof(T)];
         }
+        //public T AbstractGetComponent<T>() where T : ObjectComponent
+        //{
+        //    foreach (Type key in components.Keys)
+        //    {
+        //        if (components[key].GetType().IsSubclassOf(typeof(T))) { return (T)components[key]; }
+        //    }
+        //    return null;
+        //}
         public T AbstractGetComponent<T>() where T : ObjectComponent
         {
-            foreach (Type key in components.Keys)
-            {
-                if (components[key].GetType().IsSubclassOf(typeof(T))) { return (T)components[key]; }
-            }
-            return null;
+            return firstComponent.AbstractGetComponent<T>();
         }
         public Type GetComponentType<T>() where T : ObjectComponent
         {
@@ -175,20 +187,14 @@ namespace BlazorGame.Game.GameObjects
             return false;
         }
 
-        public void visitBullet(Bullet bullet)
+        public void VisitUpdate(UpdateVisitor updateVisitor)
         {
-            components.Add(typeof(Bullet), bullet);
-            //throw new NotImplementedException();
+            updateVisitor.Visit(this);
         }
-
-        public void visitCollectible(Collectible collectible)
+        public void VisitRender(RenderVisitor renderVisitor, ref Canvas2DContext context)
         {
-            components.Add(typeof(Collectible), collectible);
-        }
-
-        public void visitPlayer(Player player)
-        {
-            components.Add(typeof(Player), player);
+            renderVisitor.context = context;
+            renderVisitor.Visit(this);
         }
     }
 }

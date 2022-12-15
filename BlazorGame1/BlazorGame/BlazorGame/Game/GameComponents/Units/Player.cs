@@ -198,9 +198,9 @@ namespace BlazorGame.Game.GameComponents.Units
             }
         }
 
-        public override void accept(Visitor.Visitor visitor)
+        public override void accept(Visitor.IVisitor visitor)
         {
-            visitor.visitPlayer(this);
+
         }
 
         public Renders renders

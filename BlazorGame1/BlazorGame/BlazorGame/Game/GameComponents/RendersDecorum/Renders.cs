@@ -1,5 +1,6 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.GameComponents;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 
 namespace BlazorGame.Game.GameComponents.RendersDecorum
 {
@@ -9,6 +10,11 @@ namespace BlazorGame.Game.GameComponents.RendersDecorum
         public Renders()
         {
             renders = new List<Render>();
+        }
+
+        public override void accept(IVisitor visitor)
+        {
+
         }
 
         public override void CollisonTrigger(int gameObject){ }

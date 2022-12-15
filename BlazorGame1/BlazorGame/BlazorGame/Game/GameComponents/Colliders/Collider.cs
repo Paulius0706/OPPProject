@@ -2,6 +2,7 @@
 using Blazor.Extensions.Canvas;
 using Blazor.Extensions.Canvas.Canvas2D;
 using BlazorGame.Game.GameComponents.Colliders;
+using BlazorGame.Game.GameComponents.Units.Visitor;
 using BlazorGame.Game.GameObjects;
 
 namespace BlazorGame.Game.GameComponents.Colliders
@@ -40,6 +41,12 @@ namespace BlazorGame.Game.GameComponents.Colliders
                 ColliderStrategy.AlgorithmInterface();
             }
         }
+
+        public override void accept(IVisitor visitor)
+        {
+            
+        }
+
         public enum ColliderType
         {
             box = 0,
